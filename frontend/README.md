@@ -89,10 +89,10 @@ flowchart TD
 
 ### Installation & Local Development
 
-1. **Clone and install dependencies:**
+1. **Clone and navigate to frontend:**
    ```bash
-   git clone https://github.com/chakriaitechlab/chakri-ai-frontend.git
-   cd chakri-ai-frontend
+   git clone https://github.com/chakriaitechlab/Prototype.git
+   cd Prototype/frontend
    npm install
    ```
 
@@ -203,3 +203,21 @@ The application is optimized for deployment on **Vercel**:
 - **Function Region:** `vercel.json` runs server functions in `sin1` (Singapore), next to the Render API and the Supabase database; the default `iad1` adds a cross-world round trip to every server-side API call.
 - **Environment Linking:** Ensure `NEXT_PUBLIC_API_URL` points to the production `backend` deployment (e.g. on Render).
 - **OAuth Callback:** Add your production domain callback (`https://yourdomain.com/api/agent/connectors/gmail/callback`) to the authorized redirect URIs in Google Cloud Console.
+
+---
+
+## 👥 Team & Submission Information
+
+- **Event:** AI Builder Cup 2026 (Hack2Skill)
+- **Stage:** Prototype Evaluation
+- **Team Name:** **ChakriAI**
+- **Team Members:**
+  - 👑 **Amit Chandra Roy** (Team Leader) — [amitcroy.ai@gmail.com](mailto:amitcroy.ai@gmail.com)
+  - 💻 **Arafat Rahman** (Team Member) — [arafatsohan2003@gmail.com](mailto:arafatsohan2003@gmail.com)
+- **Repository:** [https://github.com/chakriaitechlab/Prototype](https://github.com/chakriaitechlab/Prototype)
+
+---
+
+<p align="center">
+  <b>Built with ❤️ by Team ChakriAI for the AI Builder Cup 2026</b>
+</p>

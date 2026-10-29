@@ -86,28 +86,19 @@ flowchart TD
 ### Prerequisites
 
 - **Node.js**: `v24.x` or higher
-- **PostgreSQL**: `v15+` (local or hosted)
-- **Redis**: `v7+` (local or hosted)
-- **Ollama**: Local instance or remote endpoint (`http://localhost:11434`)
-
-> **Tip (Instant Local Services via Docker):**  
-> If you don't have PostgreSQL and Redis installed locally, you can start both in seconds:
-> ```bash
-> # Start PostgreSQL
-> docker run --name chakri-postgres -e POSTGRES_PASSWORD=postgres -e POSTGRES_DB=chakri_ai -p 5432:5432 -d postgres:16-alpine
->
-> # Start Redis
-> docker run --name chakri-redis -p 6379:6379 -d redis:7-alpine
-> ```
+- **PostgreSQL**: `v15+` (local service or managed cloud: Neon, Supabase, Aiven)
+- **Redis**: `v7+` (local service or managed cloud: Upstash, Redis Cloud)
+- **Google Gemini API Key**: For AI voice interview (`@google/genai`)
+- **Ollama**: Local instance or remote endpoint (`http://localhost:11434`, optional for local inference)
 
 ---
 
 ### Installation & Setup
 
-1. **Clone and install dependencies:**
+1. **Clone and navigate to backend:**
    ```bash
-   git clone https://github.com/chakriaitechlab/chakri-ai-backend.git
-   cd chakri-ai-backend
+   git clone https://github.com/chakriaitechlab/Prototype.git
+   cd Prototype/backend
    npm install
    ```
    > *Note:* The `postinstall` script automatically downloads the exact Chromium build required by Playwright for the autonomous agent.
@@ -284,8 +275,6 @@ The agent module (`src/common/agent`) provides an autonomous AI assistant capabl
   - Untrusted content isolation: Instructions in external pages/emails are strictly ignored.
   - Gmail OAuth tokens are encrypted at rest with **AES-256-GCM**.
 
-*For full details on agent capabilities and rules, see [docs/agent-features.md](../docs/agent-features.md).*
-
 ---
 
 ## Environment configuration
@@ -342,3 +331,22 @@ The backend is built for zero-downtime deployment on platforms like **Render**, 
    ```bash
    npm run start:prod
    ```
+
+---
+
+## 👥 Team & Submission Information
+
+- **Event:** AI Builder Cup 2026 (Hack2Skill)
+- **Stage:** Prototype Evaluation
+- **Team Name:** **ChakriAI**
+- **Team Members:**
+  - 👑 **Amit Chandra Roy** (Team Leader) — [amitcroy.ai@gmail.com](mailto:amitcroy.ai@gmail.com)
+  - 💻 **Arafat Rahman** (Team Member) — [arafatsohan2003@gmail.com](mailto:arafatsohan2003@gmail.com)
+- **Repository:** [https://github.com/chakriaitechlab/Prototype](https://github.com/chakriaitechlab/Prototype)
+
+---
+
+<p align="center">
+  <b>Built with ❤️ by Team ChakriAI for the AI Builder Cup 2026</b>
+</p>
+
