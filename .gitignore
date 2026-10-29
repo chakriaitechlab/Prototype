@@ -1,0 +1,60 @@
+# Node / Package managers
+node_modules/
+*/node_modules/
+.pnp
+.pnp.js
+
+# Build outputs
+dist/
+*/dist/
+.next/
+*/.next/
+build/
+*/build/
+out/
+*/out/
+
+# Environment Variables & Secrets (DO NOT COMMIT)
+.env
+.env.*
+!.env.example
+*/.env
+*/.env.*
+!*/.env.example
+!*/.env.vercel.example
+
+# Cache & Build Info
+*.tsbuildinfo
+*/generated/
+.turbo/
+.vercel/
+*/.vercel/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+
+# Testing & Coverage
+coverage/
+*/coverage/
+.nyc_output/
+
+# OS / Editor files
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*.swo
+*.pem
+
+# Local agent caches
+.agents/
+.claude/
+.windsurf/
+*/.agents/
+*/.claude/
+*/.windsurf/
