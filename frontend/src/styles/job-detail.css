@@ -1,0 +1,716 @@
+.jp-jd {
+  background: var(--jp-gray-50);
+  padding-bottom: 4rem;
+}
+
+.jp-jd .jp-btn {
+  border-radius: 0;
+}
+
+.jp-jd-hero {
+  background: var(--jp-white);
+  border-bottom: 1px solid var(--jp-gray-200);
+  padding-bottom: 1.75rem;
+}
+
+.jp-jd-head {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.5rem;
+  padding: 1.75rem 0 1.5rem;
+}
+
+.jp-jd-logo {
+  width: 72px;
+  height: 72px;
+  flex-shrink: 0;
+  border-radius: 0;
+  font-size: 1.5rem;
+  border: 1px solid var(--jp-gray-200);
+}
+
+.jp-jd-logo.jp-company-mark--image {
+  background: var(--jp-white);
+}
+
+.jp-jd-head-main {
+  flex: 1;
+  min-width: 0;
+}
+
+.jp-jd-company {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.375rem;
+  font-size: 0.875rem;
+  color: var(--jp-gray-500);
+}
+
+.jp-jd-company strong {
+  font-weight: 600;
+  color: var(--jp-gray-900);
+}
+
+.jp-jd-title {
+  margin: 0.375rem 0 0.875rem;
+  font-size: clamp(1.5rem, 3vw, 1.875rem);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: var(--jp-gray-900);
+}
+
+.jp-jd-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.jp-jd-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  height: 30px;
+  padding: 0 0.75rem;
+  border-radius: 0;
+  background: var(--jp-gray-100);
+  color: var(--jp-gray-700);
+  font-size: 0.8125rem;
+  font-weight: 500;
+}
+
+.jp-jd-chip svg {
+  color: var(--jp-gray-500);
+}
+
+.jp-jd-chip--primary {
+  background: var(--jp-primary-soft);
+  color: var(--jp-primary);
+}
+
+.jp-jd-chip--primary svg {
+  color: var(--jp-primary);
+}
+
+.jp-jd-chip--featured {
+  background: var(--jp-warning-soft);
+  color: #b45309;
+}
+
+.jp-jd-chip--featured svg {
+  color: var(--jp-warning);
+}
+
+.jp-jd-head-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.625rem;
+  flex-shrink: 0;
+}
+
+.jp-jd-head-actions small {
+  font-size: 0.75rem;
+  color: var(--jp-gray-500);
+}
+
+.jp-jd-head-buttons {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.jp-jd-head-buttons .jp-jd-apply {
+  flex: none;
+  padding: 0 1.5rem;
+}
+
+.jp-jd .jp-fcard-save,
+.jp-jd-icon-btn {
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 1px solid var(--jp-primary);
+  border-radius: 0;
+  background: var(--jp-white);
+  color: var(--jp-primary);
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.jp-jd .jp-fcard-save:hover,
+.jp-jd-icon-btn:hover {
+  background: var(--jp-primary-soft);
+}
+
+.jp-jd-verified {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  color: var(--jp-primary);
+  font-size: 0.8125rem;
+  font-weight: 500;
+}
+
+.jp-jd-unverified {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  height: 22px;
+  padding: 0 0.5rem;
+  border-radius: 0;
+  background: var(--jp-gray-100);
+  color: var(--jp-gray-600);
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.jp-jd-facts {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin: 0;
+  border: 1px solid var(--jp-gray-200);
+  border-radius: 0;
+  background: var(--jp-white);
+}
+
+.jp-jd-fact {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-width: 0;
+  padding: 1rem 1.25rem;
+}
+
+.jp-jd-fact + .jp-jd-fact {
+  border-left: 1px solid var(--jp-gray-200);
+}
+
+.jp-jd-fact-icon {
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  border-radius: 0;
+  background: var(--jp-primary-soft);
+  color: var(--jp-primary);
+}
+
+.jp-jd-fact dt {
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--jp-gray-500);
+}
+
+.jp-jd-fact dd {
+  margin: 0.125rem 0 0;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--jp-gray-900);
+  overflow-wrap: anywhere;
+}
+
+.jp-jd-fact .jp-jd-fact-note {
+  margin: 0;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--jp-warning);
+}
+
+.jp-jd-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1.75rem;
+  align-items: start;
+  padding-top: 1.75rem;
+}
+
+@media (min-width: 1024px) {
+  .jp-jd-grid {
+    grid-template-columns: minmax(0, 1fr) 360px;
+  }
+}
+
+.jp-jd-main,
+.jp-jd-card {
+  background: var(--jp-white);
+  border: 1px solid var(--jp-gray-200);
+  border-radius: 0;
+  box-shadow: var(--jp-shadow-card);
+}
+
+.jp-jd-section {
+  padding: 1.75rem;
+}
+
+.jp-jd-section + .jp-jd-section {
+  border-top: 1px solid var(--jp-gray-100);
+}
+
+.jp-jd-section h2 {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  margin: 0 0 1rem;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--jp-gray-900);
+}
+
+.jp-jd-section h2 svg {
+  color: var(--jp-primary);
+}
+
+.jp-jd-content h2,
+.jp-jd-content h3,
+.jp-jd-content h4 {
+  margin: 1.75rem 0 0.75rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--jp-gray-900);
+}
+
+.jp-jd-content > :first-child {
+  margin-top: 0;
+}
+
+.jp-jd-content p {
+  margin: 0 0 0.875rem;
+  font-size: 0.9375rem;
+  line-height: 1.75;
+  color: var(--jp-gray-700);
+}
+
+.jp-jd-content ul,
+.jp-jd-content ol {
+  margin: 0 0 1rem;
+  padding-left: 1.25rem;
+  font-size: 0.9375rem;
+  line-height: 1.7;
+  color: var(--jp-gray-700);
+}
+
+.jp-jd-content ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.jp-jd-content ul li {
+  position: relative;
+  padding-left: 1.5rem;
+}
+
+.jp-jd-content ul li::before {
+  content: '';
+  position: absolute;
+  left: 0.375rem;
+  top: 0.65em;
+  width: 6px;
+  height: 6px;
+  border-radius: 0;
+  background: var(--jp-primary);
+}
+
+.jp-jd-content li + li {
+  margin-top: 0.5rem;
+}
+
+.jp-jd-content strong {
+  font-weight: 600;
+  color: var(--jp-gray-900);
+}
+
+.jp-jd-content a {
+  color: var(--jp-primary);
+  text-decoration: underline;
+}
+
+.jp-jd-skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.jp-jd-skills a {
+  padding: 0.4375rem 0.875rem;
+  border: 1px solid var(--jp-gray-200);
+  border-radius: 0;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--jp-gray-700);
+  text-decoration: none;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+.jp-jd-skills a:hover {
+  border-color: var(--jp-primary);
+  background: var(--jp-primary-soft);
+  color: var(--jp-primary);
+}
+
+.jp-jd-benefits {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.625rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.jp-jd-benefits li {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  padding: 0.75rem 0.875rem;
+  border-radius: 0;
+  background: var(--jp-success-soft);
+  color: #166534;
+  font-size: 0.875rem;
+  font-weight: 500;
+  overflow-wrap: anywhere;
+}
+
+.jp-jd-benefits svg {
+  flex-shrink: 0;
+  color: var(--jp-success);
+}
+
+.jp-jd-aside {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1.25rem;
+}
+
+@media (min-width: 1024px) {
+  .jp-jd-aside {
+    position: sticky;
+    top: 1.25rem;
+  }
+}
+
+.jp-jd-card {
+  padding: 1.5rem;
+}
+
+.jp-jd-card h3 {
+  margin: -1.5rem -1.5rem 0.5rem;
+  padding: 1.125rem 1.5rem;
+  border-bottom: 1px solid var(--jp-gray-100);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--jp-gray-900);
+}
+
+.jp-jd-label {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--jp-gray-500);
+}
+
+.jp-jd-salary {
+  display: block;
+  margin: 0.25rem 0 0.125rem;
+  font-size: 1.625rem;
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+  color: var(--jp-gray-900);
+  overflow-wrap: anywhere;
+}
+
+.jp-jd-muted {
+  display: block;
+  font-size: 0.8125rem;
+  color: var(--jp-gray-500);
+}
+
+.jp-jd-match {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 1.125rem;
+  padding: 0.75rem 0.875rem;
+  border-radius: 0;
+  background: var(--jp-primary-soft);
+}
+
+.jp-jd-match-ring {
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: conic-gradient(var(--jp-primary) 0 var(--score), var(--jp-primary-soft-2) 0);
+}
+
+.jp-jd-match-ring span {
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--jp-primary-soft);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--jp-primary);
+}
+
+.jp-jd-match--button {
+  width: 100%;
+  border: 0;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.jp-jd-match--button:hover .jp-jd-match-action {
+  text-decoration: underline;
+}
+
+.jp-jd-match--locked {
+  text-decoration: none;
+  background: var(--jp-gray-50);
+  border: 1px dashed var(--jp-primary-soft-2);
+}
+
+.jp-jd-match--locked .jp-jd-match-ring {
+  background: var(--jp-primary-soft-2);
+}
+
+.jp-jd-match--locked .jp-jd-match-ring span {
+  background: var(--jp-gray-50);
+}
+
+.jp-jd-match-action {
+  margin-left: auto;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--jp-primary);
+  white-space: nowrap;
+}
+
+.jp-jd-match--locked:hover .jp-jd-match-action {
+  text-decoration: underline;
+}
+
+.jp-jd-match strong {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--jp-gray-900);
+}
+
+.jp-jd-match small {
+  font-size: 0.75rem;
+  color: var(--jp-gray-600);
+}
+
+.jp-jd-apply-row {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1.125rem;
+}
+
+.jp-jd-apply {
+  flex: 1;
+  height: 48px;
+  font-size: 0.9375rem;
+}
+
+.jp-btn--applied {
+  background: #ecfdf5;
+  color: #047857;
+  border-color: #a7f3d0;
+  cursor: default;
+}
+
+.jp-jd-remaining {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.375rem;
+  margin: 0.875rem 0 0;
+  font-size: 0.8125rem;
+  color: var(--jp-gray-600);
+}
+
+.jp-jd-remaining svg {
+  color: var(--jp-warning);
+}
+
+.jp-jd-overview {
+  margin: 0;
+}
+
+.jp-jd-overview > div {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.6875rem 0;
+  font-size: 0.875rem;
+}
+
+.jp-jd-overview > div + div {
+  border-top: 1px dashed var(--jp-gray-100);
+}
+
+.jp-jd-overview svg {
+  flex-shrink: 0;
+  color: var(--jp-gray-400);
+}
+
+.jp-jd-overview dt {
+  color: var(--jp-gray-500);
+}
+
+.jp-jd-overview dd {
+  margin: 0 0 0 auto;
+  font-weight: 600;
+  color: var(--jp-gray-900);
+  text-align: right;
+  overflow-wrap: anywhere;
+}
+
+.jp-jd-company-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding-top: 0.75rem;
+}
+
+.jp-jd-company-logo {
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+  border-radius: 0;
+  font-size: 1.125rem;
+  border: 1px solid var(--jp-gray-200);
+}
+
+.jp-jd-company-row > div {
+  display: grid;
+  justify-items: start;
+  gap: 0.25rem;
+  min-width: 0;
+}
+
+.jp-jd-company-row strong {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--jp-gray-900);
+  overflow-wrap: anywhere;
+}
+
+.jp-jd-company-link {
+  height: 40px;
+  margin-top: 1rem;
+  font-size: 0.875rem;
+}
+
+.jp-jd-share-card {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 1.25rem;
+}
+
+.jp-jd-card.jp-jd-share-card h3 {
+  margin: 0 auto 0 0;
+  padding: 0;
+  border: 0;
+  white-space: nowrap;
+}
+
+.jp-jd-share {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.jp-jd-social {
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--jp-primary);
+  border-radius: 0;
+  background: var(--jp-white);
+  color: var(--jp-primary);
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.jp-jd-social:hover {
+  background: var(--jp-primary-soft);
+}
+
+@media (max-width: 1023px) {
+  .jp-jd-facts {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .jp-jd-fact:nth-child(3) {
+    border-left: 0;
+  }
+
+  .jp-jd-fact:nth-child(n + 3) {
+    border-top: 1px solid var(--jp-gray-200);
+  }
+}
+
+@media (max-width: 639px) {
+  .jp-jd {
+    padding-bottom: 6rem;
+  }
+
+  .jp-jd-head {
+    flex-direction: column;
+    gap: 1rem;
+    padding-top: 1.25rem;
+  }
+
+  .jp-jd-logo {
+    width: 56px;
+    height: 56px;
+    font-size: 1.25rem;
+  }
+
+  .jp-jd-head-actions {
+    display: none;
+  }
+
+  .jp-jd-fact {
+    padding: 0.875rem;
+  }
+
+  .jp-jd-section {
+    padding: 1.375rem 1.125rem;
+  }
+
+  .jp-jd-benefits {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .jp-jd-apply-row {
+    position: fixed;
+    inset: auto 0 0;
+    z-index: 40;
+    margin: 0;
+    padding: 0.75rem 1rem;
+    background: var(--jp-white);
+    border-top: 1px solid var(--jp-gray-200);
+    box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.06);
+  }
+}

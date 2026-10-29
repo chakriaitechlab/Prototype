@@ -1,0 +1,10 @@
+/* AI Agent — /dashboard/seeker/agent */
+
+.cdash-main:has(.agent-page:not([style*="display: none"], [style*="display: none"] *)),
+.cdash--app .cdash-main:has(.agent-page:not([style*="display: none"], [style*="display: none"] *)) {
+  padding: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}

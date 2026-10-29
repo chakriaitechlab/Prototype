@@ -1,0 +1,883 @@
+/* CV Generator — Sectioned editor + live ATS template preview */
+
+/* Next.js keeps visited routes mounted but hidden (inline display: none), so route-marker
+   :has() selectors must skip hidden subtrees or their styles leak onto the next page. */
+.cdash-main:has(.cv-gen:not([style*="display: none"], [style*="display: none"] *)),
+.cdash--app .cdash-main:has(.cv-gen:not([style*="display: none"], [style*="display: none"] *)) {
+  padding: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+  max-height: 100%;
+}
+
+.cv-gen {
+  width: 100%;
+  max-width: 100%;
+  height: 100%;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  padding: 1.25rem 2rem 1rem;
+  box-sizing: border-box;
+  container-type: inline-size;
+  container-name: cv-gen;
+}
+
+.cv-gen-head {
+  flex-shrink: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.875rem 1.5rem;
+  margin-bottom: 1rem;
+  padding-bottom: 0.875rem;
+  border-bottom: 1px solid #eef2f6;
+}
+
+.cv-gen-head-copy {
+  min-width: min(100%, 28rem);
+  max-width: 40rem;
+}
+
+.cv-gen-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-bottom: 0.35rem;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--cdash-brand, #0a65cc);
+}
+
+.cv-gen-title {
+  margin: 0;
+  font-size: clamp(1.375rem, 2.2vw, 1.75rem);
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--cdash-ink, #18191c);
+}
+
+.cv-gen-lead {
+  margin: 0.4rem 0 0;
+  max-width: 38rem;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: #6b7280;
+}
+
+.cv-gen-head-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.625rem;
+}
+
+.cset-btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  padding: 0.75rem 1.5rem;
+  border: 0;
+  border-radius: 4px;
+  background: #e8eef6;
+  color: #111827;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.cset-btn-secondary:hover {
+  background: #dbe4f0;
+}
+
+.cset-btn-secondary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.cset-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  padding: 0.75rem 1.75rem;
+  border: 0;
+  border-radius: 4px;
+  background: var(--cdash-brand, #0a65cc);
+  color: #fff;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s ease, opacity 0.15s ease;
+}
+
+.cset-btn-primary:hover:not(:disabled) {
+  background: #084f9e;
+}
+
+.cset-btn-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  filter: grayscale(20%);
+}
+
+.cv-gen-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  min-height: 16rem;
+  color: #6b7280;
+}
+
+.cv-gen-layout {
+  flex: 1;
+  min-height: 0;
+  height: 100%;
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  gap: clamp(1.25rem, 2vw, 2.25rem);
+  align-items: stretch;
+  overflow: hidden;
+  width: 100%;
+  min-width: 0;
+}
+
+.cv-gen-form-col {
+  min-width: 0;
+  max-width: 100%;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-right: 0.875rem;
+  padding-bottom: 3rem;
+  scrollbar-width: thin;
+  scrollbar-color: #cbd5e1 transparent;
+  overscroll-behavior: contain;
+  container-type: inline-size;
+  container-name: cv-form;
+}
+
+.cv-gen-form .cset-fields-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem 1.25rem;
+  width: 100%;
+  min-width: 0;
+}
+
+.cv-gen-form .cset-fields-grid > .cv-gen-field {
+  min-width: 0;
+  width: 100%;
+}
+
+.cv-gen-form .cv-gen-field {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.cv-gen-form .cset-label {
+  margin-bottom: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--cdash-ink, #18191c);
+}
+
+.cv-gen-form .cset-input,
+.cv-gen-form .cset-textarea,
+.cv-gen-form select.cset-input {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  box-sizing: border-box;
+  appearance: none;
+  -webkit-appearance: none;
+  border: 1px solid #e5e7eb;
+  border-radius: 4px;
+  background-color: #fff;
+  font-size: 0.875rem;
+  color: var(--cdash-ink, #18191c);
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.cv-gen-form .cset-input,
+.cv-gen-form select.cset-input {
+  height: 2.875rem;
+  padding: 0 0.875rem;
+}
+
+.cv-gen-form .cset-input:focus,
+.cv-gen-form select.cset-input:focus {
+  border-color: var(--cdash-brand, #0a65cc);
+  box-shadow: 0 0 0 1px var(--cdash-brand, #0a65cc);
+}
+
+.cv-gen-form .cset-input:disabled,
+.cv-gen-form select.cset-input:disabled {
+  background: #f3f4f6;
+  color: #6b7280;
+  cursor: not-allowed;
+  opacity: 1;
+}
+
+.cv-gen-form .cset-input::placeholder,
+.cv-gen-form .cset-textarea::placeholder {
+  color: #9ca3af;
+}
+
+.cv-gen-form .cv-gen-field--textarea .cset-bio-box {
+  width: 100%;
+  min-width: 0;
+}
+
+.cv-gen-form .cset-textarea {
+  min-height: 5.5rem;
+  padding: 0.875rem 1rem;
+  resize: vertical;
+  line-height: 1.5;
+}
+
+.cv-gen-entry .cset-fields-grid {
+  grid-template-columns: 1fr;
+}
+
+@container cv-form (min-width: 38rem) {
+  .cv-gen-entry .cset-fields-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@container cv-form (max-width: 36rem) {
+  .cv-gen-form .cset-fields-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .cv-gen-form .cset-col-span-2 {
+    grid-column: span 1;
+  }
+}
+
+.cv-gen-entry-body {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.cv-gen-collapsible-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.cv-gen-form .cv-gen-card {
+  margin-bottom: 0;
+  padding: 1.25rem;
+  border: 1px solid #eef2f7;
+  border-radius: 0.75rem;
+  background: #fff;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+}
+
+.cv-gen-form .cset-section-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--cdash-ink, #18191c);
+}
+
+.cv-gen-collapsible-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.cv-gen-collapsible-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex: 1;
+  min-width: 0;
+  padding: 0;
+  border: none;
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
+  color: inherit;
+}
+
+.cv-gen-collapsible-toggle:focus-visible {
+  outline: 2px solid var(--cdash-brand, #0a65cc);
+  outline-offset: 2px;
+  border-radius: 0.375rem;
+}
+
+.cv-gen-collapsible-chevron {
+  flex-shrink: 0;
+  color: #9ca3af;
+  transition: transform 0.2s ease;
+}
+
+.cv-gen-collapsible.is-expanded .cv-gen-collapsible-chevron {
+  transform: rotate(180deg);
+}
+
+.cv-gen-collapsible-body {
+  margin-top: 1rem;
+}
+
+.cv-gen-entry-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  flex: 1;
+  min-width: 0;
+  padding: 0;
+  border: none;
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
+  color: inherit;
+}
+
+.cv-gen-entry-toggle:focus-visible {
+  outline: 2px solid var(--cdash-brand, #0a65cc);
+  outline-offset: 2px;
+  border-radius: 0.375rem;
+}
+
+.cv-gen-entry-chevron {
+  flex-shrink: 0;
+  color: #9ca3af;
+  transition: transform 0.2s ease;
+}
+
+.cv-gen-entry-collapsible.is-expanded .cv-gen-entry-chevron {
+  transform: rotate(180deg);
+}
+
+.cv-gen-entry-subtitle {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: #6b7280;
+}
+
+.cv-gen-entry-subtitle::before {
+  content: '·';
+  margin-inline: 0.35rem;
+  color: #d1d5db;
+}
+
+.cv-gen-section-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.cv-gen-add {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.375rem 0.75rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 4px;
+  background: #fff;
+  color: var(--cdash-brand, #0a65cc);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.cv-gen-add:hover {
+  background: #f8fafc;
+  border-color: var(--cdash-brand, #0a65cc);
+}
+
+.cv-gen-entries {
+  display: grid;
+  gap: 1rem;
+}
+
+.cv-gen-entry {
+  padding: 1rem;
+  border: 1px solid #eef2f7;
+  border-radius: 0.625rem;
+  background: #fafbfc;
+}
+
+.cv-gen-entry-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.cv-gen-entry-label {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: #4b5563;
+}
+
+.cv-gen-remove {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border: none;
+  border-radius: 0.375rem;
+  background: transparent;
+  color: #9ca3af;
+  cursor: pointer;
+  transition: color 0.15s ease, background 0.15s ease;
+}
+
+.cv-gen-remove:hover {
+  color: #ef4444;
+  background: #fef2f2;
+}
+
+.cv-gen-empty-hint {
+  margin: 0;
+  font-size: 0.875rem;
+  color: #9ca3af;
+}
+
+.cv-gen-check-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(8.5rem, 1fr));
+  gap: 0.5rem 0.75rem;
+}
+
+.cv-gen-check-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.8125rem;
+  color: #374151;
+  cursor: pointer;
+}
+
+.cv-gen-check-label input[type='checkbox'] {
+  width: 1rem;
+  height: 1rem;
+  margin: 0;
+  accent-color: var(--cdash-brand, #0a65cc);
+}
+
+.cv-gen-check-label--inline {
+  margin-top: 0.25rem;
+}
+
+.cv-gen-form.cset-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* Tag input styles for skills/technologies */
+.cv-gen-tag-box {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 4px;
+  background: #fff;
+  min-height: 2.875rem;
+}
+
+.cv-gen-tag-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.25rem 0.5rem;
+  background: #eff6ff;
+  color: var(--cdash-brand, #0a65cc);
+  border-radius: 4px;
+  font-size: 0.8125rem;
+  font-weight: 500;
+}
+
+.cv-gen-tag-remove {
+  display: inline-flex;
+  border: 0;
+  background: none;
+  padding: 0;
+  color: #93c5fd;
+  cursor: pointer;
+}
+
+.cv-gen-tag-remove:hover {
+  color: #1d4ed8;
+}
+
+.cv-gen-tag-input {
+  flex: 1;
+  min-width: 8rem;
+  border: 0;
+  outline: none;
+  font-size: 0.875rem;
+  background: transparent;
+  color: var(--cdash-ink, #18191c);
+}
+
+/* Right column preview pane */
+.cv-gen-preview-col {
+  position: static;
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+  min-width: 0;
+  max-width: 100%;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.cv-gen-preview-toolbar {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: #374151;
+}
+
+.cv-gen-preview-hint {
+  font-weight: 500;
+  color: #9ca3af;
+}
+
+.cv-gen-preview-sheet {
+  flex: 1;
+  min-height: 0;
+  height: 100%;
+  max-height: none;
+  overflow-y: auto;
+  overflow-x: hidden;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  padding: 1.5rem 1.75rem 2.5rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.75rem;
+  background: #fff;
+  box-shadow: 0 8px 30px rgba(15, 23, 42, 0.06);
+  scrollbar-width: thin;
+  scrollbar-color: #cbd5e1 transparent;
+  overscroll-behavior: contain;
+}
+
+.cv-gen-form-col::-webkit-scrollbar,
+.cv-gen-preview-sheet::-webkit-scrollbar {
+  width: 6px;
+}
+
+.cv-gen-form-col::-webkit-scrollbar-track,
+.cv-gen-preview-sheet::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.cv-gen-form-col::-webkit-scrollbar-thumb,
+.cv-gen-preview-sheet::-webkit-scrollbar-thumb {
+  background-color: #cbd5e1;
+  border-radius: 999px;
+}
+
+.cv-gen-form-col::-webkit-scrollbar-thumb:hover,
+.cv-gen-preview-sheet::-webkit-scrollbar-thumb:hover {
+  background-color: #94a3b8;
+}
+
+.cv-gen-print-root {
+  display: none;
+}
+
+/* Classic A4 Resume Template */
+.cv-template {
+  max-width: 100%;
+  width: 100%;
+  margin: 0 auto;
+  font-family: Arial, Helvetica, 'Liberation Sans', sans-serif;
+  font-size: 10pt;
+  line-height: 1.4;
+  color: #000;
+}
+
+.cv-template-header {
+  margin: 0 0 0.35rem;
+  padding: 0;
+  text-align: center;
+  border: none;
+}
+
+.cv-template-name {
+  margin: 0;
+  font-size: 1.28rem;
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: 0.01em;
+  text-transform: none;
+}
+
+.cv-template-headline {
+  margin: 0.2rem 0 0;
+  font-size: 0.82rem;
+  font-weight: 400;
+  font-style: italic;
+  color: #111;
+}
+
+.cv-template-contact {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.15rem 0;
+  margin: 0.25rem 0 0;
+  font-size: 0.72rem;
+  line-height: 1.45;
+  color: #000;
+}
+
+.cv-template-contact-item {
+  display: inline-flex;
+  align-items: center;
+}
+
+.cv-template-contact-sep {
+  margin: 0 0.3rem;
+  color: #000;
+}
+
+.cv-template-placeholder {
+  color: #bdbdbd;
+}
+
+.cv-template-link {
+  color: #0563c1;
+  text-decoration: underline;
+  text-underline-offset: 1px;
+}
+
+.cv-template-summary {
+  margin: 0.45rem 0 0;
+  font-size: 0.82rem;
+  line-height: 1.45;
+  text-align: justify;
+  white-space: pre-wrap;
+}
+
+.cv-template-skills-line {
+  margin: 0.45rem 0 0.15rem;
+  font-size: 0.82rem;
+  line-height: 1.4;
+}
+
+.cv-template-section {
+  margin-top: 0.45rem;
+}
+
+.cv-template-section-title {
+  margin: 0.45rem 0 0.35rem;
+  padding: 0.12rem 0.5rem;
+  border: 1px solid #000;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-align: center;
+  text-transform: uppercase;
+  color: #000;
+}
+
+.cv-template-section-body {
+  padding-top: 0.05rem;
+}
+
+.cv-template-entries {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.cv-template-entry {
+  margin: 0;
+}
+
+.cv-template-entry-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.cv-template-entry-primary {
+  margin: 0;
+  min-width: 0;
+  font-size: 0.84rem;
+  line-height: 1.35;
+}
+
+.cv-template-entry-primary em {
+  font-style: italic;
+  font-weight: 400;
+}
+
+.cv-template-entry-date {
+  flex-shrink: 0;
+  font-size: 0.78rem;
+  line-height: 1.35;
+  white-space: nowrap;
+}
+
+.cv-template-entry-detail {
+  margin: 0.12rem 0 0;
+  font-size: 0.8rem;
+  line-height: 1.4;
+}
+
+.cv-template-inline-text {
+  margin: 0;
+  font-size: 0.82rem;
+  line-height: 1.4;
+}
+
+.cv-template-bullets {
+  margin: 0.15rem 0 0;
+  padding-left: 1.1rem;
+  list-style-type: disc;
+}
+
+.cv-template-bullets li {
+  margin: 0.08rem 0;
+  font-size: 0.8rem;
+  line-height: 1.38;
+}
+
+.cv-template-bullets--tight {
+  margin-top: 0;
+}
+
+@container cv-gen (max-width: 54rem) {
+  .cv-gen-layout {
+    grid-template-columns: 1fr;
+    height: auto;
+    overflow: visible;
+  }
+
+  .cv-gen-form-col {
+    height: auto;
+    overflow: visible;
+    padding-right: 0;
+  }
+
+  .cv-gen-preview-col {
+    position: static;
+    height: auto;
+    overflow: visible;
+    max-width: 100%;
+    margin-inline: auto;
+  }
+
+  .cv-gen-preview-sheet {
+    height: auto;
+    max-height: 80vh;
+    overflow-y: auto;
+  }
+}
+
+@media (max-width: 1024px) {
+  .cdash-main:has(.cv-gen:not([style*="display: none"], [style*="display: none"] *)),
+  .cdash--app .cdash-main:has(.cv-gen:not([style*="display: none"], [style*="display: none"] *)) {
+    overflow-y: auto;
+    height: auto;
+  }
+
+  .cv-gen {
+    height: auto;
+    overflow: visible;
+    padding: 1rem;
+  }
+
+  .cv-gen-layout {
+    grid-template-columns: 1fr;
+    height: auto;
+    overflow: visible;
+  }
+
+  .cv-gen-form-col {
+    height: auto;
+    overflow: visible;
+    padding-right: 0;
+  }
+
+  .cv-gen-preview-col {
+    position: static;
+    height: auto;
+    overflow: visible;
+    max-width: 100%;
+    margin-inline: auto;
+  }
+
+  .cv-gen-preview-sheet {
+    height: auto;
+    max-height: 80vh;
+    overflow-y: auto;
+  }
+}
+
+/* Print Mode */
+@media print {
+  @page {
+    margin: 0.75in;
+  }
+
+  body.cv-print-mode {
+    background: #fff;
+  }
+
+  body.cv-print-mode > *:not(.cv-gen-print-root) {
+    display: none !important;
+  }
+
+  body.cv-print-mode .cv-gen-print-root {
+    display: block !important;
+    position: static;
+    width: auto;
+    height: auto;
+    padding: 0;
+    background: #fff;
+  }
+
+  body.cv-print-mode .cv-template {
+    max-width: none;
+  }
+}

@@ -1,0 +1,1088 @@
+/* Chosen-role banner shown on the signup form after picking a role */
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* CV Upload specific styles */
+
+.jp-remember,
+.jp-remember input {
+  cursor: pointer;
+}
+
+/* 6-digit OTP glowing boxes (stretched 100% to align with submit button) */
+.jp-otp-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 0.75rem;
+  width: 100%;
+  margin: 1.75rem 0;
+  box-sizing: border-box;
+}
+
+.jp-otp-box {
+  width: 100%;
+  height: 58px;
+  border-radius: 12px;
+  border: 1.5px solid #d1d5db;
+  background: #ffffff;
+  color: #0f172a;
+  font-size: 1.6rem;
+  font-weight: 700;
+  text-align: center;
+  outline: none;
+  padding: 0;
+  box-sizing: border-box;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease, transform 0.15s ease;
+  box-shadow: none;
+}
+
+.jp-otp-box:hover {
+  border-color: #60a5fa;
+  box-shadow: 0 0 8px rgba(59, 130, 246, 0.35);
+}
+
+.jp-otp-box:focus {
+  border-color: #2563eb;
+  background: #ffffff;
+  transform: translateY(-1px);
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.25), 0 0 14px rgba(37, 99, 235, 0.45);
+}
+
+.jp-otp-box.is-filled {
+  border-color: #2563eb;
+  background: #f8faff;
+  box-shadow: 0 0 6px rgba(37, 99, 235, 0.2);
+}
+
+.jp-otp-box.is-filled:focus {
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.25), 0 0 16px rgba(37, 99, 235, 0.55);
+}
+
+.jp-otp-resend {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 1.5rem;
+  font-size: 0.875rem;
+  color: #64748b;
+  text-align: center;
+}
+
+.jp-otp-timer {
+  color: #2563eb;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.jp-otp-resend-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #2563eb;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color 0.15s ease;
+}
+
+.jp-otp-resend-btn:hover:not(:disabled) {
+  color: #1d4ed8;
+}
+
+.jp-otp-resend-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+@media (max-width: 480px) {
+  .jp-otp-grid {
+    gap: 0.375rem;
+  }
+  .jp-otp-box {
+    height: 48px;
+    font-size: 1.25rem;
+    border-radius: 10px;
+  }
+}
+
+/* Onboarding role selection cards */
+.jp-section-label {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #64748b;
+  margin: 1.5rem 0 0.75rem;
+}
+
+.jp-choice-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+  margin-bottom: 1.5rem;
+}
+
+.jp-choice {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1.125rem 1.25rem;
+  background: #ffffff;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 14px;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+  width: 100%;
+}
+
+.jp-choice:hover {
+  border-color: #94a3b8;
+  background: #fafafa;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.jp-choice.is-active {
+  border-color: #0a65cc;
+  background: #f0f7ff;
+  box-shadow: 0 0 0 1px #0a65cc, 0 6px 16px rgba(10, 101, 204, 0.08);
+}
+
+.jp-choice-icon {
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: #f1f5f9;
+  color: #334155;
+  display: grid;
+  place-items: center;
+  transition: all 0.2s ease;
+}
+
+.jp-choice.is-active .jp-choice-icon {
+  background: #0a65cc;
+  color: #ffffff;
+}
+
+.jp-choice-copy {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.jp-choice-copy strong {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #0f172a;
+  line-height: 1.35;
+}
+
+.jp-choice.is-active .jp-choice-copy strong {
+  color: #0a65cc;
+}
+
+.jp-choice-copy small {
+  font-size: 0.84rem;
+  color: #64748b;
+  line-height: 1.45;
+}
+
+.jp-choice-check {
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 1.5px solid #cbd5e1;
+  display: grid;
+  place-items: center;
+  color: transparent;
+  transition: all 0.2s ease;
+  margin-top: 2px;
+}
+
+.jp-choice.is-active .jp-choice-check {
+  border-color: #0a65cc;
+  background: #0a65cc;
+  color: #ffffff;
+}
+
+/* Phone input group with country dial code */
+.jp-phone-group {
+  display: flex;
+  align-items: stretch;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  background: #ffffff;
+  overflow: hidden;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.jp-phone-group:focus-within {
+  border-color: #0a65cc;
+  box-shadow: 0 0 0 3px rgba(10, 101, 204, 0.12);
+}
+
+.jp-phone-dial-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 14px;
+  background: #f1f5f9;
+  color: #334155;
+  font-weight: 600;
+  font-size: 0.95rem;
+  border-right: 1px solid #cbd5e1;
+  user-select: none;
+  letter-spacing: 0.02em;
+}
+
+.jp-phone-group input {
+  flex: 1;
+  min-width: 0;
+  height: 48px;
+  padding: 0 14px;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  font-size: 1rem;
+  background: transparent;
+  color: #0f172a;
+}
+
+.jp-phone-group input::placeholder {
+  color: #94a3b8;
+}
+
+.jp-phone-group.is-error {
+  border-color: #ef4444 !important;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15) !important;
+}
+
+/* Onboarding Alerts */
+.jp-alert {
+  padding: 0.85rem 1.1rem;
+  border-radius: 8px;
+  font-size: 0.88rem;
+  line-height: 1.45;
+  margin-bottom: 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.jp-alert.is-error {
+  background: #fef2f2;
+  color: #b91c1c;
+  border: 1px solid #fecaca;
+}
+
+/* Onboarding Photo Upload Dropzone */
+.jp-photo-label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #334155;
+  margin-bottom: 0.5rem;
+}
+
+.jp-photo-req {
+  color: #ef4444;
+  font-weight: 600;
+}
+
+.jp-photo-dropzone {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 24px;
+  border: 2px dashed #cbd5e1;
+  border-radius: 12px;
+  background: #f8fafc;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.jp-photo-dropzone:hover {
+  border-color: #0a65cc;
+  background: #f0f7ff;
+}
+
+.jp-photo-dropzone.is-dragover {
+  border-color: #0a65cc;
+  background: #e0f0fe;
+  box-shadow: 0 0 0 3px rgba(10, 101, 204, 0.15);
+}
+
+.jp-photo-dropzone.is-error {
+  border-color: #ef4444 !important;
+  background: #fef2f2 !important;
+}
+
+.jp-photo-avatar-wrap {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.jp-photo-avatar-btn {
+  position: relative;
+  width: 92px;
+  height: 92px;
+  border-radius: 50%;
+  border: 3px solid #ffffff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  overflow: visible;
+  outline: none;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.jp-photo-avatar-btn:hover {
+  transform: scale(1.02);
+  box-shadow: 0 6px 18px rgba(10, 101, 204, 0.15);
+}
+
+.jp-photo-avatar-img {
+  width: 86px;
+  height: 86px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.jp-photo-avatar-empty {
+  width: 86px;
+  height: 86px;
+  border-radius: 50%;
+  background: #f1f5f9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.jp-photo-empty-icon {
+  color: #94a3b8;
+}
+
+.jp-photo-camera-badge {
+  position: absolute;
+  right: -2px;
+  bottom: -2px;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #0a65cc;
+  color: #ffffff;
+  border: 2px solid #ffffff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.16);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.15s ease, background 0.15s ease;
+}
+
+.jp-photo-avatar-btn:hover .jp-photo-camera-badge {
+  transform: scale(1.1);
+  background: #084ea3;
+}
+
+.jp-photo-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+  min-width: 0;
+}
+
+.jp-photo-title {
+  margin: 0;
+  font-size: 0.98rem;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.jp-photo-desc {
+  margin: 0;
+  font-size: 0.84rem;
+  color: #64748b;
+  line-height: 1.4;
+}
+
+.jp-photo-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.jp-photo-upload-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 16px;
+  border-radius: 6px;
+  font-size: 0.84rem;
+  font-weight: 600;
+  background: #0a65cc;
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+  transition: background 0.15s ease, transform 0.1s ease;
+}
+
+.jp-photo-upload-btn:hover {
+  background: #084ea3;
+}
+
+.jp-photo-upload-btn:active {
+  transform: scale(0.98);
+}
+
+.jp-photo-remove-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 7px 12px;
+  border-radius: 6px;
+  font-size: 0.82rem;
+  font-weight: 500;
+  background: #fee2e2;
+  color: #dc2626;
+  border: none;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.jp-photo-remove-btn:hover {
+  background: #fecaca;
+}
+
+.jp-photo-meta {
+  margin: 4px 0 0;
+  font-size: 0.76rem;
+  color: #94a3b8;
+}
+
+@media (max-width: 520px) {
+  .jp-photo-dropzone {
+    flex-direction: column;
+    text-align: center;
+    gap: 16px;
+    padding: 20px 16px;
+  }
+
+  .jp-photo-actions {
+    justify-content: center;
+  }
+}
+
+/* ==========================================================================
+   Seeker Onboarding - Step 3 CV Upload
+   ========================================================================== */
+
+.jp-cv-dropzone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 36px 24px;
+  border: 2px dashed #cbd5e1;
+  border-radius: 14px;
+  background: #f8fafc;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  text-align: center;
+  position: relative;
+  outline: none;
+}
+
+.jp-cv-dropzone:hover,
+.jp-cv-dropzone:focus-visible {
+  border-color: #0a65cc;
+  background: #f0f7ff;
+  box-shadow: 0 4px 16px rgba(10, 101, 204, 0.06);
+}
+
+.jp-cv-dropzone.is-dragover {
+  border-color: #0a65cc;
+  background: #e0f0fe;
+  box-shadow: 0 0 0 4px rgba(10, 101, 204, 0.15);
+  transform: scale(1.01);
+}
+
+.jp-cv-dropzone.has-file {
+  border-style: solid;
+  border-color: #e2e8f0;
+  background: #ffffff;
+  padding: 20px;
+  cursor: default;
+}
+
+.jp-cv-icon-box {
+  width: 56px;
+  height: 56px;
+  border-radius: 14px;
+  background: #e0f0fe;
+  color: #0a65cc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 14px;
+  transition: transform 0.2s ease;
+}
+
+.jp-cv-dropzone:hover .jp-cv-icon-box {
+  transform: translateY(-2px);
+}
+
+.jp-cv-title {
+  margin: 0 0 4px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.jp-cv-subtitle {
+  margin: 0 0 16px;
+  font-size: 0.85rem;
+  color: #64748b;
+}
+
+.jp-cv-browse-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 20px;
+  background: #0a65cc;
+  color: #ffffff;
+  font-size: 0.875rem;
+  font-weight: 600;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: background 0.15s ease, transform 0.1s ease;
+}
+
+.jp-cv-browse-btn:hover {
+  background: #084ea3;
+  transform: translateY(-1px);
+}
+
+.jp-cv-browse-btn:active {
+  transform: translateY(0);
+}
+
+.jp-cv-hint {
+  margin: 12px 0 0;
+  font-size: 0.775rem;
+  color: #94a3b8;
+}
+
+/* File Selected Card */
+.jp-cv-file-card {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 16px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+}
+
+.jp-cv-file-badge {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  background: #fee2e2;
+  color: #dc2626;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.jp-cv-file-badge.is-docx {
+  background: #dbeafe;
+  color: #2563eb;
+}
+
+.jp-cv-file-details {
+  flex: 1;
+  min-width: 0;
+  text-align: left;
+}
+
+.jp-cv-file-title {
+  margin: 0;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: #0f172a;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.jp-cv-file-meta {
+  margin: 2px 0 0;
+  font-size: 0.775rem;
+  color: #64748b;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.jp-cv-file-ready-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: #16a34a;
+  font-weight: 500;
+}
+
+.jp-cv-file-del-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+  background: #ffffff;
+  color: #64748b;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all 0.15s ease;
+}
+
+.jp-cv-file-del-btn:hover {
+  background: #fee2e2;
+  border-color: #fca5a5;
+  color: #dc2626;
+}
+
+/* Action Rows */
+.jp-cv-actions-row {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  margin-top: 20px;
+}
+
+.jp-cv-regular-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: 100%;
+  padding: 10px 16px;
+  background: #f1f5f9;
+  color: #334155;
+  font-size: 0.875rem;
+  font-weight: 500;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.jp-cv-regular-btn:hover:not(:disabled) {
+  background: #e2e8f0;
+  color: #0f172a;
+}
+
+/* Divider & Prominent Skip Button */
+.jp-cv-divider {
+  display: flex;
+  align-items: center;
+  margin: 20px 0 16px;
+  width: 100%;
+}
+
+.jp-cv-divider::before,
+.jp-cv-divider::after {
+  content: '';
+  flex: 1;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.jp-cv-divider span {
+  padding: 0 12px;
+  font-size: 0.775rem;
+  font-weight: 600;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.jp-cv-skip-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 12px 20px;
+  background: #ffffff;
+  color: #334155;
+  font-size: 0.925rem;
+  font-weight: 600;
+  border: 1.5px solid #cbd5e1;
+  border-radius: 10px;
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  transition: all 0.15s ease;
+}
+
+.jp-cv-skip-btn:hover:not(:disabled) {
+  background: #f8fafc;
+  border-color: #0a65cc;
+  color: #0a65cc;
+  box-shadow: 0 3px 8px rgba(10, 101, 204, 0.12);
+  transform: translateY(-1px);
+}
+
+.jp-cv-skip-btn:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+/* Success View */
+.jp-cv-success-view {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 24px 0 10px;
+}
+
+.jp-cv-success-icon-wrap {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: #dcfce7;
+  color: #16a34a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+  box-shadow: 0 0 0 8px #f0fdf4;
+}
+
+.jp-cv-success-title {
+  margin: 0 0 8px;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.jp-cv-success-sub {
+  margin: 0 0 24px;
+  font-size: 0.875rem;
+  color: #64748b;
+  max-width: 360px;
+  line-height: 1.5;
+}
+
+/* ─── Onboarding Username Input Styles ───────────────────────── */
+.jp-username-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+}
+
+.jp-autofill-trap {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.jp-username-wrap {
+  display: flex;
+  align-items: center;
+  border: 1.5px solid #cbd5e1;
+  border-radius: 12px;
+  background: #ffffff;
+  overflow: hidden;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+  min-height: 50px;
+}
+
+.jp-username-wrap:focus-within {
+  border-color: #0a65cc;
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(10, 101, 204, 0.12);
+}
+
+.jp-username-wrap.is-available {
+  border-color: #22c55e;
+  box-shadow: 0 0 0 1px #22c55e;
+}
+
+.jp-username-wrap.is-invalid {
+  border-color: #ef4444;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.12);
+}
+
+.jp-username-wrap.is-checking {
+  border-color: #0ea5e9;
+}
+
+.jp-username-prefix {
+  padding: 0 0 0 16px;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #64748b;
+  user-select: none;
+}
+
+.jp-username-input {
+  flex: 1;
+  min-width: 0;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+  padding: 12px 10px 12px 6px;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #0f172a;
+}
+
+.jp-username-input::placeholder {
+  color: #94a3b8;
+  font-weight: 400;
+}
+
+.jp-username-status {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  flex-shrink: 0;
+}
+
+.jp-username-status-icon {
+  color: #94a3b8;
+}
+
+.jp-username-status-icon.is-ok {
+  color: #16a34a;
+}
+
+.jp-username-status-icon.is-bad {
+  color: #dc2626;
+}
+
+.jp-username-status-icon.is-spin {
+  animation: jpSpin 0.8s linear infinite;
+  color: #0a65cc;
+}
+
+@keyframes jpSpin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.jp-username-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 2px;
+}
+
+.jp-username-meta .jp-field-note {
+  margin: 0;
+  font-size: 0.8rem;
+  color: #64748b;
+  line-height: 1.35;
+}
+
+.jp-username-count {
+  font-size: 0.775rem;
+  font-weight: 600;
+  color: #94a3b8;
+  white-space: nowrap;
+}
+
+.jp-username-feedback {
+  margin: 2px 0 0;
+  font-size: 0.825rem;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.jp-username-feedback.is-available {
+  color: #15803d;
+}
+
+.jp-username-feedback.is-invalid {
+  color: #b91c1c;
+}
+
+.jp-username-feedback.is-checking {
+  color: #0284c7;
+}
+
+.jp-username-preview {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  margin-top: 6px;
+}
+
+.jp-username-preview-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+  flex: 1;
+}
+
+.jp-username-preview-label {
+  font-size: 0.725rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #15803d;
+}
+
+.jp-username-preview-value {
+  font-size: 0.925rem;
+  font-weight: 600;
+  color: #0f172a;
+  word-break: break-all;
+}
+
+.jp-username-copy-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 8px;
+  border: 1px solid #86efac;
+  background: #ffffff;
+  color: #15803d;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  flex-shrink: 0;
+  user-select: none;
+}
+
+.jp-username-copy-btn:hover {
+  background: #dcfce7;
+  border-color: #4ade80;
+  color: #166534;
+  transform: translateY(-1px);
+}
+
+.jp-username-copy-btn.is-copied {
+  background: #15803d;
+  border-color: #15803d;
+  color: #ffffff;
+}
+
+/* ── Seeker Career Step ────────────────────────────────────────────── */
+
+.jp-career-label-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.jp-career-label-row label {
+  margin: 0 !important;
+  font-weight: 600;
+  color: #334155;
+  font-size: 0.9rem;
+}
+
+.jp-career-char-count {
+  font-size: 0.775rem;
+  font-weight: 500;
+  color: #94a3b8;
+  background: #f1f5f9;
+  padding: 2px 8px;
+  border-radius: 12px;
+}
+
+.jp-career-textarea {
+  width: 100%;
+  min-height: 125px;
+  padding: 12px 14px;
+  font-family: inherit;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #1e293b;
+  background: #ffffff;
+  border: 1.5px solid #cbd5e1;
+  border-radius: 10px;
+  resize: vertical;
+  outline: none;
+  transition: all 0.15s ease;
+  box-sizing: border-box;
+}
+
+.jp-career-textarea:focus {
+  border-color: #0a65cc;
+  box-shadow: 0 0 0 3px rgba(10, 101, 204, 0.12);
+}
+
+.jp-career-textarea::placeholder {
+  color: #94a3b8;
+}
+
+.jp-career-note {
+  font-size: 0.8125rem;
+  color: #64748b;
+  margin-top: 6px;
+  line-height: 1.4;
+}
+
+.jp-career-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 1.75rem;
+}

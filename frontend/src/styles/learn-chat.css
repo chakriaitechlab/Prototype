@@ -1,0 +1,2513 @@
+/* Learning Chat — /dashboard/seeker/learn */
+
+.learn-runtime-root,
+.learn-runtime-root[data-theme='light'],
+.learning-convo-menu {
+  --ink: #18191c;
+  --ink-rgb: 24, 25, 28;
+  --paper: #f1f2f4;
+  --paper-2: #ffffff;
+  --card: #ffffff;
+  --hover: #f7f8f9;
+  --chip: #f1f2f4;
+  --line-soft: #e4e5e8;
+  --line-softer: #f1f2f4;
+  --muted: #5e6670;
+  --muted-2: #9199a3;
+  --accent: #0a65cc;
+  --accent-rgb: 10, 101, 204;
+  --accent-hover: #094e9f;
+  --accent-soft: #e7f0fa;
+  --accent-soft-2: #cee0f5;
+  --danger: #e05151;
+  --danger-rgb: 224, 81, 81;
+  --shadow-rgb: 24, 25, 28;
+  --shimmer-rgb: 255, 255, 255;
+  --saas-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  --saas-composer-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+  color-scheme: light;
+}
+
+.learn-runtime-root,
+.learn-runtime-root * {
+  box-sizing: border-box;
+}
+
+.learn-runtime-root {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-sans), Inter, ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.learn-runtime-root button,
+.learn-runtime-root input,
+.learn-runtime-root textarea {
+  font: inherit;
+}
+
+/* ─── Local design tokens (Jobpilot radii / elevation) ───────────── */
+.learning-shell {
+  /* Radii — match design.md (sm 4 / md 6 / lg 8 / xl 12) */
+  --lc-radius-sm: 4px;
+  --lc-radius: 6px;
+  --lc-radius-lg: 8px;
+  --lc-radius-xl: 12px;
+  --lc-radius-pill: 999px;
+
+  /* Elevation */
+  --lc-shadow-sm: 0 2px 8px rgba(var(--shadow-rgb), 0.04);
+  --lc-shadow-md: 0 8px 24px rgba(10, 101, 204, 0.08);
+  --lc-shadow-lg: 0 12px 40px rgba(var(--shadow-rgb), 0.12);
+  --lc-shadow-composer: 0 12px 40px rgba(var(--shadow-rgb), 0.08);
+
+  /* Surfaces — dashboard-like white sidebar on gray-50 page */
+  --lc-sidebar-bg: var(--card);
+  --lc-main-bg: var(--paper-2);
+  --lc-surface: var(--card);
+
+  /* Sidebar dimensions */
+  --lc-sidebar-w: 280px;
+
+  /* Motion */
+  --lc-ease: cubic-bezier(0.32, 0.72, 0, 1);
+  --lc-dur: 0.28s;
+  --lc-dur-fast: 0.15s;
+}
+
+/* ─── Shell layout ───────────────────────────────────────────────── */
+.learning-shell {
+  position: relative;
+  display: flex;
+  width: 100%;
+  min-width: 0;
+  flex: 1;
+  min-height: 0;
+  height: 100%;
+  background: var(--lc-main-bg);
+  color: var(--ink);
+  overflow: hidden;
+}
+
+/* Shared focus treatment for every interactive element in the shell.
+ * The search field and composer card surface their own focus ring on the
+ * whole field box (via :focus-within), so their inner inputs opt out here. */
+.learning-shell :is(button, input, textarea, a):focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+.learning-shell textarea:focus-visible,
+.learning-shell input:focus-visible {
+  outline-offset: 0;
+}
+.learning-shell .learning-panel__search input:focus,
+
+.learning-shell .learning-panel__search input:focus-visible,
+
+.learning-shell .learning-composer__textarea:focus,
+
+.learning-shell .learning-composer__textarea:focus-visible {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.learning-shell__sidebar {
+  width: var(--lc-sidebar-w);
+  flex-shrink: 0;
+  height: 100%;
+  background: var(--lc-sidebar-bg);
+  border-right: 1px solid var(--line-soft);
+  overflow: hidden;
+  display: flex;
+  transition:
+    width var(--lc-dur) var(--lc-ease),
+    border-color var(--lc-dur) var(--lc-ease);
+}
+
+/* Desktop collapse: slide the whole column away, keep inner width stable
+   so content never squishes mid-animation. */
+.learning-shell__sidebar.is-collapsed {
+  width: 0;
+  border-right-color: transparent;
+}
+.learning-shell__sidebar > .learning-sidebar {
+  width: var(--lc-sidebar-w);
+  flex-shrink: 0;
+}
+.learning-shell__sidebar.is-collapsed > .learning-sidebar {
+  opacity: 0;
+  pointer-events: none;
+}
+.learning-shell__sidebar > .learning-sidebar {
+  transition: opacity var(--lc-dur-fast) ease;
+}
+
+.learning-shell__main {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+  position: relative;
+}
+
+/* Icon buttons shared by header controls. */
+.learning-shell__icon-btn {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  width: 36px;
+  height: 36px;
+  border-radius: var(--lc-radius-sm);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition:
+    background var(--lc-dur-fast) ease,
+    color var(--lc-dur-fast) ease;
+}
+.learning-shell__icon-btn:hover {
+  background: var(--hover);
+  color: var(--ink);
+}
+.learning-shell__icon-btn:active {
+  transform: scale(0.96);
+}
+
+/* Desktop-only collapse toggle / mobile-only drawer toggle. */
+
+.learning-shell__backdrop {
+  display: none;
+}
+
+/* ─── Sidebar ────────────────────────────────────────────────────── */
+.learning-sidebar {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+}
+
+/* Search */
+
+.learning-sidebar__search-clear {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  padding: 2px;
+  border-radius: 4px;
+  display: inline-flex;
+  transition: color var(--lc-dur-fast) ease;
+}
+.learning-sidebar__search-clear:hover {
+  color: var(--ink);
+}
+
+/* Loading skeletons */
+.learning-sidebar__skeletons {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding-top: 8px;
+}
+.learning-convo-skel {
+  height: 46px;
+  border-radius: var(--lc-radius-sm);
+  background: rgba(var(--ink-rgb), 0.05);
+  position: relative;
+  overflow: hidden;
+}
+.learning-convo-skel::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.45),
+    transparent
+  );
+  animation: learning-shimmer 1.4s ease infinite;
+}
+
+/* Empty / no-results states */
+.learning-sidebar__empty {
+  padding: 32px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  text-align: center;
+  color: var(--muted);
+  animation: learning-fade-in 0.25s ease-out;
+}
+.learning-sidebar__empty-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: var(--lc-radius);
+  background: rgba(var(--ink-rgb), 0.05);
+  color: var(--muted-2);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 4px;
+}
+.learning-sidebar__empty-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink);
+}
+.learning-sidebar__empty-sub {
+  font-size: 12px;
+  line-height: 1.5;
+  max-width: 200px;
+  overflow-wrap: anywhere;
+}
+
+/* ─── Conversation card ──────────────────────────────────────────── */
+.learning-convo {
+  position: relative;
+  display: flex;
+  align-items: center;
+  border-radius: 0 var(--lc-radius) var(--lc-radius) 0;
+  border-left: 3px solid transparent;
+  transition:
+    background var(--lc-dur-fast) ease,
+    border-color var(--lc-dur-fast) ease,
+    color var(--lc-dur-fast) ease;
+}
+.learning-convo:hover {
+  background: var(--paper-2);
+  color: var(--accent);
+}
+.learning-convo.is-active {
+  background: var(--accent-soft);
+  border-left-color: var(--accent);
+  color: var(--accent);
+}
+.learning-convo.is-active .learning-convo__title-text {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.learning-convo__main {
+  flex: 1;
+  min-width: 0;
+  appearance: none;
+  border: 0;
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
+  padding: 8px 4px 8px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font: inherit;
+  color: var(--ink);
+  border-radius: inherit;
+}
+
+.learning-convo__title {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+}
+.learning-convo__pin {
+  color: var(--accent);
+  flex-shrink: 0;
+}
+.learning-convo__title-text {
+  font-size: 13.5px;
+  font-weight: 500;
+  color: var(--ink);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0;
+}
+
+.learning-convo__meta {
+  font-size: 11px;
+  color: var(--muted-2);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Three-dot menu trigger — revealed on hover / focus / open menu */
+.learning-convo__menu-btn {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  width: 28px;
+  height: 28px;
+  margin-right: 6px;
+  border-radius: 6px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  opacity: 0;
+  transition:
+    opacity var(--lc-dur-fast) ease,
+    background var(--lc-dur-fast) ease,
+    color var(--lc-dur-fast) ease;
+}
+.learning-convo:hover .learning-convo__menu-btn,
+.learning-convo:focus-within .learning-convo__menu-btn,
+.learning-convo.is-active .learning-convo__menu-btn,
+.learning-convo[data-menu-open='true'] .learning-convo__menu-btn {
+  opacity: 1;
+}
+.learning-convo__menu-btn:hover {
+  background: rgba(var(--ink-rgb), 0.07);
+  color: var(--ink);
+}
+@media (hover: none) {
+  .learning-convo__menu-btn {
+    opacity: 1;
+  }
+}
+
+/* Inline rename */
+.learning-convo__rename {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 6px 8px;
+}
+.learning-convo__rename input {
+  flex: 1;
+  min-width: 0;
+  border: 1px solid var(--line-soft);
+  border-radius: 6px;
+  padding: 5px 8px;
+  font: inherit;
+  font-size: 13px;
+  background: var(--lc-surface);
+  color: var(--ink);
+  outline: none;
+}
+.learning-convo__rename button {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.learning-convo__rename button:hover {
+  background: rgba(var(--ink-rgb), 0.07);
+  color: var(--ink);
+}
+
+/* ─── Messages / workspace ───────────────────────────────────────── */
+.learning-messages {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: clip;
+  position: relative;
+  scroll-behavior: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(var(--ink-rgb), 0.16) transparent;
+}
+
+.learning-messages__inner {
+  max-width: 800px;
+  min-height: 100%;
+  margin: 0 auto;
+  padding: 12px clamp(16px, 4vw, 32px) 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+  position: relative;
+}
+
+.learning-msg {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  animation: learning-fade-in 0.25s var(--lc-ease, ease-out);
+}
+
+.learning-msg[data-role='user'] {
+  flex-direction: row-reverse;
+}
+
+.learning-msg__avatar {
+  width: 30px;
+  height: 30px;
+  border-radius: var(--lc-radius-sm);
+  flex-shrink: 0;
+  margin-top: 2px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.learning-msg__avatar[data-role='assistant'],
+.learning-msg__avatar[data-role='system'] {
+  background: transparent;
+  color: #18191c;
+  border: 0;
+}
+
+.learning-msg__body {
+  min-width: 0;
+  flex: 1;
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--ink);
+}
+.learning-msg[data-role='user'] .learning-msg__body {
+  flex: 0 1 auto;
+  max-width: 76%;
+}
+
+.learning-msg__user-text {
+  background: var(--accent-soft);
+  border: 1px solid var(--accent-soft-2);
+  border-radius: var(--lc-radius-lg) var(--lc-radius-lg) 4px var(--lc-radius-lg);
+  padding: 11px 16px;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  color: var(--ink);
+}
+
+/* ─── Per-message action bar (copy / regenerate / edit) ──────────────
+ * A fixed-height footer under every message so the hover reveal never
+ * shifts the layout. Always visible on the newest exchange (.is-visible)
+ * and on touch devices; revealed on hover/focus elsewhere. */
+.learning-msg__footer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 26px;
+  margin-top: 4px;
+  opacity: 0;
+  transition: opacity var(--lc-dur-fast) ease;
+}
+.learning-msg[data-role='user'] .learning-msg__footer {
+  justify-content: flex-end;
+}
+.learning-msg:hover .learning-msg__footer,
+.learning-msg__footer.is-visible,
+.learning-msg__footer:focus-within {
+  opacity: 1;
+}
+@media (hover: none) {
+  .learning-msg__footer {
+    opacity: 1;
+  }
+}
+
+.learning-msg__actions {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.learning-msg__action {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  color: var(--muted-2);
+  width: 26px;
+  height: 26px;
+  border-radius: 6px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition:
+    background var(--lc-dur-fast) ease,
+    color var(--lc-dur-fast) ease;
+}
+.learning-msg__action:hover {
+  background: var(--hover);
+  color: var(--ink);
+}
+.learning-msg__action:active {
+  transform: scale(0.94);
+}
+
+/* Streaming cursor + thinking dots */
+
+.learning-msg__thinking {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: var(--muted);
+  font-size: 14px;
+}
+.learning-msg__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--muted-2);
+  animation: learning-bounce 1.2s infinite ease-in-out;
+}
+.learning-msg__dot:nth-child(2) {
+  animation-delay: 0.15s;
+}
+.learning-msg__dot:nth-child(3) {
+  animation-delay: 0.3s;
+}
+.learning-msg__thinking-label {
+  margin-left: 4px;
+  font-size: 13px;
+}
+
+/* Floating scroll-to-latest button */
+.learning-messages__scroll-btn {
+  position: sticky;
+  bottom: 12px;
+  align-self: center;
+  appearance: none;
+  border: 1px solid var(--line-soft);
+  background: var(--lc-surface);
+  color: var(--ink);
+  width: 38px;
+  height: 38px;
+  border-radius: var(--lc-radius-pill);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--lc-shadow-lg);
+  z-index: 5;
+  animation: learning-fade-in 0.18s ease-out;
+  transition:
+    transform var(--lc-dur-fast) ease,
+    box-shadow var(--lc-dur-fast) ease;
+}
+.learning-messages__scroll-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 44px -12px rgba(var(--shadow-rgb), 0.24);
+}
+
+/* ─── Transcript skeleton (chat switch) ──────────────────────────── */
+.learning-msgs-skel {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  padding-top: 12px;
+}
+.learning-skel {
+  position: relative;
+  overflow: hidden;
+  background: rgba(var(--ink-rgb), 0.06);
+  border-radius: 8px;
+}
+.learning-skel::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.45),
+    transparent
+  );
+  animation: learning-shimmer 1.4s ease infinite;
+}
+.learning-msgs-skel__user {
+  height: 40px;
+  align-self: flex-end;
+  border-radius: var(--lc-radius-lg) var(--lc-radius-lg) 4px var(--lc-radius-lg);
+}
+.learning-msgs-skel__group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-left: 44px;
+}
+.learning-msgs-skel__line {
+  height: 14px;
+}
+
+/* ─── Centered New Chat Landing (ChatGPT & Gemini style) ──────────── */
+.learning-shell__main.is-empty-landing {
+  justify-content: flex-start;
+}
+.learning-shell__main.is-empty-landing .learning-messages {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  overflow: visible;
+  padding-top: clamp(32px, 10vh, 96px);
+  padding-bottom: 0;
+}
+.learning-shell__main.is-empty-landing .learning-empty {
+  flex: 0 0 auto;
+  padding: 0 16px 20px;
+}
+.learning-shell__main.is-empty-landing .learning-composer {
+  flex: 0 0 auto;
+  padding-top: 4px;
+  padding-bottom: 32px;
+  background: transparent;
+  width: 100%;
+  max-width: 832px;
+  margin: 0 auto;
+}
+
+/* ─── Empty workspace ────────────────────────────────────────────── */
+.learning-empty {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: clamp(24px, 6vh, 64px) 8px clamp(16px, 4vh, 40px);
+  gap: clamp(24px, 4vh, 40px);
+  animation: learning-fade-in 0.35s var(--lc-ease);
+}
+
+.learning-empty__hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+
+.learning-empty__title {
+  font-size: clamp(24px, 3.5vw, 32px);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  margin: 0;
+  color: var(--ink);
+}
+.learning-empty__title .italic {
+  font-style: normal;
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.learning-empty__sub {
+  margin: 0;
+  max-width: 480px;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+/* ─── Markdown body (learning-md) ────────────────────────────────── */
+.learning-md {
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--ink);
+  word-wrap: break-word;
+}
+.learning-md > *:first-child {
+  margin-top: 0;
+}
+.learning-md > *:last-child {
+  margin-bottom: 0;
+}
+.learning-md p {
+  margin: 0 0 12px;
+}
+.learning-md h1,
+.learning-md h2,
+.learning-md h3,
+.learning-md h4 {
+  margin: 18px 0 10px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1.3;
+}
+.learning-md h1 {
+  font-size: 22px;
+}
+.learning-md h2 {
+  font-size: 19px;
+}
+.learning-md h3 {
+  font-size: 16px;
+}
+.learning-md ul,
+.learning-md ol {
+  margin: 0 0 12px;
+  padding-left: 22px;
+}
+.learning-md li {
+  margin: 3px 0;
+}
+.learning-md blockquote {
+  margin: 0 0 12px;
+  padding: 4px 14px;
+  border-left: 3px solid var(--line-soft);
+  color: var(--muted);
+}
+.learning-md a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.learning-md hr {
+  border: 0;
+  border-top: 1px solid var(--line-soft);
+  margin: 16px 0;
+}
+.learning-md__inline-code {
+  font-family: var(--font-mono, ui-monospace, SFMono-Regular, Menlo, monospace);
+  font-size: 0.88em;
+  background: var(--paper-2);
+  border: 1px solid var(--line-softer);
+  border-radius: 5px;
+  padding: 1px 5px;
+}
+/* KaTeX (math) — keep display equations scrollable, never overflowing */
+.learning-md .katex-display {
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 4px 2px;
+  margin: 0 0 12px;
+}
+.learning-md .katex {
+  font-size: 1.05em;
+}
+
+.learning-md__table-wrap {
+  overflow-x: auto;
+  margin: 0 0 12px;
+  border: 1px solid var(--line-soft);
+  border-radius: var(--lc-radius-sm);
+}
+.learning-md table {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 13.5px;
+}
+.learning-md th,
+.learning-md td {
+  border: 1px solid var(--line-soft);
+  padding: 7px 10px;
+  text-align: left;
+}
+.learning-md th {
+  background: var(--hover);
+  font-weight: 600;
+}
+
+/* ─── Code block ─────────────────────────────────────────────────── */
+.learning-codeblock {
+  margin: 0 0 14px;
+  border: 1px solid var(--line-soft);
+  border-radius: var(--lc-radius);
+  overflow: hidden;
+  background: var(--lc-surface);
+  box-shadow: var(--lc-shadow-sm);
+}
+.learning-codeblock__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 10px 6px 14px;
+  background: var(--hover);
+  border-bottom: 1px solid var(--line-soft);
+}
+.learning-codeblock__lang {
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.learning-codeblock__copy {
+  appearance: none;
+  border: 1px solid var(--line-soft);
+  background: var(--lc-surface);
+  color: var(--muted);
+  padding: 3px 9px;
+  border-radius: 6px;
+  font: inherit;
+  font-size: 11.5px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  transition:
+    color var(--lc-dur-fast) ease,
+    border-color var(--lc-dur-fast) ease;
+}
+.learning-codeblock__copy:hover {
+  color: var(--ink);
+  border-color: rgba(var(--ink-rgb), 0.3);
+}
+.learning-codeblock__pre {
+  margin: 0;
+  padding: 14px 16px;
+  overflow-x: auto;
+  font-family: var(--font-mono, ui-monospace, SFMono-Regular, Menlo, monospace);
+  font-size: 13px;
+  line-height: 1.6;
+  background: var(--lc-surface);
+  color: var(--ink);
+}
+.learning-codeblock__pre code {
+  font-family: inherit;
+  background: transparent;
+  padding: 0;
+}
+
+/* ─── Composer ───────────────────────────────────────────────────── */
+.learning-composer {
+  flex-shrink: 0;
+  background: linear-gradient(
+    to top,
+    var(--lc-main-bg) 70%,
+    transparent
+  );
+  padding: 8px clamp(16px, 4vw, 32px)
+    calc(12px + env(safe-area-inset-bottom, 0px));
+  position: relative;
+  z-index: 10;
+}
+
+.learning-composer__frame {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* Floating input card */
+.learning-composer__card {
+  display: flex;
+  flex-direction: column;
+  background: var(--lc-surface);
+  border: 1px solid var(--line-soft);
+  border-radius: var(--lc-radius-xl);
+  padding: 12px 12px 10px 16px;
+  box-shadow: var(--lc-shadow-composer);
+  transition:
+    border-color var(--lc-dur-fast) ease,
+    box-shadow var(--lc-dur-fast) ease;
+}
+.learning-composer__card:focus-within {
+  border-color: var(--accent, #0a65cc);
+  box-shadow: var(--lc-shadow-composer);
+  outline: none;
+}
+
+/* While the AI is generating: soft accent pulse on the card border */
+.learning-composer__card[data-generating='true'] {
+  border-color: color-mix(in srgb, var(--accent) 40%, transparent);
+  animation: learning-generating 2s ease-in-out infinite;
+}
+
+.learning-composer__textarea:disabled {
+  color: var(--muted-2);
+  cursor: wait;
+}
+
+.learning-composer__textarea {
+  width: 100%;
+  min-width: 0;
+  border: 0;
+  outline: none;
+  background: transparent;
+  font: inherit;
+  font-size: 15px;
+  font-weight: 400;
+  color: var(--ink);
+  resize: none;
+  padding: 4px 6px 8px 0;
+  max-height: 200px;
+  line-height: 1.55;
+}
+.learning-composer__textarea::placeholder {
+  color: var(--muted-2);
+  font-style: normal;
+}
+.learning-composer__textarea:focus-visible {
+  outline: none;
+}
+
+/* Bottom row inside the card: tools left, actions right */
+.learning-composer__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 2px;
+}
+
+.learning-composer__tools {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+  flex-wrap: wrap;
+}
+
+.learning-composer__actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+/* Utility buttons (attach / image / voice) */
+.learning-composer__util {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  width: 34px;
+  height: 34px;
+  border-radius: var(--lc-radius);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition:
+    background var(--lc-dur-fast) ease,
+    color var(--lc-dur-fast) ease;
+}
+.learning-composer__util:hover {
+  background: var(--hover);
+  color: var(--ink);
+}
+.learning-composer__util:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+.learning-composer__util:disabled:hover {
+  background: transparent;
+  color: var(--muted-2);
+}
+
+.learning-composer__send,
+.learning-composer__stop {
+  appearance: none;
+  border: 0;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--lc-radius);
+  flex-shrink: 0;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition:
+    background var(--lc-dur-fast) ease,
+    transform var(--lc-dur-fast) ease,
+    opacity var(--lc-dur-fast) ease;
+}
+.learning-composer__send {
+  background: var(--accent);
+  color: #fff;
+}
+.learning-composer__send:hover:not(:disabled) {
+  background: var(--accent-hover);
+}
+.learning-composer__send:active:not(:disabled) {
+  transform: scale(0.96);
+}
+.learning-composer__send:disabled {
+  background: var(--chip);
+  color: var(--muted-2);
+  cursor: not-allowed;
+}
+.learning-composer__stop {
+  background: var(--danger);
+  color: #fff;
+}
+.learning-composer__stop:hover {
+  background: color-mix(in srgb, var(--danger) 85%, #000);
+}
+
+.learning-composer__hint {
+  margin: 8px 0 0;
+  text-align: center;
+  font-size: 10.5px;
+  letter-spacing: 0.04em;
+  color: var(--muted-2);
+}
+
+/* ─── Mode selector ────────────────────────────────────────────────
+ * Popover-pill control mirroring the model selector: a compact pill shows
+ * the active mode, opening a popover with the full option list. */
+.learning-mode-selector {
+  position: relative;
+  display: inline-flex;
+}
+.learning-mode-selector__trigger {
+  appearance: none;
+  border: 1px solid var(--line-soft);
+  background: var(--paper);
+  color: var(--ink);
+  padding: 6px 10px;
+  border-radius: var(--lc-radius);
+  font: inherit;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  max-width: 200px;
+  transition:
+    background var(--lc-dur-fast) ease,
+    border-color var(--lc-dur-fast) ease,
+    color var(--lc-dur-fast) ease;
+}
+.learning-mode-selector__trigger:hover:not(:disabled) {
+  border-color: var(--accent-soft-2);
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+.learning-mode-selector__trigger:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+.learning-mode-selector__label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.learning-mode-selector__trigger svg {
+  transition: transform var(--lc-dur-fast) ease;
+}
+.learning-mode-selector__trigger svg[data-open='true'] {
+  transform: rotate(180deg);
+}
+.learning-mode-selector__menu {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 0;
+  width: 240px;
+  max-width: calc(100vw - 32px);
+  background: var(--lc-surface);
+  border: 1px solid var(--line-soft);
+  border-radius: var(--lc-radius);
+  box-shadow: var(--lc-shadow-lg);
+  z-index: 40;
+  padding: 4px;
+  animation: learning-pop-in 0.16s var(--lc-ease);
+}
+.learning-mode-selector__option {
+  width: 100%;
+  appearance: none;
+  border: 0;
+  background: transparent;
+  color: var(--ink);
+  padding: 7px 10px;
+  border-radius: var(--lc-radius-sm);
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: background var(--lc-dur-fast) ease;
+}
+.learning-mode-selector__option:hover {
+  background: var(--accent-soft);
+}
+.learning-mode-selector__option[data-active='true'] {
+  color: var(--accent);
+  background: var(--accent-soft);
+}
+.learning-mode-selector__option-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--muted);
+}
+.learning-mode-selector__option[data-active='true'] .learning-mode-selector__option-icon {
+  color: var(--accent);
+}
+.learning-mode-selector__option-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
+  flex: 1;
+}
+.learning-mode-selector__option-label {
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.learning-mode-selector__option-desc {
+  font-size: 11px;
+  color: var(--muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ─── Model selector ─────────────────────────────────────────────── */
+.learning-model-selector {
+  position: relative;
+  display: inline-flex;
+}
+.learning-model-selector__trigger {
+  appearance: none;
+  border: 1px solid var(--line-soft);
+  background: var(--paper);
+  color: var(--ink);
+  padding: 6px 10px;
+  border-radius: var(--lc-radius);
+  font: inherit;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  max-width: 220px;
+  transition:
+    background var(--lc-dur-fast) ease,
+    border-color var(--lc-dur-fast) ease,
+    color var(--lc-dur-fast) ease;
+}
+.learning-model-selector__trigger:hover:not(:disabled) {
+  border-color: var(--accent-soft-2);
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+.learning-model-selector__trigger:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+.learning-model-selector__label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.learning-model-selector__trigger svg {
+  transition: transform var(--lc-dur-fast) ease;
+}
+.learning-model-selector__trigger svg[data-open='true'] {
+  transform: rotate(180deg);
+}
+.learning-model-selector__menu {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 0;
+  width: 296px;
+  max-width: calc(100vw - 32px);
+  background: var(--lc-surface);
+  border: 1px solid var(--line-soft);
+  border-radius: var(--lc-radius);
+  box-shadow: var(--lc-shadow-lg);
+  z-index: 40;
+  max-height: 340px;
+  overflow-y: auto;
+  padding: 4px;
+  animation: learning-pop-in 0.16s var(--lc-ease);
+  scrollbar-width: thin;
+  scrollbar-color: rgba(var(--ink-rgb), 0.16) transparent;
+}
+
+.learning-model-selector__group + .learning-model-selector__group {
+  margin-top: 2px;
+  padding-top: 2px;
+  border-top: 1px solid var(--line-softer);
+}
+
+.learning-model-selector__group-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 10px 4px;
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted-2);
+}
+
+.learning-model-selector__option {
+  width: 100%;
+  appearance: none;
+  border: 0;
+  background: transparent;
+  color: var(--ink);
+  padding: 7px 10px;
+  border-radius: var(--lc-radius-sm);
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  transition: background var(--lc-dur-fast) ease;
+}
+.learning-model-selector__option:hover:not(:disabled) {
+  background: var(--accent-soft);
+}
+.learning-model-selector__option[data-active='true'] {
+  color: var(--accent);
+  font-weight: 600;
+  background: var(--accent-soft);
+}
+.learning-model-selector__option:disabled {
+  cursor: default;
+}
+.learning-model-selector__option:disabled .learning-model-selector__option-label,
+.learning-model-selector__option:disabled .learning-model-selector__option-desc {
+  color: var(--muted-2);
+}
+
+.learning-model-selector__option-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
+}
+.learning-model-selector__option-label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.learning-model-selector__option-desc {
+  font-size: 11px;
+  color: var(--muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.learning-model-selector__free-badge {
+  display: inline-block;
+  margin-left: 6px;
+  font-size: 10px;
+  font-weight: 600;
+  padding: 1px 6px;
+  border-radius: 999px;
+  background: rgba(var(--accent-rgb, 16, 185, 129), 0.12);
+  color: var(--accent);
+}
+
+.learning-model-selector__option[data-locked='true'] {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+/* ─── Conversation actions menu ──────────────────────────────────────
+ * Rendered via portal into <body> (escapes the sidebar's overflow and the
+ * mobile drawer's transform), so it only relies on :root tokens. */
+.learning-convo-menu {
+  position: fixed;
+  width: 196px;
+  background: var(--card, #fff);
+  border: 1px solid var(--line-soft, rgba(var(--ink-rgb), 0.1));
+  border-radius: 12px;
+  box-shadow: 0 12px 40px -12px rgba(var(--shadow-rgb), 0.28);
+  padding: 4px;
+  z-index: 80;
+  animation: learning-menu-fade 0.14s ease;
+}
+
+.learning-convo-menu__item {
+  width: 100%;
+  appearance: none;
+  border: 0;
+  background: transparent;
+  color: var(--ink, #0d0d0c);
+  padding: 8px 10px;
+  border-radius: 8px;
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: background 0.12s ease;
+}
+.learning-convo-menu__item:hover {
+  background: var(--hover, rgba(var(--ink-rgb), 0.05));
+}
+.learning-convo-menu__item:focus-visible {
+  outline: 2px solid var(--accent, #0a65cc);
+  outline-offset: -2px;
+}
+.learning-convo-menu__item svg {
+  color: var(--muted, rgba(var(--ink-rgb), 0.55));
+  flex-shrink: 0;
+}
+
+.learning-convo-menu__item--danger {
+  color: var(--danger);
+}
+.learning-convo-menu__item--danger svg {
+  color: inherit;
+}
+.learning-convo-menu__item--danger:hover {
+  background: rgba(var(--danger-rgb), 0.08);
+}
+
+.learning-convo-menu__divider {
+  height: 1px;
+  background: var(--line-soft, rgba(var(--ink-rgb), 0.1));
+  margin: 4px 6px;
+}
+
+/* ─── Animations ─────────────────────────────────────────────────── */
+@keyframes learning-menu-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes learning-shimmer {
+  to {
+    transform: translateX(100%);
+  }
+}
+@keyframes learning-generating {
+  0%,
+  100% {
+    border-color: rgba(var(--accent-rgb), 0.4);
+  }
+  50% {
+    border-color: rgba(var(--accent-rgb), 0.15);
+  }
+}
+@keyframes learning-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes learning-pop-in {
+  from {
+    opacity: 0;
+    transform: translateY(4px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+@keyframes learning-blink {
+  to {
+    visibility: hidden;
+  }
+}
+@keyframes learning-bounce {
+  0%,
+  80%,
+  100% {
+    transform: scale(0.6);
+    opacity: 0.5;
+  }
+  40% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .learning-shell *,
+  .learning-shell *::before,
+  .learning-shell *::after,
+  .learning-convo-menu,
+  .learning-convo-menu * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ─── Responsive: tablet ─────────────────────────────────────────── */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .learning-shell {
+    --lc-sidebar-w: 252px;
+  }
+}
+
+/* ─── Responsive: mobile ─────────────────────────────────────────── */
+@media (max-width: 767px) {
+  /* Swap toggles: drawer button in the header, no desktop collapse. */
+
+  .learning-shell__sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: min(85vw, 320px);
+    z-index: 55;
+    transform: translateX(-100%);
+    transition: transform var(--lc-dur) var(--lc-ease);
+    background: var(--lc-sidebar-bg);
+    box-shadow: none;
+    border-right: 1px solid var(--line-soft);
+  }
+  .learning-shell__sidebar.is-collapsed {
+    width: min(85vw, 320px);
+  }
+  .learning-shell__sidebar.is-collapsed > .learning-sidebar {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .learning-shell__sidebar > .learning-sidebar {
+    width: 100%;
+  }
+  .learning-shell__sidebar.is-open {
+    transform: translateX(0);
+    box-shadow: 0 0 48px rgba(0, 0, 0, 0.3);
+  }
+
+  .learning-shell__backdrop {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background: rgba(var(--ink-rgb), 0.45);
+    z-index: 50;
+    animation: learning-backdrop-in 0.2s ease;
+  }
+
+  .learning-messages__inner {
+    padding: 8px 16px 16px;
+    gap: 20px;
+  }
+
+  .learning-msg[data-role='user'] .learning-msg__body {
+    max-width: 86%;
+  }
+
+  .learning-empty {
+    padding-top: 16px;
+  }
+
+  .learning-composer {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+  .learning-composer__card {
+    border-radius: var(--lc-radius-lg);
+    padding: 10px 10px 8px 14px;
+  }
+  .learning-composer__hint {
+    display: none;
+  }
+}
+
+/* Very narrow phones: selectors collapse to icons (hints via title) */
+@media (max-width: 379px) {
+  .learning-mode-selector__label,
+  .learning-model-selector__label {
+    display: none;
+  }
+}
+
+@keyframes learning-backdrop-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Modal overlays inside options */
+
+.user-modal__btn-secondary {
+  appearance: none;
+  border: 1px solid var(--line-soft);
+  background: transparent;
+  color: var(--ink);
+  font-weight: 500;
+  font-size: 13.5px;
+  padding: 8px 16px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+/* ─── Base (both themes) ─────────────────────────────────────────── */
+.learning-md .hljs {
+  color: var(--ink);
+  background: transparent;
+}
+
+.learning-md .hljs-comment,
+.learning-md .hljs-quote {
+  color: var(--muted);
+  font-style: italic;
+}
+
+.learning-md .hljs-emphasis {
+  font-style: italic;
+}
+
+.learning-md .hljs-strong {
+  font-weight: 700;
+}
+
+/* ─── Light palette (default) ────────────────────────────────────── */
+.learning-md .hljs-keyword,
+.learning-md .hljs-selector-tag,
+.learning-md .hljs-built_in,
+.learning-md .hljs-name,
+.learning-md .hljs-tag {
+  color: #b3306f;
+}
+
+.learning-md .hljs-string,
+.learning-md .hljs-title,
+.learning-md .hljs-section,
+.learning-md .hljs-attribute,
+.learning-md .hljs-literal,
+.learning-md .hljs-template-tag,
+.learning-md .hljs-template-variable,
+.learning-md .hljs-type,
+.learning-md .hljs-addition {
+  color: #0a7a3b;
+}
+
+.learning-md .hljs-number,
+.learning-md .hljs-symbol,
+.learning-md .hljs-bullet,
+.learning-md .hljs-link,
+.learning-md .hljs-meta,
+.learning-md .hljs-selector-id,
+.learning-md .hljs-selector-class {
+  color: #b06a1f;
+}
+
+.learning-md .hljs-attr,
+.learning-md .hljs-variable,
+.learning-md .hljs-property,
+.learning-md .hljs-params {
+  color: #0a65cc;
+}
+
+.learning-md .hljs-function .hljs-title,
+.learning-md .hljs-title.function_ {
+  color: #7c3aed;
+}
+
+.learning-md .hljs-deletion {
+  color: #dc2626;
+}
+
+/*
+ * Learning Chat — Jobpilot tone (sharp corners, Chakri blues).
+ */
+
+.learning-shell {
+  --lc-radius-sm: 4px;
+  --lc-radius: 6px;
+  --lc-radius-lg: 8px;
+  --lc-radius-xl: 8px;
+  --lc-radius-pill: 4px;
+  --lc-shadow-sm: 0 1px 2px rgba(var(--shadow-rgb), 0.04);
+  --lc-shadow-md: var(--saas-shadow);
+  --lc-shadow-lg: var(--saas-composer-shadow);
+  --lc-shadow-composer: var(--saas-composer-shadow);
+  --lc-sidebar-bg: transparent;
+  --lc-main-bg: transparent;
+  --lc-surface: var(--card);
+  --lc-sidebar-w: 260px;
+  --lc-rail-w: 0px;
+  --lc-ease: cubic-bezier(0.32, 0.72, 0, 1);
+  --lc-dur: 0.28s;
+  --lc-dur-fast: 0.15s;
+
+  gap: 0;
+  padding: 0;
+  background: var(--paper);
+}
+
+.learning-shell__sidebar {
+  width: var(--lc-sidebar-w);
+  border-right: 1px solid var(--line-soft);
+  background: #fff;
+  margin-right: 0;
+  overflow: visible;
+}
+.learning-shell__sidebar.is-collapsed {
+  width: 0;
+  border-right-color: transparent;
+}
+.learning-shell__sidebar > .learning-sidebar {
+  width: var(--lc-sidebar-w);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  overflow: hidden;
+}
+
+.learning-panel {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  border: 0;
+  border-radius: 0;
+  overflow: hidden;
+}
+[data-theme='dark'] .learning-panel {
+  background: var(--card);
+}
+
+.learning-panel__toolbar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 14px 0 12px;
+}
+
+.learning-panel__search {
+  flex: 1;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  border-radius: 4px;
+  background: #f7f8f9;
+  border: 1px solid var(--line-soft, #e4e5e8);
+  color: #9199a3;
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+.learning-panel__search:focus-within {
+  background: #fff;
+  border-color: #0a65cc;
+  box-shadow: none;
+  outline: none;
+}
+[data-theme='dark'] .learning-panel__search:focus-within {
+  background: #0f172a;
+  border-color: #38bdf8;
+}
+.learning-panel__search input {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  outline: none;
+  background: transparent;
+  font-size: 13px;
+  color: var(--ink);
+}
+.learning-panel__search input::placeholder {
+  color: #9199a3;
+}
+
+.learning-panel__body {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 8px 10px 16px;
+  scrollbar-width: thin;
+}
+
+.learning-panel__new-chat {
+  appearance: none;
+  width: 100%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin: 4px 0 6px;
+  padding: 9px 12px;
+  border: 1px solid #0a65cc;
+  border-radius: 4px;
+  background: #0a65cc;
+  color: #fff;
+  font-size: 13.5px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+.learning-panel__new-chat:hover {
+  background: #094e9f;
+  border-color: #094e9f;
+}
+.learning-panel__new-chat:active {
+  transform: translateY(0.5px);
+}
+
+.learning-panel__section {
+  margin-top: 10px;
+}
+.learning-panel__section-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 8px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #9199a3;
+}
+.learning-panel__section-head button {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  color: #9199a3;
+  width: 22px;
+  height: 22px;
+  border-radius: 4px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.learning-panel__section-head button:hover {
+  background: #e7f0fa;
+  color: #0a65cc;
+}
+
+.learning-panel .learning-convo {
+  border-radius: 4px;
+  border-left: 0;
+}
+.learning-panel .learning-convo::before { display: none; }
+.learning-panel .learning-convo:hover {
+  background: #f7f8f9;
+  color: #0a65cc;
+}
+.learning-panel .learning-convo.is-active {
+  background: #e7f0fa;
+  color: #0a65cc;
+}
+.learning-panel .learning-convo.is-active .learning-convo__title-text {
+  color: #0a65cc;
+  font-weight: 600;
+}
+.learning-panel .learning-convo__main {
+  padding: 9px 8px 9px 10px;
+}
+.learning-panel .learning-convo__title-text {
+  font-size: 13.5px;
+}
+.learning-panel .learning-convo__meta {
+  display: none;
+}
+
+.learning-shell__main {
+  background: #fff;
+  border: 0;
+  border-radius: 0;
+  overflow: hidden;
+  box-shadow: none;
+  position: relative;
+}
+[data-theme='dark'] .learning-shell__main {
+  background: var(--card);
+}
+
+.learning-shell__floating-toggle {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  z-index: 30;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  border: 1px solid var(--line-soft);
+  background: var(--card, #ffffff);
+  color: var(--muted, #5e6670);
+  cursor: pointer;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+.learning-shell__floating-toggle:hover {
+  background: var(--hover, #f7f8f9);
+  color: var(--accent, #0a65cc);
+  border-color: var(--accent-soft-2, #cee0f5);
+}
+
+.learning-shell__icon-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 4px;
+  color: #5e6670;
+  border: 1px solid var(--line-soft);
+}
+.learning-shell__icon-btn:hover {
+  background: #e7f0fa;
+  color: #0a65cc;
+  border-color: #cee0f5;
+}
+
+.learning-messages {
+  scroll-padding-bottom: 240px;
+}
+
+.learning-messages__inner {
+  max-width: 780px;
+  min-height: 100%;
+  margin: 0 auto;
+  padding: 24px 32px calc(240px + env(safe-area-inset-bottom, 0px));
+  gap: 24px;
+}
+
+.learning-msg {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+}
+
+.learning-msg__avatar[data-role='assistant'],
+.learning-msg__avatar[data-role='system'] {
+  background: #f0f7ff !important;
+  color: #0a65cc !important;
+  border: 1px solid #d0e4ff !important;
+  border-radius: 6px !important;
+  width: 28px !important;
+  height: 28px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  flex-shrink: 0;
+  margin-top: 3px;
+  box-shadow: 0 1px 2px rgba(10, 101, 204, 0.08);
+}
+[data-theme='dark'] .learning-msg__avatar[data-role='assistant'],
+[data-theme='dark'] .learning-msg__avatar[data-role='system'] {
+  background: rgba(10, 101, 204, 0.18) !important;
+  border-color: rgba(56, 189, 248, 0.3) !important;
+  color: #38bdf8 !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.learning-msg__user-text {
+  background: #0a65cc;
+  color: #ffffff;
+  border: 0;
+  border-radius: 12px 12px 2px 12px;
+  padding: 10px 15px;
+  font-size: 15px;
+  line-height: 1.55;
+  box-shadow: 0 1px 3px rgba(10, 101, 204, 0.15);
+  word-break: break-word;
+}
+[data-theme='dark'] .learning-msg__user-text {
+  background: #0284c7;
+  color: #ffffff;
+}
+
+.learning-msg[data-role='assistant'] .learning-msg__body,
+.learning-msg[data-role='system'] .learning-msg__body {
+  background: transparent;
+  border: 0;
+  padding: 0;
+  border-radius: 0;
+  font-size: 15.5px;
+  line-height: 1.75;
+  color: #0f172a;
+}
+[data-theme='dark'] .learning-msg[data-role='assistant'] .learning-msg__body {
+  color: #f1f5f9;
+}
+
+/* Enhanced Markdown styling for crisp, clean readability */
+.learning-md {
+  font-size: 15.5px;
+  line-height: 1.75;
+  color: #0f172a;
+}
+[data-theme='dark'] .learning-md {
+  color: #f1f5f9;
+}
+.learning-md p {
+  margin: 0 0 14px;
+}
+.learning-md p:last-child {
+  margin-bottom: 0;
+}
+.learning-md h1, .learning-md h2, .learning-md h3, .learning-md h4 {
+  color: #0f172a;
+  font-weight: 650;
+  margin: 20px 0 10px;
+  line-height: 1.35;
+}
+[data-theme='dark'] .learning-md h1,
+[data-theme='dark'] .learning-md h2,
+[data-theme='dark'] .learning-md h3,
+[data-theme='dark'] .learning-md h4 {
+  color: #f8fafc;
+}
+.learning-md ul, .learning-md ol {
+  margin: 0 0 14px;
+  padding-left: 24px;
+}
+.learning-md li {
+  margin: 4px 0;
+}
+.learning-md strong {
+  font-weight: 650;
+  color: #0f172a;
+}
+[data-theme='dark'] .learning-md strong {
+  color: #f8fafc;
+}
+.learning-md blockquote {
+  margin: 12px 0 16px;
+  padding: 8px 16px;
+  border-left: 3px solid #0a65cc;
+  background: #f8fafc;
+  border-radius: 0 6px 6px 0;
+  color: #475569;
+  font-style: italic;
+}
+[data-theme='dark'] .learning-md blockquote {
+  background: #1e293b;
+  color: #cbd5e1;
+  border-left-color: #38bdf8;
+}
+
+/* Action Buttons Footer: Sleek, modern ghost icon buttons matching ChatGPT/Claude */
+.learning-msg__footer {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 6px;
+  min-height: 28px;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+
+.learning-msg:hover .learning-msg__footer,
+.learning-msg__footer.is-visible,
+.learning-msg__footer:focus-within {
+  opacity: 1;
+}
+
+@media (hover: none) {
+  .learning-msg__footer {
+    opacity: 1;
+  }
+}
+
+.learning-msg[data-role='user'] .learning-msg__footer {
+  justify-content: flex-end;
+}
+
+.learning-msg[data-role='assistant'] .learning-msg__footer {
+  justify-content: flex-start;
+}
+
+.learning-msg__actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.learning-msg__action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border-radius: 6px;
+  border: 0;
+  background: transparent;
+  color: #64748b;
+  cursor: pointer;
+  box-shadow: none;
+  transition: all 0.15s ease;
+}
+
+.learning-msg__action:hover {
+  background: #f1f5f9;
+  color: #0f172a;
+}
+
+.learning-msg__action:active {
+  transform: scale(0.92);
+}
+
+.learning-msg__action.is-copied {
+  color: #10b981;
+}
+
+[data-theme='dark'] .learning-msg__action {
+  background: transparent;
+  border: 0;
+  color: #94a3b8;
+}
+
+[data-theme='dark'] .learning-msg__action:hover {
+  background: #1e293b;
+  color: #f8fafc;
+}
+
+[data-theme='dark'] .learning-msg__action.is-copied {
+  color: #34d399;
+}
+
+.learning-messages__scroll-btn {
+  position: fixed !important;
+  bottom: calc(160px + env(safe-area-inset-bottom, 0px)) !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  z-index: 25 !important;
+}
+
+.learning-codeblock {
+  border-radius: 6px;
+  border-color: #e4e5e8;
+  background: #f7f8f9;
+}
+
+.learning-empty {
+  gap: 18px;
+}
+.learning-empty__hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+.learning-empty__eyebrow {
+  display: block;
+  margin: 0;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #0a65cc;
+}
+
+.learning-empty__title {
+  font-family: var(--font-sans);
+  font-size: clamp(26px, 3.8vw, 40px);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1.12;
+  color: #18191c;
+  margin: 0;
+  max-width: 820px;
+  text-align: center;
+}
+.learning-empty__title .italic {
+  font-style: normal;
+  background: linear-gradient(100deg, #0a65cc, #3b8aef);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  font-weight: 600;
+}
+.learning-empty__sub {
+  font-size: 14.5px;
+  color: #5e6670;
+  max-width: 520px;
+  line-height: 1.55;
+  margin: 0;
+  text-align: center;
+}
+
+.schematic-diagram {
+  display: block;
+  width: min(640px, 88%);
+  height: 140px;
+  overflow: visible;
+  margin: 4px 0 2px;
+}
+.schematic-diagram .flow-path {
+  fill: none;
+  stroke: #cee0f5;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-dasharray: 100;
+  stroke-dashoffset: 100;
+  animation: schematic-draw 1.8s ease-out 0.15s forwards;
+}
+@keyframes schematic-draw {
+  to { stroke-dashoffset: 0; }
+}
+.schematic-diagram .node-core {
+  fill: #fff;
+  stroke: #0a65cc;
+  stroke-width: 1.8;
+  opacity: 0;
+  transform-origin: center;
+  animation: schematic-node-in 0.5s ease forwards;
+}
+.schematic-diagram .node-dot {
+  fill: #0a65cc;
+  opacity: 0;
+  animation: schematic-node-in 0.5s ease forwards;
+}
+@keyframes schematic-node-in {
+  from { opacity: 0; transform: scale(0.4); }
+  to { opacity: 1; transform: scale(1); }
+}
+.schematic-diagram .node-label {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 9.5px;
+  fill: #9199a3;
+  letter-spacing: 0.06em;
+  opacity: 0;
+  animation: schematic-label-in 0.5s ease forwards;
+}
+@keyframes schematic-label-in {
+  to { opacity: 1; }
+}
+.schematic-diagram .pulse {
+  fill: #3b8aef;
+  filter: url(#schematicGlow);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .schematic-diagram .flow-path,
+  .schematic-diagram .node-core,
+  .schematic-diagram .node-dot,
+  .schematic-diagram .node-label {
+    animation: none !important;
+    opacity: 1;
+    stroke-dashoffset: 0;
+  }
+}
+
+.learning-composer {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 0 24px calc(16px + env(safe-area-inset-bottom, 0px));
+  background: linear-gradient(to top, #fff 55%, rgba(255, 255, 255, 0));
+  z-index: 20;
+  pointer-events: none;
+}
+.learning-composer > * {
+  pointer-events: auto;
+}
+.learning-composer__frame {
+  max-width: 720px;
+}
+.learning-composer__card {
+  border: 1px solid #e4e5e8;
+  border-radius: 6px;
+  background: #fff;
+  padding: 12px 14px 10px;
+  box-shadow: var(--saas-composer-shadow);
+  transition: border-color 0.15s ease;
+}
+.learning-composer__card:focus-within {
+  border-color: #0a65cc;
+  box-shadow: var(--saas-composer-shadow);
+  outline: none;
+}
+[data-theme='dark'] .learning-composer__card:focus-within {
+  border-color: #38bdf8;
+}
+.learning-composer__card[data-generating='true'] {
+  border-color: #0a65cc;
+  animation: none;
+}
+.learning-composer__textarea {
+  font-size: 15px;
+  padding: 4px 6px 10px;
+  min-height: 28px;
+  color: #18191c;
+}
+.learning-composer__textarea::placeholder {
+  color: #9199a3;
+}
+.learning-composer__row {
+  margin-top: 0;
+  padding-top: 2px;
+}
+.learning-composer__tools {
+  gap: 2px;
+}
+.learning-composer__util {
+  width: 32px;
+  height: 32px;
+  border-radius: 4px;
+  color: #5e6670;
+}
+.learning-composer__util:hover {
+  background: #e7f0fa;
+  color: #0a65cc;
+}
+.learning-composer__util[data-active='true'] {
+  background: #e7f0fa;
+  color: #0a65cc;
+}
+.learning-composer__send,
+.learning-composer__stop {
+  width: 32px;
+  height: 32px;
+  border-radius: 4px;
+}
+.learning-composer__send {
+  background: #0a65cc;
+  color: #fff;
+}
+.learning-composer__send:hover:not(:disabled) {
+  background: #094e9f;
+}
+.learning-composer__send:disabled {
+  background: #e4e5e8;
+  color: #9199a3;
+  opacity: 1;
+}
+.learning-composer__hint {
+  margin-top: 10px;
+  font-size: 12px;
+  color: #9199a3;
+  letter-spacing: 0;
+  font-family: var(--font-sans);
+}
+
+.learning-mode-selector__trigger,
+.learning-model-selector__trigger {
+  border: 1px solid var(--line-soft);
+  background: #fff;
+  color: #5e6670;
+  border-radius: 4px;
+  padding: 5px 8px;
+  font-size: 12px;
+  font-weight: 500;
+}
+.learning-mode-selector__trigger:hover:not(:disabled),
+.learning-model-selector__trigger:hover:not(:disabled) {
+  background: #e7f0fa;
+  border-color: #cee0f5;
+  color: #0a65cc;
+}
+.learning-mode-selector__option[data-active='true'],
+.learning-model-selector__option[data-active='true'],
+.learning-mode-selector__option:hover,
+.learning-model-selector__option:hover:not(:disabled) {
+  background: #e7f0fa;
+  color: #0a65cc;
+}
+
+.learning-shell__main.is-empty-landing .learning-messages {
+  padding-top: clamp(48px, 12vh, 120px);
+}
+.learning-shell__main.is-empty-landing .learning-composer {
+  position: absolute;
+}
+
+@media (max-width: 900px) {
+  .learning-shell {
+    padding: 0;
+  }
+  .learning-shell__sidebar {
+    margin-right: 0;
+    border-right: 0;
+  }
+  .learning-shell__sidebar > .learning-sidebar {
+    width: min(100vw - 48px, 340px);
+  }
+  .learning-panel,
+
+  .learning-shell__main {
+    border-radius: 0;
+  }
+  .learning-composer {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+  .learning-messages__inner {
+    padding: 16px 16px 140px;
+  }
+}
+
+/* ─── Dashboard embedding ────────────────────────────────────────────
+ * The workspace sits beside the dashboard navigation, so the history
+ * column gets its own tint and a firm divider, and the chat area fills
+ * whatever the dashboard leaves. */
+.learning-shell {
+  height: 100%;
+  min-height: 0;
+}
+
+.learning-shell__sidebar,
+.learning-shell__sidebar .learning-panel {
+  background: #f7f8fa;
+}
+
+.learning-shell__sidebar {
+  border-right: 1px solid #d5d8dc;
+}
+
+.learning-panel__toolbar {
+  padding: 12px 12px 0;
+}
+
+.learning-panel__search {
+  flex: 1;
+  background: #fff;
+}
+
+.learning-shell__main {
+  flex: 1 1 auto;
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+  background: #fff;
+}
+
+/* Popups follow the main site: sharp corners, no rounding. */
+.learning-convo-menu,
+.learning-convo-menu__item,
+.learning-convo__menu-btn,
+.learning-convo__rename,
+.learning-convo__rename input,
+.learning-convo__rename button {
+  border-radius: 0;
+}
+
+/* Real button feedback: pointer on hover, slight press on click,
+   not-allowed while disabled. */
+.learn-runtime-root button,
+.learn-runtime-root a,
+.learning-convo-menu button {
+  cursor: pointer;
+}
+
+.learn-runtime-root button:disabled {
+  cursor: not-allowed;
+}
+
+.learning-panel__new-chat,
+.learning-convo__menu-btn,
+.learning-msg__action,
+.learning-codeblock__copy,
+.learning-composer__util,
+.learning-composer__send,
+.learning-composer__stop,
+.learning-mode-selector__trigger,
+.learning-model-selector__trigger,
+.learning-messages__scroll-btn,
+.learning-shell__floating-toggle {
+  transition:
+    background-color 0.15s ease,
+    border-color 0.15s ease,
+    color 0.15s ease,
+    transform 0.1s ease;
+}
+
+.learning-panel__new-chat:not(:disabled):active,
+.learning-convo__menu-btn:active,
+.learning-msg__action:active,
+.learning-codeblock__copy:active,
+.learning-composer__util:not(:disabled):active,
+.learning-composer__send:not(:disabled):active,
+.learning-composer__stop:active,
+.learning-mode-selector__trigger:not(:disabled):active,
+.learning-model-selector__trigger:not(:disabled):active,
+.learning-shell__floating-toggle:active {
+  transform: scale(0.95);
+}
+
+.learning-panel__new-chat:hover {
+  background: var(--accent-hover);
+}
+
+.learning-convo-menu__item:hover {
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+
+.learning-convo-menu__item--danger:hover {
+  background: #fef2f2;
+  color: #dc2626;
+}
+
+/* Streaming stability: the cursor rides at the end of the last line of
+   text instead of dropping below the block; scrolling is pinned by the
+   list itself, so browser scroll anchoring stays out of the way. */
+.learning-md.is-streaming > :is(p, h1, h2, h3, h4, h5, h6, blockquote):last-child::after,
+.learning-md.is-streaming > :is(ul, ol):last-child > li:last-child::after {
+  content: '';
+  display: inline-block;
+  width: 8px;
+  height: 1em;
+  margin-left: 2px;
+  vertical-align: text-bottom;
+  background: var(--accent);
+  border-radius: 1px;
+  animation: learning-blink 1s steps(2, start) infinite;
+}
+
+.learning-messages {
+  overflow-anchor: none;
+}
+
+/* ─── Chats toggle (agent-style) ─────────────────────────────────────
+ * The history panel stays closed by default on every screen size; a
+ * floating "Chats" pill opens it and the panel's own button closes it. */
+.learning-panel__toolbar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.learning-panel__toolbar .learning-panel__search {
+  min-width: 0;
+}
+.learning-panel__toolbar .learning-shell__icon-btn {
+  flex-shrink: 0;
+}
+
+.learning-shell__floating-toggle.learning-shell__chats-toggle {
+  width: auto;
+  height: 40px;
+  gap: 8px;
+  padding: 0 16px;
+  border-radius: 999px;
+  color: var(--ink, #18191c);
+  font-size: 14px;
+  font-weight: 500;
+}
+
+@media (max-width: 639px) {
+  .learning-shell__floating-toggle.learning-shell__chats-toggle {
+    width: 40px;
+    padding: 0;
+  }
+  .learning-shell__chats-toggle-label {
+    display: none;
+  }
+}
+

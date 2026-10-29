@@ -1,0 +1,6350 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+ * Jobpilot layout theme — Chakri.ai content
+ * Tokens documented in frontend/design.md
+ * ═══════════════════════════════════════════════════════════════════════════ */
+
+.jp {
+  --jp-primary: #0a65cc;
+  --jp-primary-hover: #094e9f;
+  --jp-primary-soft: #e7f0fa;
+  --jp-primary-soft-2: #cee0f5;
+  --jp-gray-900: #18191c;
+  --jp-gray-700: #464d61;
+  --jp-gray-600: #5e6670;
+  --jp-gray-500: #767f8c;
+  --jp-gray-400: #9199a3;
+  --jp-gray-200: #e4e5e8;
+  --jp-gray-100: #f1f2f4;
+  --jp-gray-50: #f7f8f9;
+  --jp-white: #ffffff;
+  --jp-success: #0ba02c;
+  --jp-success-soft: #e7f6ea;
+  --jp-warning: #f58025;
+  --jp-warning-soft: #fff6e6;
+  --jp-danger: #e05151;
+  --jp-max: 1320px;
+  --jp-gutter: clamp(1rem, 4vw, 2rem);
+  --jp-section-y: clamp(4.5rem, 9vw, 6.5rem);
+  --jp-radius-sm: 4px;
+  --jp-radius-md: 6px;
+  --jp-radius-lg: 8px;
+  --jp-radius-xl: 12px;
+  --jp-shadow-card: 0 2px 8px rgba(0, 0, 0, 0.04);
+  --jp-shadow-hover: 0 8px 24px rgba(10, 101, 204, 0.12);
+  --jp-featured-border: #f0d7a8;
+  --jp-ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+
+  background: var(--jp-white);
+  color: var(--jp-gray-900);
+  font-family: var(--font-sans), Inter, ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.jp *,
+.jp *::before,
+.jp *::after {
+  box-sizing: border-box;
+}
+
+.jp a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Jobs list inside SaaS console — drop marketing chrome spacing */
+
+.jp img {
+  display: block;
+  max-width: 100%;
+}
+
+/* ── Layout shell ─────────────────────────────────────────────────────────── */
+
+.jp-container {
+  width: 100%;
+  max-width: var(--jp-max);
+  margin-inline: auto;
+  padding-inline: var(--jp-gutter);
+}
+
+.jp-section {
+  padding-block: var(--jp-section-y);
+}
+
+.jp-section--muted {
+  background: var(--jp-gray-100);
+}
+
+.jp-section-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.jp-section-title {
+  margin: 0;
+  font-size: clamp(1.75rem, 2.5vw, 2.5rem);
+  font-weight: 500;
+  line-height: 1.2;
+  color: var(--jp-gray-900);
+  letter-spacing: -0.02em;
+}
+
+.jp-section-title--center {
+  text-align: center;
+  width: 100%;
+  margin-bottom: 2.5rem;
+}
+
+.jp-view-all {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--jp-primary);
+  white-space: nowrap;
+}
+
+.jp-view-all:hover {
+  color: var(--jp-primary-hover);
+}
+
+/* ── Buttons ──────────────────────────────────────────────────────────────── */
+
+.jp-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  height: 48px;
+  padding: 0 1.5rem;
+  border-radius: var(--jp-radius-md);
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+  white-space: nowrap;
+}
+
+.jp-btn--nav-signin:active,
+.jp-btn--nav-signup:active {
+  transform: scale(0.97);
+}
+
+.jp-btn--primary,
+.jp a.jp-btn--primary {
+  background: var(--jp-primary);
+  color: var(--jp-white);
+}
+
+.jp-btn--primary:hover,
+.jp a.jp-btn--primary:hover {
+  background: var(--jp-primary-hover);
+  color: var(--jp-white);
+}
+
+.jp-btn--outline,
+.jp a.jp-btn--outline {
+  background: var(--jp-white);
+  color: var(--jp-primary);
+  border-color: var(--jp-primary);
+}
+
+.jp-btn--outline:hover,
+.jp a.jp-btn--outline:hover {
+  background: var(--jp-primary-soft);
+  color: var(--jp-primary);
+}
+
+.jp-btn--soft,
+.jp a.jp-btn--soft {
+  background: var(--jp-primary-soft);
+  color: var(--jp-primary);
+}
+
+.jp-btn--soft:hover,
+.jp a.jp-btn--soft:hover {
+  background: var(--jp-primary-soft-2);
+  color: var(--jp-primary);
+}
+
+.jp-btn--block {
+  width: 100%;
+  justify-content: center;
+}
+
+/* ── Spinner animation ────────────────────────────────────────────────────── */
+
+.jp-spinner {
+  display: inline-block;
+  animation: jp-spin 0.8s linear infinite !important;
+  transform-origin: center;
+  flex-shrink: 0;
+}
+
+@keyframes jp-spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.jp-btn--white,
+.jp a.jp-btn--white {
+  background: var(--jp-white);
+  color: var(--jp-primary);
+}
+
+/* ── Badges ───────────────────────────────────────────────────────────────── */
+
+.jp-badge {
+  display: inline-flex;
+  align-items: center;
+  height: 24px;
+  padding: 0 0.5rem;
+  border-radius: var(--jp-radius-sm);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.jp-badge--full {
+  color: var(--jp-success);
+  background: var(--jp-success-soft);
+}
+
+.jp-badge--part {
+  color: var(--jp-warning);
+  background: var(--jp-warning-soft);
+}
+
+.jp-badge--intern {
+  color: var(--jp-primary);
+  background: var(--jp-primary-soft);
+}
+
+.jp-badge--contract {
+  color: var(--jp-gray-700);
+  background: var(--jp-gray-100);
+}
+
+.jp-badge--featured {
+  color: #a67c1a;
+  background: #fff3dc;
+  border: 1px solid var(--jp-featured-border, #f0d7a8);
+  text-transform: none;
+  font-weight: 600;
+}
+
+/* ── Top bar + Nav ────────────────────────────────────────────────────────── */
+
+.jp-nav {
+  background: var(--jp-white);
+  border-bottom: 1px solid var(--jp-gray-200);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+.jp-nav-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  height: 72px;
+}
+
+.jp-logo {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+  line-height: 0;
+  text-decoration: none;
+}
+
+.jp-logo--with-beta {
+  gap: 0.625rem;
+}
+
+.jp-logo-beta {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+  height: 1.75rem;
+  padding: 0 0.625rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  line-height: 1;
+  color: var(--jp-primary);
+  background: var(--jp-primary-soft);
+  border: 1px solid color-mix(in srgb, var(--jp-primary) 28%, transparent);
+}
+
+.jp-logo-beta--inverted {
+  color: #bbf7d0;
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.28);
+}
+
+.jp-logo-beta--interactive {
+  cursor: pointer;
+  border: 1px solid color-mix(in srgb, var(--jp-primary) 28%, transparent);
+  font: inherit;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+}
+
+.jp-logo-beta--interactive:hover {
+  transform: scale(1.04);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--jp-primary) 18%, transparent);
+}
+
+.jp-logo-beta--interactive.jp-logo-beta--inverted:hover {
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.14);
+}
+
+.jp-logo-link {
+  display: inline-flex;
+  flex-shrink: 0;
+  line-height: 0;
+  text-decoration: none;
+}
+
+/* Beta launch dialog — ambient launch glow */
+@keyframes jp-beta-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes jp-beta-scene-in {
+  from {
+    opacity: 0;
+    transform: scale(0.94);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes jp-beta-copy-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes jp-glow-rotate {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes jp-glow-pulse {
+  0%, 100% { opacity: 0.62; transform: scale(0.94); }
+  50% { opacity: 1; transform: scale(1.06); }
+}
+
+@keyframes jp-glow-ring {
+  0% { opacity: 0; transform: scale(0.82); }
+  32% { opacity: 0.62; }
+  100% { opacity: 0; transform: scale(1.2); }
+}
+
+@keyframes jp-glow-particle {
+  0%, 100% { opacity: 0.16; transform: translate3d(0, 5px, 0) scale(0.75); }
+  50% { opacity: 0.9; transform: translate3d(0, -9px, 0) scale(1.15); }
+}
+
+.jp-beta-launch-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 400;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  background:
+    radial-gradient(ellipse 120% 80% at 50% 50%, rgba(20, 8, 0, 0.55) 0%, transparent 62%),
+    radial-gradient(circle at 50% 50%, #050505 0%, #000 72%);
+  backdrop-filter: blur(6px);
+  animation: jp-beta-fade-in 0.5s ease;
+}
+
+.jp-beta-launch-scene {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: min(520px, 100%);
+  padding: 2rem 1.5rem 2.25rem;
+  text-align: center;
+  animation: jp-beta-scene-in 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.jp-beta-launch-close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 5;
+  display: grid;
+  place-items: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.04);
+  color: rgba(255, 255, 255, 0.55);
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.jp-beta-launch-close:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.18);
+  color: #fff;
+}
+
+.jp-blackhole {
+  position: relative;
+  width: min(280px, 80vw);
+  aspect-ratio: 1;
+  margin: 0 auto 0.5rem;
+  isolation: isolate;
+}
+
+.jp-launch-glow > span {
+  position: absolute;
+  pointer-events: none;
+}
+
+.jp-launch-glow__wash {
+  inset: 10%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 221, 151, 0.34) 0%, rgba(255, 138, 38, 0.18) 32%, rgba(255, 79, 18, 0.06) 58%, transparent 76%);
+  filter: blur(24px);
+  animation: jp-glow-pulse 4.6s ease-in-out infinite;
+}
+
+.jp-launch-glow__bloom {
+  inset: 25%;
+  border-radius: 46% 54% 58% 42%;
+  background: conic-gradient(from 35deg, rgba(255, 244, 214, 0.9), rgba(255, 139, 45, 0.35), rgba(255, 75, 20, 0.08), rgba(255, 192, 92, 0.62), rgba(255, 244, 214, 0.9));
+  filter: blur(18px);
+  opacity: 0.78;
+  animation: jp-glow-rotate 11s linear infinite;
+}
+
+.jp-launch-glow__core {
+  inset: 37%;
+  border-radius: 50%;
+  background: radial-gradient(circle at 42% 38%, #fff 0%, #fff4c7 14%, #ffc15b 34%, rgba(255, 114, 24, 0.68) 58%, transparent 76%);
+  box-shadow: 0 0 22px rgba(255, 235, 188, 0.72), 0 0 58px rgba(255, 118, 28, 0.48), 0 0 105px rgba(255, 74, 18, 0.22);
+  animation: jp-glow-pulse 3.6s ease-in-out infinite;
+}
+
+.jp-launch-glow__ring {
+  inset: 29%;
+  border: 1px solid rgba(255, 204, 128, 0.42);
+  border-radius: 50%;
+  box-shadow: inset 0 0 18px rgba(255, 151, 55, 0.14), 0 0 18px rgba(255, 122, 32, 0.12);
+  animation: jp-glow-ring 4.8s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+}
+
+.jp-launch-glow__ring--inner {
+  inset: 34%;
+  animation-delay: -2.4s;
+}
+
+.jp-launch-glow__flare {
+  top: 50%;
+  left: 13%;
+  right: 13%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 155, 60, 0.22), rgba(255, 248, 220, 0.92), rgba(255, 155, 60, 0.22), transparent);
+  box-shadow: 0 0 12px rgba(255, 192, 104, 0.46);
+  animation: jp-glow-pulse 4.2s ease-in-out infinite;
+}
+
+.jp-launch-glow__particles {
+  inset: 0;
+}
+
+.jp-launch-glow__particles i {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: #ffe9bd;
+  box-shadow: 0 0 8px rgba(255, 170, 72, 0.9);
+  animation: jp-glow-particle 3.8s ease-in-out infinite;
+}
+
+.jp-launch-glow__particles i:nth-child(1) { left: 23%; top: 32%; animation-delay: -0.4s; }
+.jp-launch-glow__particles i:nth-child(2) { left: 72%; top: 27%; animation-delay: -1.7s; }
+.jp-launch-glow__particles i:nth-child(3) { left: 82%; top: 54%; animation-delay: -2.8s; }
+.jp-launch-glow__particles i:nth-child(4) { left: 65%; top: 76%; animation-delay: -0.9s; }
+.jp-launch-glow__particles i:nth-child(5) { left: 36%; top: 81%; animation-delay: -2.1s; }
+.jp-launch-glow__particles i:nth-child(6) { left: 15%; top: 59%; animation-delay: -3.2s; }
+.jp-launch-glow__particles i:nth-child(7) { left: 49%; top: 18%; animation-delay: -1.2s; }
+.jp-launch-glow__particles i:nth-child(8) { left: 53%; top: 88%; animation-delay: -2.5s; }
+
+.jp-beta-launch-blackhole {
+  filter: drop-shadow(0 0 70px rgba(255, 113, 30, 0.16));
+}
+
+.jp-beta-launch-copy {
+  position: relative;
+  z-index: 2;
+  animation: jp-beta-copy-in 0.65s ease 0.15s both;
+}
+
+.jp-beta-launch-eyebrow {
+  margin: 0 0 0.625rem;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255, 196, 130, 0.82);
+}
+
+.jp-beta-launch-title {
+  margin: 0 0 0.75rem;
+  font-size: clamp(1.5rem, 4.5vw, 2rem);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  background: linear-gradient(135deg, #fff 0%, #ffe8c8 42%, #ffb04a 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.jp-beta-launch-lead {
+  margin: 0 0 1.5rem;
+  font-size: 0.9375rem;
+  line-height: 1.55;
+  color: rgba(226, 232, 240, 0.72);
+  max-width: 26rem;
+  margin-inline: auto;
+}
+
+.jp-beta-launch-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 9rem;
+  padding: 0.75rem 1.5rem;
+  border: 1px solid rgba(255, 180, 100, 0.22);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.04);
+  color: rgba(255, 240, 220, 0.88);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.jp-beta-launch-cta:hover {
+  background: rgba(255, 160, 60, 0.1);
+  border-color: rgba(255, 180, 100, 0.38);
+  color: #fff;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .jp-beta-launch-overlay,
+  .jp-beta-launch-scene,
+  .jp-beta-launch-copy,
+  .jp-blackhole,
+  .jp-launch-glow *,
+  .jp-beta-launch-blackhole {
+    animation: none;
+  }
+}
+
+.jp-logo-img {
+  display: block;
+  width: auto;
+  height: 3.5rem;
+  max-width: min(16rem, 62vw);
+  object-fit: contain;
+  object-position: left center;
+}
+
+.jp-logo-img--md {
+  height: 3.5rem;
+}
+
+.jp-nav-links {
+  display: none;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.jp-nav-links a {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--jp-gray-600);
+}
+
+.jp-nav-links a:hover,
+.jp-nav-links a.is-active {
+  color: var(--jp-primary);
+}
+
+.jp-nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-shrink: 0;
+}
+
+.jp-btn--nav-signin,
+.jp-btn--nav-signup {
+  height: 40px;
+  padding-inline: 1.125rem;
+  font-size: 0.9375rem;
+  border-radius: 0;
+}
+
+.jp-nav-drawer-actions .jp-btn {
+  border-radius: 0;
+}
+
+.jp-nav-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--jp-gray-200);
+  border-radius: var(--jp-radius-md);
+  background: var(--jp-white);
+  color: var(--jp-gray-900);
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+.jp-nav-toggle.is-open {
+  background: var(--jp-primary-soft);
+  color: var(--jp-primary);
+  border-color: rgba(10, 101, 204, 0.25);
+}
+
+/* ── Mobile Slide-in Drawer ─────────────────────────────────────────────────── */
+
+.jp-nav-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.45);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  z-index: 99998 !important;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.28s ease, visibility 0.28s ease;
+}
+
+.jp-nav-backdrop.is-open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.jp-nav-drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: min(320px, 86vw);
+  height: 100dvh;
+  height: 100vh;
+  background: var(--jp-white) !important;
+  z-index: 99999 !important;
+  display: flex;
+  flex-direction: column;
+  box-shadow: -8px 0 32px rgba(15, 23, 42, 0.16);
+  transform: translateX(100%);
+  transition: transform 0.32s cubic-bezier(0.16, 1, 0.3, 1);
+  visibility: hidden;
+  overflow: hidden;
+}
+
+.jp-nav-drawer.is-open {
+  transform: translateX(0);
+  visibility: visible;
+}
+
+.jp-nav-drawer-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.15rem 1.25rem 1rem;
+  border-bottom: 1px solid var(--jp-gray-100);
+}
+
+.jp-nav-drawer-close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 8px;
+  border: 1px solid var(--jp-gray-200);
+  background: var(--jp-white);
+  color: var(--jp-gray-700);
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+.jp-nav-drawer-close:hover {
+  background: var(--jp-gray-100);
+  color: var(--jp-gray-900);
+}
+
+.jp-nav-drawer-close:active {
+  transform: scale(0.95);
+}
+
+.jp-nav-drawer-links {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1.25rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.jp-nav-drawer-actions {
+  padding: 1.25rem;
+  border-top: 1px solid var(--jp-gray-100);
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  background: var(--jp-white);
+}
+
+.jp-nav-drawer-actions a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+  height: 48px;
+  padding: 0 1.25rem;
+  border-radius: var(--jp-radius-md);
+  font-size: 0.95rem;
+  font-weight: 600;
+  line-height: 1;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 150ms ease, color 150ms ease, border-color 150ms ease, box-shadow 150ms ease, transform 150ms var(--jp-ease-out);
+}
+
+.jp-nav-drawer-actions a:active {
+  transform: scale(0.97);
+}
+
+.jp-nav-drawer-actions .jp-btn--outline {
+  background: var(--jp-white) !important;
+  color: var(--jp-primary) !important;
+  border: 1.5px solid var(--jp-primary) !important;
+}
+
+.jp-nav-drawer-actions .jp-btn--outline:hover {
+  background: var(--jp-primary-soft) !important;
+  color: var(--jp-primary) !important;
+}
+
+.jp-nav-drawer-actions .jp-btn--primary {
+  background: var(--jp-primary) !important;
+  color: var(--jp-white) !important;
+  border: 1px solid var(--jp-primary) !important;
+  box-shadow: 0 4px 14px rgba(10, 101, 204, 0.25);
+}
+
+.jp-nav-drawer-actions .jp-btn--primary:hover {
+  background: var(--jp-primary-hover) !important;
+  border-color: var(--jp-primary-hover) !important;
+  color: var(--jp-white) !important;
+}
+
+@media (min-width: 1024px) {
+  .jp-nav-backdrop,
+  .jp-nav-drawer {
+    display: none !important;
+  }
+}
+
+/* ── Hero ─────────────────────────────────────────────────────────────────── */
+
+.jp-hero {
+  background: var(--jp-gray-100);
+  padding-top: clamp(2.5rem, 5vw, 4.5rem);
+  padding-bottom: 0;
+  overflow: hidden;
+}
+
+/* Landing hero — foundit-inspired soft composition */
+.jp-hero--landing {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  padding: clamp(1.5rem, 3vw, 2.5rem) 0 0;
+  background:
+    radial-gradient(ellipse 80% 55% at 18% 30%, rgba(10, 101, 204, 0.1), transparent 58%),
+    radial-gradient(ellipse 70% 50% at 85% 10%, rgba(56, 189, 248, 0.12), transparent 55%),
+    linear-gradient(180deg, #eef5ff 0%, #f8fbff 45%, #ffffff 100%);
+  color: var(--jp-gray-900);
+  overflow: hidden;
+  border-bottom: 1px solid var(--jp-gray-200);
+}
+
+.jp-hero-atmosphere {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.jp-hero-blob {
+  position: absolute;
+  filter: blur(80px);
+  opacity: 0.45;
+  border-radius: 50%;
+}
+
+.jp-hero-blob--a {
+  width: min(48vw, 520px);
+  height: min(36vw, 400px);
+  top: -12%;
+  left: -4%;
+  background: radial-gradient(ellipse, rgba(10, 101, 204, 0.22), transparent 70%);
+}
+
+.jp-hero-blob--b {
+  width: min(44vw, 480px);
+  height: min(34vw, 380px);
+  top: 5%;
+  right: -6%;
+  background: radial-gradient(ellipse, rgba(56, 189, 248, 0.2), transparent 70%);
+}
+
+.jp-hero-stage {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.75rem;
+  align-items: center;
+  width: 100%;
+  padding-bottom: clamp(1.75rem, 3.5vw, 2.75rem);
+}
+
+.jp-hero-figure {
+  display: none;
+  position: relative;
+  min-height: 340px;
+  align-items: stretch;
+  justify-content: flex-start;
+  margin-left: calc(-1 * var(--jp-gutter));
+  width: calc(100% + var(--jp-gutter));
+  overflow: hidden;
+}
+
+/* CV stream — thousands flow in; the right ones get picked */
+.jp-hero-cvstream {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 340px;
+  overflow: hidden;
+  pointer-events: none;
+  mask-image: linear-gradient(90deg, #000 0%, #000 58%, transparent 96%);
+  -webkit-mask-image: linear-gradient(90deg, #000 0%, #000 58%, transparent 96%);
+}
+
+.jp-hero-cvstream-fade {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  background: linear-gradient(90deg,
+      rgba(238, 245, 255, 0) 0%,
+      rgba(238, 245, 255, 0) 55%,
+      rgba(248, 251, 255, 0.55) 78%,
+      #f8fbff 100%);
+  pointer-events: none;
+}
+
+.jp-hero-cvstream-papers {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.jp-cv-paper {
+  position: absolute;
+  left: -48px;
+  top: var(--top);
+  width: 42px;
+  height: 54px;
+  border-radius: 5px;
+  background:
+    linear-gradient(180deg, #fff 0%, #f3f7fc 100%);
+  border: 1px solid rgba(10, 60, 130, 0.08);
+  box-shadow: 0 4px 10px rgba(10, 60, 130, 0.06);
+  opacity: 0;
+  transform: translateX(0) scale(var(--scale, 0.7));
+  animation: jp-cv-paper-flow var(--dur, 10s) linear var(--delay, 0s) infinite;
+}
+
+.jp-cv-paper::before,
+.jp-cv-paper::after {
+  content: '';
+  position: absolute;
+  left: 7px;
+  right: 7px;
+  height: 2px;
+  border-radius: 2px;
+  background: rgba(10, 60, 130, 0.12);
+}
+
+.jp-cv-paper::before {
+  top: 12px;
+}
+
+.jp-cv-paper::after {
+  top: 20px;
+  width: 55%;
+  right: auto;
+}
+
+.jp-hero-cvstream-lane {
+  position: absolute;
+  inset: 24px 48px 48px 0;
+  z-index: 2;
+}
+
+.jp-hero-cvstream-beam {
+  position: absolute;
+  left: 52%;
+  top: 8%;
+  bottom: 12%;
+  width: 2px;
+  border-radius: 2px;
+  background: linear-gradient(180deg,
+      transparent,
+      rgba(10, 101, 204, 0.45),
+      transparent);
+  box-shadow: 0 0 18px rgba(10, 101, 204, 0.35);
+  opacity: 0.7;
+  animation: jp-cv-beam 3.2s ease-in-out infinite;
+}
+
+.jp-cv {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 118px;
+  height: 142px;
+  padding: 14px 12px 14px;
+  border-radius: 12px;
+  background: #fff;
+  border: 1px solid rgba(15, 40, 80, 0.08);
+  box-shadow: 0 10px 24px rgba(10, 60, 130, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  opacity: 0;
+  will-change: transform, opacity;
+}
+
+.jp-cv.is-pass {
+  animation: jp-cv-pass 10s cubic-bezier(0.4, 0, 0.2, 1) var(--delay, 0s) infinite;
+}
+
+.jp-cv.is-pick {
+  animation: jp-cv-pick 10s cubic-bezier(0.4, 0, 0.2, 1) var(--delay, 0s) infinite;
+  z-index: 3;
+}
+
+.jp-cv-avatar {
+  display: block;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
+  background: #f2f2f2;
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.9);
+}
+
+.jp-cv-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.jp-cv-lines {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 2px;
+}
+
+.jp-cv-line {
+  display: block;
+  height: 5px;
+  border-radius: 999px;
+  background: rgba(15, 40, 80, 0.1);
+}
+
+.jp-cv-line--title {
+  width: 72%;
+  height: 6px;
+  background: rgba(15, 40, 80, 0.16);
+}
+
+.jp-cv-line--short {
+  width: 58%;
+}
+
+.jp-cv-line--mid {
+  width: 78%;
+}
+
+.jp-cv-check {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(145deg, #2b8df0, #0a65cc);
+  color: #fff;
+  opacity: 0;
+  transform: scale(0.6);
+  box-shadow: 0 0 12px rgba(10, 101, 204, 0.55);
+}
+
+.jp-cv.is-pick .jp-cv-check {
+  animation: jp-cv-check 10s cubic-bezier(0.4, 0, 0.2, 1) var(--delay, 0s) infinite;
+}
+
+.jp-cv.is-pick .jp-cv-avatar {
+  box-shadow:
+    0 0 0 2px rgba(255, 255, 255, 0.95),
+    0 0 0 4px rgba(10, 101, 204, 0.35);
+}
+
+.jp-hero-cvstream-matched {
+  position: absolute;
+  right: 18%;
+  bottom: 28px;
+  z-index: 4;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.45rem;
+  opacity: 0.95;
+}
+
+.jp-hero-cvstream-matched-label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--jp-primary);
+}
+
+.jp-hero-cvstream-stack {
+  position: relative;
+  width: 72px;
+  height: 88px;
+}
+
+.jp-cv-stack-card {
+  position: absolute;
+  inset: 0;
+  border-radius: 8px;
+  background: #fff;
+  border: 1px solid rgba(10, 101, 204, 0.18);
+  box-shadow: 0 8px 18px rgba(10, 101, 204, 0.12);
+}
+
+.jp-cv-stack-card:nth-child(1) {
+  transform: translate(-8px, 6px) rotate(-6deg);
+  opacity: 0.55;
+}
+
+.jp-cv-stack-card:nth-child(2) {
+  transform: translate(6px, 4px) rotate(5deg);
+  opacity: 0.7;
+}
+
+.jp-cv-stack-card.is-top {
+  background: linear-gradient(180deg, #fff 0%, #f0f6ff 100%);
+  border-color: rgba(10, 101, 204, 0.4);
+  box-shadow:
+    0 0 0 1px rgba(10, 101, 204, 0.15),
+    0 12px 28px rgba(10, 101, 204, 0.28);
+}
+
+.jp-cv-stack-card.is-top::before {
+  content: '';
+  position: absolute;
+  left: 10px;
+  right: 10px;
+  top: 14px;
+  height: 4px;
+  border-radius: 999px;
+  background: rgba(10, 101, 204, 0.45);
+}
+
+.jp-cv-stack-card.is-top::after {
+  content: '';
+  position: absolute;
+  left: 10px;
+  width: 45%;
+  top: 26px;
+  height: 3px;
+  border-radius: 999px;
+  background: rgba(10, 101, 204, 0.22);
+}
+
+.jp-hero-copy {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.jp-hero-kicker {
+  margin: 0 0 0.85rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--jp-primary);
+  letter-spacing: 0.01em;
+}
+
+.jp-hero-title {
+  margin: 0 0 0.7rem;
+  max-width: 16ch;
+  font-size: clamp(2.35rem, 5.8vw, 3.85rem);
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: -0.035em;
+  color: #0b2b55;
+}
+
+.jp-hero-title-accent {
+  color: var(--jp-primary);
+}
+
+.jp-hero-lead {
+  margin: 0 0 1.5rem;
+  font-size: clamp(1.05rem, 1.7vw, 1.25rem);
+  font-weight: 500;
+  line-height: 1.45;
+  color: var(--jp-gray-600);
+  max-width: 36ch;
+}
+
+/* Foundit-style wide pill search */
+.jp-command {
+  width: 100%;
+  max-width: 820px;
+  margin: 0 auto;
+}
+
+.jp-command-shell {
+  display: flex;
+  align-items: center;
+  gap: 0.15rem;
+  padding: 0.45rem 0.45rem 0.45rem 1.15rem;
+  border-radius: 999px;
+  background: #fff;
+  border: 1px solid rgba(15, 40, 80, 0.06);
+  box-shadow: 0 14px 36px rgba(15, 50, 110, 0.1);
+  transition: box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.jp-command-shell:focus-within {
+  border-color: rgba(10, 101, 204, 0.28);
+  box-shadow:
+    0 16px 40px rgba(15, 50, 110, 0.12),
+    0 0 0 4px rgba(10, 101, 204, 0.08);
+}
+
+.jp-command-field {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  min-width: 0;
+  color: var(--jp-primary);
+}
+
+.jp-command-field--query {
+  flex: 1.6;
+}
+
+.jp-command-field--loc {
+  flex: 0.85;
+}
+
+.jp-command-field input {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--jp-gray-900);
+  padding: 0.75rem 0;
+}
+
+.jp-command-field input:focus,
+.jp-command-field input:focus-visible {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.jp-command-field input::placeholder {
+  color: var(--jp-gray-400);
+  font-weight: 400;
+}
+
+.jp-command-divider {
+  width: 1px;
+  height: 1.45rem;
+  background: var(--jp-gray-200);
+  flex-shrink: 0;
+  margin-inline: 0.45rem;
+}
+
+.jp-command-search {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 118px;
+  height: 2.9rem;
+  padding: 0 1.5rem;
+  border: 0;
+  border-radius: 999px;
+  background: var(--jp-primary);
+  color: #fff;
+  font: inherit;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 8px 18px rgba(10, 101, 204, 0.28);
+}
+
+.jp-command-search:hover {
+  background: #0857b0;
+  transform: translateY(-1px);
+  box-shadow: 0 10px 22px rgba(10, 101, 204, 0.35);
+}
+
+.jp-hero-reveal {
+  animation: jp-hero-rise 0.65s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: var(--d, 0ms);
+}
+
+@media (min-width: 960px) {
+  .jp-hero-stage {
+    grid-template-columns: minmax(240px, 0.85fr) minmax(0, 1.35fr);
+    gap: 1.5rem 2rem;
+    align-items: end;
+  }
+
+  .jp-hero-figure {
+    display: flex;
+    align-self: stretch;
+  }
+
+  .jp-hero-copy {
+    text-align: left;
+    align-items: flex-start;
+    padding-bottom: 0.5rem;
+  }
+
+  .jp-hero-title {
+    max-width: 14ch;
+  }
+
+  .jp-command {
+    max-width: none;
+    width: min(100%, 760px);
+  }
+}
+
+@media (max-width: 639px) {
+  .jp-command-shell {
+    flex-wrap: wrap;
+    border-radius: 22px;
+    padding: 0.65rem;
+    gap: 0.35rem;
+  }
+
+  .jp-command-field {
+    width: 100%;
+    padding: 0 0.55rem;
+  }
+
+  .jp-command-field--query,
+  .jp-command-field--loc {
+    flex: 1 1 100%;
+  }
+
+  .jp-command-divider {
+    width: 100%;
+    height: 1px;
+    margin: 0.1rem 0.55rem;
+  }
+
+  .jp-command-search {
+    width: 100%;
+    height: 2.85rem;
+    border-radius: 14px;
+  }
+}
+
+.jp-stats-band {
+  background: #fff;
+  padding: clamp(2.25rem, 6vw, 3.25rem) 0;
+  border-bottom: 1px solid var(--jp-gray-200);
+  margin-top: 0;
+}
+
+.jp-hero-copy h1 {
+  margin: 0 0 1rem;
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  font-weight: 500;
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+  color: var(--jp-gray-900);
+  max-width: 18ch;
+}
+
+.jp-hero-copy p {
+  margin: 0 0 1.75rem;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--jp-gray-600);
+  max-width: 42ch;
+}
+
+@keyframes jp-hero-rise {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes jp-cv-paper-flow {
+  0% {
+    transform: translateX(0) scale(var(--scale, 0.7));
+    opacity: 0;
+  }
+
+  8% {
+    opacity: 0.35;
+  }
+
+  70% {
+    opacity: 0.22;
+  }
+
+  100% {
+    transform: translateX(340px) scale(var(--scale, 0.7));
+    opacity: 0;
+  }
+}
+
+@keyframes jp-cv-pass {
+  0% {
+    transform: translate3d(-30px, var(--y), 0) scale(0.96);
+    opacity: 0;
+  }
+
+  8% {
+    opacity: 0.72;
+  }
+
+  42% {
+    transform: translate3d(150px, var(--y), 0) scale(0.96);
+    opacity: 0.55;
+  }
+
+  62% {
+    transform: translate3d(210px, calc(var(--y) + 18px), 0) scale(0.9);
+    opacity: 0.18;
+  }
+
+  100% {
+    transform: translate3d(280px, calc(var(--y) + 36px), 0) scale(0.86);
+    opacity: 0;
+  }
+}
+
+@keyframes jp-cv-pick {
+  0% {
+    transform: translate3d(-30px, var(--y), 0) scale(0.96);
+    opacity: 0;
+    border-color: rgba(15, 40, 80, 0.08);
+    box-shadow: 0 10px 24px rgba(10, 60, 130, 0.1);
+  }
+
+  8% {
+    opacity: 1;
+  }
+
+  36% {
+    transform: translate3d(150px, var(--y), 0) scale(1);
+    opacity: 1;
+  }
+
+  48% {
+    transform: translate3d(150px, var(--y), 0) scale(1.06);
+    border-color: rgba(10, 101, 204, 0.7);
+    box-shadow:
+      0 0 0 3px rgba(10, 101, 204, 0.22),
+      0 0 28px rgba(10, 101, 204, 0.45),
+      0 18px 36px rgba(10, 101, 204, 0.28);
+  }
+
+  68% {
+    transform: translate3d(210px, -8px, 0) scale(0.92);
+    opacity: 1;
+    border-color: rgba(10, 101, 204, 0.5);
+    box-shadow:
+      0 0 18px rgba(10, 101, 204, 0.35),
+      0 14px 28px rgba(10, 101, 204, 0.22);
+  }
+
+  85%,
+  100% {
+    transform: translate3d(210px, -8px, 0) scale(0.88);
+    opacity: 0;
+  }
+}
+
+@keyframes jp-cv-check {
+
+  0%,
+  40% {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+
+  48%,
+  72% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  90%,
+  100% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+}
+
+@keyframes jp-cv-beam {
+
+  0%,
+  100% {
+    opacity: 0.35;
+    transform: scaleY(0.92);
+  }
+
+  50% {
+    opacity: 0.85;
+    transform: scaleY(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  .jp-hero-blob,
+  .jp-cv-paper,
+  .jp-cv.is-pass,
+  .jp-cv.is-pick,
+  .jp-cv-check,
+  .jp-hero-cvstream-beam,
+  .jp-hero-reveal {
+    animation: none !important;
+  }
+
+  .jp-cv.is-pass,
+  .jp-cv.is-pick {
+    opacity: 0.85;
+    transform: translate3d(40px, var(--y), 0);
+  }
+
+  .jp-cv.is-pick {
+    border-color: rgba(10, 101, 204, 0.55);
+    box-shadow:
+      0 0 0 3px rgba(10, 101, 204, 0.18),
+      0 0 24px rgba(10, 101, 204, 0.35);
+  }
+
+  .jp-cv.is-pick .jp-cv-check {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* ── Employers page (Stitch layout) ───────────────────────────────────────── */
+
+.jp-emp-hero {
+  position: relative;
+  overflow: hidden;
+  padding: 2.5rem 0 2.75rem;
+  background: linear-gradient(135deg, #faf9fd 0%, #f1f2f4 100%);
+}
+
+.jp-emp-hero-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.75rem;
+  align-items: center;
+}
+
+.jp-emp-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.25rem 0.75rem;
+  margin-bottom: 0.875rem;
+  border-radius: 999px;
+  background: var(--jp-primary-soft);
+  color: var(--jp-primary);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.jp-emp-hero-copy h1 {
+  margin: 0 0 0.75rem;
+  font-size: clamp(2rem, 4vw, 2.75rem);
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--jp-gray-900);
+  max-width: 16ch;
+}
+
+.jp-emp-hero-copy>p {
+  margin: 0 0 1.25rem;
+  max-width: 40ch;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--jp-gray-600);
+}
+
+.jp-emp-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.jp-emp-actions .jp-btn {
+  width: auto;
+  min-width: 148px;
+}
+
+.jp-emp-hero-stats {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1.25rem 1.5rem;
+  margin-top: 1.5rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--jp-gray-200);
+}
+
+.jp-emp-hero-stat {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.jp-emp-hero-stat strong {
+  display: block;
+  font-size: 1.375rem;
+  font-weight: 600;
+  color: var(--jp-primary);
+  line-height: 1.2;
+}
+
+.jp-emp-hero-stat span {
+  display: block;
+  font-size: 0.8125rem;
+  color: var(--jp-gray-500);
+}
+
+.jp-emp-stat-divider {
+  width: 1px;
+  height: 36px;
+  background: var(--jp-gray-200);
+}
+
+.jp-emp-hero-art {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.jp-emp-art-img {
+  width: 100%;
+  max-width: 560px;
+  height: auto;
+}
+
+.jp-emp-trusted {
+  padding: 40px 0;
+  background: #ffffff;
+  border-block: 1px solid #c2c6d5;
+  overflow: hidden;
+}
+
+.jp-emp-trusted-label {
+  margin: 0 0 32px;
+  text-align: center;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #727784;
+}
+
+.jp-emp-marquee-shell {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  user-select: none;
+  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
+
+.jp-emp-marquee-track {
+  display: flex;
+  width: max-content;
+  align-items: center;
+  animation: jpMarqueeScroll 28s linear infinite;
+  will-change: transform;
+}
+
+.jp-emp-marquee-track:hover {
+  animation-play-state: paused;
+}
+
+.jp-emp-marquee-group {
+  display: flex;
+  align-items: center;
+  gap: 64px;
+  padding-right: 64px;
+  flex-shrink: 0;
+}
+
+@keyframes jpMarqueeScroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.jp-emp-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #424753;
+  flex-shrink: 0;
+  white-space: nowrap;
+  opacity: 0.7;
+  filter: grayscale(1);
+  transition: opacity 0.25s ease, filter 0.25s ease, color 0.25s ease;
+}
+
+.jp-emp-brand:hover {
+  opacity: 1;
+  filter: none;
+  color: #004da1;
+}
+
+.jp-emp-brand-block {
+  width: 30px;
+  height: 30px;
+  border-radius: 4px;
+  background: #1a1b1e;
+  transition: background 0.2s ease;
+  flex-shrink: 0;
+}
+
+.jp-emp-brand:hover .jp-emp-brand-block {
+  background: #004da1;
+}
+
+.jp-emp-brand-name {
+  font-size: 22px;
+  line-height: 28px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.jp-emp-brand-name.is-heavy {
+  font-weight: 800;
+  letter-spacing: 0.04em;
+}
+
+/* Bento — exact Stitch tokens */
+.jp-emp-bento-section {
+  padding: 80px 0;
+  background: #faf9fd;
+}
+
+.jp-emp-bento-head {
+  text-align: center;
+  margin-bottom: 64px;
+}
+
+.jp-emp-bento-head h2 {
+  margin: 0 0 16px;
+  font-size: 36px;
+  line-height: 44px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: #1a1b1e;
+}
+
+.jp-emp-bento-head p {
+  margin: 0;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
+  color: #424753;
+}
+
+.jp-emp-bento {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 32px;
+}
+
+.jp-emp-card {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  padding: 32px;
+  background: #ffffff;
+  border: 1px solid #c2c6d5;
+  border-radius: 16px;
+  transition: box-shadow 0.2s ease;
+}
+
+.jp-emp-card:hover {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+}
+
+.jp-emp-card h3 {
+  margin: 0 0 8px;
+  font-size: 24px;
+  line-height: 32px;
+  font-weight: 500;
+  color: #1a1b1e;
+}
+
+.jp-emp-card p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 400;
+  color: #424753;
+}
+
+.jp-emp-card--wide h3 {
+  margin: 0 0 16px;
+  color: #004da1;
+}
+
+.jp-emp-card--wide p {
+  margin: 0 0 24px;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.jp-emp-card-row {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  align-items: center;
+}
+
+.jp-emp-card-copy {
+  flex: 1;
+  min-width: 0;
+}
+
+.jp-emp-card-row ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.jp-emp-card-row li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  line-height: 20px;
+  color: #424753;
+}
+
+.jp-emp-card-row li svg {
+  color: #004da1;
+  flex-shrink: 0;
+}
+
+.jp-emp-card-visual {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 192px;
+  border-radius: 8px;
+  background: #efedf1;
+  color: #c2c6d5;
+}
+
+.jp-emp-card--primary {
+  justify-content: space-between;
+  gap: 0;
+  min-height: 240px;
+  background: #004da1;
+  border-color: transparent;
+  color: #ffffff;
+}
+
+.jp-emp-card--primary:hover {
+  box-shadow: 0 10px 15px -3px rgba(0, 77, 161, 0.25), 0 4px 6px -4px rgba(0, 77, 161, 0.15);
+}
+
+.jp-emp-card--primary h3 {
+  margin: 0 0 8px;
+  color: #ffffff;
+}
+
+.jp-emp-card--primary p {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.jp-emp-card-watermark {
+  position: absolute;
+  right: -16px;
+  bottom: -16px;
+  width: 160px;
+  height: 160px;
+  opacity: 0.1;
+  pointer-events: none;
+  transition: transform 0.7s ease;
+}
+
+.jp-emp-card--primary:hover .jp-emp-card-watermark {
+  transform: scale(1.1);
+}
+
+.jp-emp-ghost-btn {
+  align-self: flex-start;
+  margin-top: 32px;
+  padding: 8px 16px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 500;
+  backdrop-filter: blur(12px);
+  transition: background 0.2s ease;
+}
+
+.jp-emp-ghost-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+  color: #ffffff;
+}
+
+.jp-emp-card--pricing .jp-emp-card-icon {
+  display: block;
+  color: #004da1;
+  margin-bottom: 24px;
+}
+
+.jp-emp-card--pricing h3 {
+  margin: 0 0 8px;
+}
+
+.jp-emp-card--community {
+  flex-direction: column;
+  gap: 32px;
+  background: #e9e7ec;
+  align-items: stretch;
+}
+
+.jp-emp-avatars {
+  display: none;
+}
+
+.jp-emp-avatar,
+.jp-emp-avatar-more {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  border: 4px solid #e9e7ec;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.jp-emp-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.jp-emp-avatar-more {
+  display: grid;
+  place-items: center;
+  background: #004da1;
+  color: #ffffff;
+  font-size: 18px;
+  line-height: 1;
+  font-weight: 700;
+}
+
+.jp-emp-community-copy {
+  flex: 2;
+  min-width: 0;
+}
+
+@media (min-width: 768px) {
+  .jp-emp-hero {
+    padding: 3rem 0 3.25rem;
+  }
+
+  .jp-emp-bento-head h2 {
+    font-size: 30px;
+    line-height: 36px;
+    font-weight: 500;
+    letter-spacing: 0;
+  }
+
+  .jp-emp-bento {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .jp-emp-card--wide {
+    grid-column: span 2;
+  }
+
+  .jp-emp-card-row {
+    flex-direction: row;
+  }
+
+  .jp-emp-card-visual {
+    width: 50%;
+    flex-shrink: 0;
+  }
+
+  .jp-emp-card--community {
+    grid-column: span 2;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .jp-emp-avatars {
+    display: flex;
+    flex: 1;
+    align-items: center;
+  }
+
+  .jp-emp-avatars>*+* {
+    margin-left: -16px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .jp-emp-hero-grid {
+    grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+    gap: 2.5rem;
+  }
+
+  .jp-emp-art-img {
+    max-width: none;
+  }
+}
+
+.jp-stats {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  margin-top: 0;
+  padding-bottom: 0;
+}
+
+.jp-stats-band .jp-stats {
+  margin: 0;
+}
+
+.jp-stat {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: var(--jp-white);
+  border-radius: var(--jp-radius-lg);
+  padding: 1rem 1.25rem;
+  min-height: 112px;
+  box-shadow: var(--jp-shadow-card);
+}
+
+.jp-stat.is-highlight {
+  background: var(--jp-primary);
+  color: var(--jp-white);
+}
+
+.jp-stat-icon {
+  width: 54px;
+  height: 54px;
+  border-radius: var(--jp-radius-lg);
+  display: grid;
+  place-items: center;
+  background: var(--jp-primary-soft);
+  color: var(--jp-primary);
+  flex-shrink: 0;
+}
+
+.jp-stat.is-highlight .jp-stat-icon {
+  background: rgba(255, 255, 255, 0.16);
+  color: var(--jp-white);
+}
+
+.jp-stat strong {
+  display: block;
+  font-size: 1.5rem;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.jp-stat span {
+  display: block;
+  margin-top: 0.25rem;
+  font-size: 0.875rem;
+  color: var(--jp-gray-500);
+}
+
+.jp-stat.is-highlight span {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* AI Interview thumbnail modern card */
+
+@media (max-width: 899.98px) {
+  :root {
+    --jp-section-y: clamp(6rem, 16vw, 8.5rem);
+  }
+
+  /* Hero bottom spacing on mobile */
+  .jp-hero-stage {
+    padding-bottom: clamp(3.25rem, 8vw, 4.5rem);
+  }
+
+  /* Stats band on mobile */
+  .jp-stats-band {
+    padding: clamp(4rem, 10vw, 5.5rem) 0;
+  }
+
+  .jp-stats {
+    gap: clamp(1.5rem, 4vw, 2rem);
+  }
+
+  /* Vacancies band on mobile */
+  .jp-vacancies-band {
+    padding-block: clamp(5.75rem, 15vw, 8rem);
+  }
+
+  /* All homepage sections on mobile (Explore, How it works, Categories, Featured, Companies, CTA) */
+  .jp-section {
+    padding-block: var(--jp-section-y);
+  }
+
+  .jp-section-head {
+    margin-bottom: clamp(2.25rem, 6vw, 3.25rem);
+  }
+
+  .jp-section-title--center {
+    margin-bottom: clamp(3rem, 7.5vw, 4rem);
+  }
+
+  /* Grids & lists inside homepage sections on mobile */
+  .jp-flow-grid {
+    gap: clamp(2rem, 6vw, 2.75rem);
+  }
+
+  .jp-cat-grid {
+    gap: clamp(1.5rem, 4vw, 2rem);
+  }
+
+  .jp-find-grid {
+    gap: clamp(1.75rem, 4.5vw, 2.25rem);
+  }
+
+  .jp-company-grid {
+    gap: clamp(1.5rem, 4vw, 2rem);
+  }
+
+  .jp-cta-grid {
+    gap: clamp(2.5rem, 7vw, 3.5rem);
+  }
+
+  .jp-popular {
+    gap: 0.75rem 1rem;
+    margin: 1.75rem 0 2.25rem;
+  }
+}
+
+/* ── Vacancies ────────────────────────────────────────────────────────────── */
+
+.jp-vacancies-band {
+  --jp-vac-stagger: 42ms;
+  position: relative;
+  padding-block: clamp(3.75rem, 7vw, 5.25rem);
+  overflow: visible;
+  background:
+    radial-gradient(ellipse 70% 55% at 8% 0%, rgba(10, 101, 204, 0.07), transparent 55%),
+    radial-gradient(ellipse 55% 45% at 96% 100%, rgba(10, 101, 204, 0.05), transparent 50%),
+    linear-gradient(180deg, #f3f7fc 0%, #eef4fb 100%);
+  border-block: 1px solid rgba(10, 101, 204, 0.06);
+}
+
+.jp-vacancies-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem 1.5rem;
+  margin-bottom: 1.75rem;
+}
+
+.jp-vacancies-copy,
+.jp-vacancies-cta {
+  opacity: 0;
+  transform: translateY(10px);
+  transition:
+    opacity 260ms var(--jp-ease-out),
+    transform 260ms var(--jp-ease-out);
+  transition-delay: var(--d, 0ms);
+}
+
+.jp-vacancies-band.is-inview .jp-vacancies-copy,
+.jp-vacancies-band.is-inview .jp-vacancies-cta {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.jp-vacancies-kicker {
+  margin: 0 0 0.4rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--jp-primary);
+}
+
+.jp-vacancies-title {
+  margin: 0 0 0.35rem;
+  font-size: clamp(1.5rem, 2.4vw, 2rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: var(--jp-gray-900);
+}
+
+.jp-vacancies-lead {
+  margin: 0;
+  font-size: 0.95rem;
+  color: var(--jp-gray-500);
+}
+
+.jp-vacancies-cta-arrow {
+  transition: transform 160ms var(--jp-ease-out);
+}
+
+.jp-vacancies-band.is-inview .jp-vacancies-cta:active {
+  transform: scale(0.97);
+  transition-delay: 0ms;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .jp-vacancies-band.is-inview .jp-vacancies-cta:hover .jp-vacancies-cta-arrow {
+    transform: translateX(3px);
+  }
+}
+
+.jp-vacancy-board {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.1rem;
+}
+
+.jp-vacancy-tile {
+  --jp-vac-lift: 0px;
+  --jp-vac-scale: 1;
+  --tone-bg: #eef1f5;
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  border-radius: 20px;
+  overflow: hidden;
+  background: #ffffff;
+  border: 1px solid var(--jp-gray-200);
+  box-shadow:
+    0 1px 2px rgba(15, 40, 80, 0.03),
+    0 10px 24px rgba(15, 40, 80, 0.05);
+  opacity: 0;
+  transform: translateY(14px) scale(0.96);
+  transition:
+    opacity 280ms var(--jp-ease-out),
+    transform 0.15s ease,
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
+  transition-delay: calc(70ms + (var(--i, 0) * var(--jp-vac-stagger)));
+}
+
+.jp-vacancies-band.is-inview .jp-vacancy-tile {
+  opacity: 1;
+  transform: translateY(var(--jp-vac-lift)) scale(var(--jp-vac-scale));
+}
+
+/* High demand — solid golden frame */
+.jp-vacancy-tile.is-hot {
+  border: 2px solid #d4a017;
+  box-shadow:
+    0 1px 2px rgba(15, 40, 80, 0.03),
+    0 10px 24px rgba(15, 40, 80, 0.05);
+}
+
+.jp-vacancy-tile-color {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.65rem;
+  flex: 1;
+  padding: 1rem 1.1rem 1.1rem;
+  background: var(--tone-bg);
+}
+
+.jp-vacancy-tile-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  width: 100%;
+}
+
+.jp-vacancy-tile-pill {
+  padding: 0.32rem 0.7rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.72);
+  color: var(--jp-gray-700, #33404f);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  font-variant-numeric: tabular-nums;
+}
+
+.jp-vacancy-tile-art {
+  position: relative;
+  display: block;
+  width: 112px;
+  height: 84px;
+  flex-shrink: 0;
+  margin: -0.35rem -0.2rem -0.55rem 0;
+  transition: transform 0.15s ease;
+}
+
+.jp-vacancy-tile-art img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+  pointer-events: none;
+  user-select: none;
+}
+
+.jp-vacancy-tile-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: 1.25;
+  color: var(--jp-gray-900);
+}
+
+.jp-vacancy-tile-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-top: auto;
+  padding: 0.85rem 1.2rem;
+  border-top: 1px solid var(--jp-gray-100);
+}
+
+.jp-vacancy-tile-hint {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--jp-gray-500);
+  transition: color 0.15s ease;
+}
+
+.jp-vacancy-tile-actions {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  min-height: 32px;
+  flex-shrink: 0;
+}
+
+.jp-vacancy-tile.is-hot .jp-vacancy-tile-actions {
+  min-width: 7.5rem;
+}
+
+/* Golden badge — sits on the right; slides left on hover */
+.jp-vacancy-tile-demand {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  overflow: hidden;
+  padding: 0.34rem 0.7rem;
+  border-radius: 999px;
+  color: #5a420c;
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  line-height: 1;
+  background: linear-gradient(145deg, #e8b84a 0%, #f0d078 45%, #c9972a 100%);
+  border: 1px solid rgba(180, 130, 30, 0.45);
+  box-shadow:
+    0 2px 8px rgba(160, 110, 20, 0.22),
+    inset 0 1px 0 rgba(255, 255, 255, 0.55);
+  transition: transform 0.15s ease;
+  transform: translateX(0);
+}
+
+/* Single L→R shine, then a pause before the next pass */
+.jp-vacancy-tile-demand-shine {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 70%;
+  background: linear-gradient(90deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0.2) 30%,
+      rgba(255, 255, 255, 0.75) 50%,
+      rgba(255, 255, 255, 0.2) 70%,
+      transparent 100%);
+  transform: translateX(-140%);
+  animation: jp-vac-gold-shine 4.8s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes jp-vac-gold-shine {
+
+  0%,
+  45% {
+    transform: translateX(-140%);
+  }
+
+  78% {
+    transform: translateX(220%);
+  }
+
+  78.01%,
+  100% {
+    transform: translateX(-140%);
+  }
+}
+
+.jp-vacancy-tile-arrow {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 999px;
+  flex-shrink: 0;
+  color: #fff;
+  background: var(--jp-primary);
+  opacity: 0;
+  transform: scale(0.9);
+  transition:
+    opacity 0.15s ease,
+    transform 0.15s ease,
+    background 0.15s ease;
+}
+
+.jp-vacancy-tile.is-hot .jp-vacancy-tile-arrow {
+  position: absolute;
+  right: 0;
+}
+
+.jp-vacancy-tile:focus-visible {
+  outline: none;
+  box-shadow:
+    0 0 0 2px #fff,
+    0 0 0 4px var(--jp-primary),
+    0 10px 24px rgba(15, 40, 80, 0.05);
+}
+
+.jp-vacancy-tile:focus-visible .jp-vacancy-tile-arrow {
+  opacity: 1;
+  transform: none;
+}
+
+.jp-vacancy-tile.is-hot:focus-visible .jp-vacancy-tile-demand {
+  transform: translateX(-38px);
+}
+
+.jp-vacancies-band.is-inview .jp-vacancy-tile:active {
+  --jp-vac-scale: 0.985;
+  --jp-vac-lift: -1px;
+  transition-duration: 0.1s;
+  transition-delay: 0ms;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .jp-vacancies-band.is-inview .jp-vacancy-tile:hover {
+    --jp-vac-lift: -4px;
+    --jp-vac-scale: 1;
+    border-color: transparent;
+    box-shadow: var(--jp-shadow-hover);
+    transition-delay: 0ms;
+  }
+
+  .jp-vacancies-band.is-inview .jp-vacancy-tile.is-hot:hover {
+    border-color: #d4a017;
+    box-shadow: var(--jp-shadow-hover);
+  }
+
+  .jp-vacancies-band.is-inview .jp-vacancy-tile:hover .jp-vacancy-tile-art {
+    transform: translateY(-4px);
+  }
+
+  .jp-vacancies-band.is-inview .jp-vacancy-tile:hover .jp-vacancy-tile-hint {
+    color: var(--jp-primary);
+  }
+
+  .jp-vacancies-band.is-inview .jp-vacancy-tile:hover .jp-vacancy-tile-arrow {
+    opacity: 1;
+    transform: none;
+  }
+
+  .jp-vacancies-band.is-inview .jp-vacancy-tile.is-hot:hover .jp-vacancy-tile-demand {
+    transform: translateX(-38px);
+  }
+}
+
+@media (max-width: 639px) {
+  .jp-vacancies-bar .jp-btn {
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  .jp-vacancies-copy,
+  .jp-vacancies-cta,
+  .jp-vacancy-tile,
+  .jp-vacancy-tile-art,
+  .jp-vacancy-tile-arrow,
+  .jp-vacancy-tile-demand,
+  .jp-vacancy-tile-hint,
+  .jp-vacancies-cta-arrow,
+  .jp-cat,
+  .jp-cat-icon {
+    transition: none !important;
+    animation: none !important;
+  }
+
+  .jp-vacancies-copy,
+  .jp-vacancies-cta,
+  .jp-vacancy-tile {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .jp-vacancy-tile-art,
+  .jp-vacancy-tile-arrow,
+  .jp-vacancy-tile-demand,
+  .jp-vacancy-tile-hint,
+  .jp-vacancies-cta-arrow {
+    transform: none !important;
+  }
+
+  .jp-vacancy-tile-demand-shine,
+  .jp-job-featured-sheen {
+    animation: none !important;
+    opacity: 0.35;
+  }
+
+  .jp-vacancy-tile.is-hot {
+    box-shadow:
+      0 1px 2px rgba(15, 40, 80, 0.03),
+      0 10px 24px rgba(15, 40, 80, 0.05) !important;
+  }
+
+  .jp-vacancy-tile:not(.is-hot) .jp-vacancy-tile-arrow {
+    opacity: 0.55 !important;
+  }
+
+  .jp-vacancies-band.is-inview .jp-vacancy-tile:active {
+    --jp-vac-scale: 1;
+    --jp-vac-lift: 0px;
+  }
+}
+
+/* ── How it works ─────────────────────────────────────────────────────────── */
+
+.jp-how-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+.jp-how-step {
+  position: relative;
+  text-align: center;
+  width: 100%;
+  max-width: 100%;
+  padding: 2.25rem 1.5rem 1.75rem;
+  background: var(--jp-white);
+  border: 1px solid var(--jp-gray-200);
+  border-radius: var(--jp-radius-xl, 16px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+}
+
+.jp-how-step:hover {
+  transform: translateY(-4px);
+  border-color: var(--jp-primary);
+  box-shadow: 0 12px 28px rgba(10, 101, 204, 0.08);
+}
+
+.jp-how-step-badge {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--jp-primary);
+  background: var(--jp-primary-soft);
+  padding: 0.2rem 0.55rem;
+  border-radius: 9999px;
+  text-transform: uppercase;
+}
+
+.jp-how-icon {
+  width: 62px;
+  height: 62px;
+  margin: 0 auto 1.25rem;
+  border-radius: 14px;
+  display: grid;
+  place-items: center;
+  background: var(--jp-primary-soft);
+  color: var(--jp-primary);
+  transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease;
+}
+
+.jp-how-step:hover .jp-how-icon {
+  background: var(--jp-primary);
+  color: var(--jp-white);
+  transform: scale(1.05);
+  box-shadow: 0 8px 20px rgba(10, 101, 204, 0.22);
+}
+
+.jp-how-step.is-active .jp-how-icon {
+  background: var(--jp-primary);
+  color: var(--jp-white);
+  box-shadow: 0 8px 20px rgba(10, 101, 204, 0.25);
+}
+
+.jp-how-step h3 {
+  margin: 0 0 0.5rem;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--jp-gray-900);
+}
+
+.jp-how-step p {
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.55;
+  color: var(--jp-gray-500);
+}
+
+/* ── How it works: product flow panels (homepage) ────────────────────────── */
+
+.jp-flow {
+  background: var(--jp-white);
+}
+
+.jp-flow-head {
+  text-align: center;
+  max-width: 36rem;
+  margin: 0 auto 2.75rem;
+}
+
+.jp-flow-sub {
+  margin: 0.75rem 0 0;
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  color: var(--jp-gray-500);
+}
+
+.jp-flow-grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.75rem;
+}
+
+.jp-flow-step {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+}
+
+.jp-flow-step-visual {
+  width: 100%;
+  margin-bottom: 1.15rem;
+  border-radius: 14px;
+  border: 1px solid var(--jp-gray-200);
+  background:
+    radial-gradient(120% 100% at 100% 0%, rgba(10, 101, 204, 0.07), transparent 55%),
+    var(--jp-gray-50);
+  overflow: hidden;
+  aspect-ratio: 16 / 11;
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+  box-sizing: border-box;
+}
+
+.jp-flow-step-n {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--jp-primary);
+  margin-bottom: 0.35rem;
+}
+
+.jp-flow-step h3 {
+  margin: 0 0 0.4rem;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--jp-gray-900);
+}
+
+.jp-flow-step p {
+  margin: 0;
+  font-size: 0.9375rem;
+  line-height: 1.55;
+  color: var(--jp-gray-500);
+  max-width: 28ch;
+}
+
+.jp-flow-step-bridge {
+  display: none;
+}
+
+/* Shared vignette primitives */
+
+.jp-flow-visual {
+  width: 100%;
+  max-width: 220px;
+}
+
+.jp-flow-profile {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.7rem 0.8rem;
+  border-radius: 12px;
+  background: var(--jp-white);
+  border: 1px solid var(--jp-gray-200);
+  box-shadow: 0 8px 20px rgba(16, 24, 40, 0.05);
+  margin-bottom: 0.55rem;
+}
+
+.jp-flow-profile-av {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: linear-gradient(145deg, #3db8a8, #f0a060);
+  flex-shrink: 0;
+}
+
+.jp-flow-profile-lines {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.jp-flow-profile-lines i {
+  display: block;
+  height: 5px;
+  border-radius: 999px;
+  background: #d7e0ea;
+}
+
+.jp-flow-profile-lines i:first-child {
+  width: 72%;
+}
+
+.jp-flow-profile-lines i:last-child {
+  width: 48%;
+}
+
+.jp-flow-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.jp-flow-fields span {
+  display: block;
+  height: 28px;
+  border-radius: 8px;
+  background: var(--jp-white);
+  border: 1px solid var(--jp-gray-200);
+}
+
+.jp-flow-fields span.is-short {
+  width: 42%;
+  background: var(--jp-primary);
+  border-color: var(--jp-primary);
+  height: 26px;
+}
+
+.jp-flow-doc {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.75rem 0.85rem;
+  border-radius: 12px;
+  background: var(--jp-white);
+  border: 1px solid var(--jp-gray-200);
+  box-shadow: 0 8px 20px rgba(16, 24, 40, 0.05);
+  margin-bottom: 0.55rem;
+}
+
+.jp-flow-doc-mark {
+  width: 28px;
+  height: 34px;
+  border-radius: 6px;
+  background: var(--jp-primary-soft);
+  border: 1px solid var(--jp-primary-soft-2);
+  position: relative;
+  flex-shrink: 0;
+}
+
+.jp-flow-doc-mark::after {
+  content: '';
+  position: absolute;
+  inset: 8px 6px auto;
+  height: 3px;
+  border-radius: 2px;
+  background: rgba(10, 101, 204, 0.35);
+  box-shadow: 0 6px 0 rgba(10, 101, 204, 0.22), 0 12px 0 rgba(10, 101, 204, 0.15);
+}
+
+.jp-flow-doc-lines {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.jp-flow-doc-lines i {
+  display: block;
+  height: 5px;
+  border-radius: 999px;
+  background: #d7e0ea;
+}
+
+.jp-flow-doc-lines i:nth-child(1) {
+  width: 78%;
+}
+
+.jp-flow-doc-lines i:nth-child(2) {
+  width: 58%;
+}
+
+.jp-flow-doc-lines i:nth-child(3) {
+  width: 42%;
+}
+
+.jp-flow-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.jp-flow-tags span {
+  padding: 0.28rem 0.55rem;
+  border-radius: 999px;
+  background: var(--jp-primary-soft);
+  color: var(--jp-primary);
+  font-size: 0.6875rem;
+  font-weight: 600;
+}
+
+.jp-flow-visual--jobs {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.jp-flow-visual--jobs article {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.55rem 0.7rem;
+  border-radius: 10px;
+  background: var(--jp-white);
+  border: 1px solid var(--jp-gray-200);
+}
+
+.jp-flow-visual--jobs article:first-child {
+  border-color: var(--jp-primary-soft-2);
+  background: var(--jp-primary-soft);
+}
+
+.jp-flow-visual--jobs strong,
+.jp-flow-visual--jobs em {
+  display: block;
+  height: 5px;
+  border-radius: 999px;
+  background: #d0dae6;
+}
+
+.jp-flow-visual--jobs strong {
+  width: 86px;
+  margin-bottom: 5px;
+}
+
+.jp-flow-visual--jobs em {
+  width: 52px;
+  height: 4px;
+}
+
+.jp-flow-visual--jobs article:first-child strong,
+.jp-flow-visual--jobs article:first-child em {
+  background: rgba(10, 101, 204, 0.28);
+}
+
+.jp-flow-visual--jobs b {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  color: var(--jp-primary);
+}
+
+.jp-flow-apply-card {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: auto auto;
+  gap: 0.45rem 0.65rem;
+  padding: 0.8rem;
+  border-radius: 12px;
+  background: var(--jp-white);
+  border: 1px solid var(--jp-gray-200);
+  box-shadow: 0 8px 20px rgba(16, 24, 40, 0.05);
+  margin-bottom: 0.55rem;
+}
+
+.jp-flow-apply-av {
+  grid-row: 1 / span 2;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: linear-gradient(145deg, #3db8a8, #f0a060);
+  align-self: center;
+}
+
+.jp-flow-apply-lines {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  justify-content: center;
+}
+
+.jp-flow-apply-lines i {
+  display: block;
+  height: 5px;
+  border-radius: 999px;
+  background: #d7e0ea;
+}
+
+.jp-flow-apply-lines i:first-child {
+  width: 70%;
+}
+
+.jp-flow-apply-lines i:last-child {
+  width: 44%;
+}
+
+.jp-flow-apply-btn {
+  grid-column: 2;
+  height: 22px;
+  width: 64px;
+  border-radius: 6px;
+  background: var(--jp-primary);
+}
+
+.jp-flow-apply-ok {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.4rem 0.65rem;
+  border-radius: 999px;
+  background: var(--jp-success-soft);
+  color: #0a7a29;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+@media (min-width: 768px) {
+  .jp-flow-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.75rem 1.5rem;
+  }
+}
+
+@media (min-width: 1100px) {
+  .jp-flow-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1.25rem;
+  }
+
+  .jp-flow-step-bridge {
+    display: block;
+    position: absolute;
+    top: 22%;
+    right: -0.7rem;
+    width: 1.25rem;
+    height: 2px;
+    background: var(--jp-gray-200);
+    z-index: 1;
+  }
+
+  .jp-flow-step-bridge::after {
+    content: '';
+    position: absolute;
+    right: -1px;
+    top: 50%;
+    width: 5px;
+    height: 5px;
+    margin-top: -2.5px;
+    border-right: 1.5px solid var(--jp-gray-300);
+    border-top: 1.5px solid var(--jp-gray-300);
+    transform: rotate(45deg);
+  }
+}
+
+/* ── Categories ───────────────────────────────────────────────────────────── */
+
+.jp-cat-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+.jp-cat {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.25rem;
+  background: var(--jp-white);
+  border: 1px solid var(--jp-gray-200);
+  border-radius: var(--jp-radius-lg);
+  min-height: 116px;
+  transition:
+    box-shadow 0.15s ease,
+    border-color 0.15s ease,
+    transform 0.15s ease;
+}
+
+.jp-cat-icon {
+  width: 54px;
+  height: 54px;
+  border-radius: var(--jp-radius-lg);
+  display: grid;
+  place-items: center;
+  background: var(--jp-primary-soft);
+  color: var(--jp-primary);
+  flex-shrink: 0;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.jp-cat.is-highlight {
+  background: var(--jp-white);
+  border-color: transparent;
+  box-shadow: var(--jp-shadow-hover);
+}
+
+.jp-cat.is-highlight .jp-cat-icon {
+  background: var(--jp-primary);
+  color: var(--jp-white);
+}
+
+.jp-cat h3 {
+  margin: 0 0 0.25rem;
+  font-size: 1.125rem;
+  font-weight: 500;
+}
+
+.jp-cat p {
+  margin: 0;
+  font-size: 0.875rem;
+  color: var(--jp-gray-500);
+  transition: color 0.15s ease;
+}
+
+.jp-cat.is-highlight p {
+  color: var(--jp-primary);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .jp-cat:hover {
+    border-color: transparent;
+    box-shadow: var(--jp-shadow-hover);
+    transform: translateY(-4px);
+  }
+
+  .jp-cat:hover .jp-cat-icon {
+    background: var(--jp-primary);
+    color: var(--jp-white);
+  }
+
+  .jp-cat:hover p {
+    color: var(--jp-primary);
+  }
+}
+
+.jp-cat:active {
+  transform: translateY(-1px) scale(0.985);
+}
+
+/* Legacy jp-job styles kept for any remaining surfaces; featured treatment lives on jp-fcard */
+
+.jp-job-logo {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--jp-radius-md);
+  background: var(--jp-gray-100);
+  color: var(--jp-primary);
+  display: grid;
+  place-items: center;
+  font-weight: 700;
+  font-size: 0.75rem;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.jp-company-mark--image {
+  background: #fff;
+  border: 1px solid var(--jp-gray-200);
+  padding: 0;
+  overflow: hidden;
+}
+
+.jp-company-mark--image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+/* ── Companies ────────────────────────────────────────────────────────────── */
+
+.jp-company-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+.jp-company {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  padding: 1.5rem;
+  background: var(--jp-white);
+  border: 1px solid var(--jp-gray-200);
+  border-radius: var(--jp-radius-lg);
+}
+
+.jp-company-top {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.jp-company-logo {
+  width: 56px;
+  height: 56px;
+  border-radius: var(--jp-radius-lg);
+  display: grid;
+  place-items: center;
+  color: var(--jp-white);
+  font-weight: 700;
+  font-size: 1.125rem;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.jp-company h3 {
+  margin: 0 0 0.35rem;
+  font-size: 1.125rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+/* Find Employers listing — compact company cards */
+
+.jp-company-loc {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.875rem;
+  color: var(--jp-gray-500);
+}
+
+/* ── CTA banners ──────────────────────────────────────────────────────────── */
+
+.jp-cta-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+.jp-cta {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--jp-radius-xl);
+  padding: 2rem 1.75rem;
+  min-height: 280px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1.25rem;
+  align-items: center;
+}
+
+.jp-cta-copy {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1rem;
+  max-width: 28rem;
+}
+
+.jp-cta-art {
+  position: relative;
+  z-index: 0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  pointer-events: none;
+  min-height: 160px;
+}
+
+.jp-cta-art img {
+  width: auto;
+  max-width: min(100%, 240px);
+  height: auto;
+  max-height: 200px;
+  object-fit: contain;
+}
+
+.jp-cta--candidate {
+  background: var(--jp-gray-100);
+  color: var(--jp-gray-900);
+}
+
+.jp-cta--employer {
+  background: var(--jp-primary);
+  color: var(--jp-white);
+}
+
+.jp-cta h2 {
+  margin: 0;
+  font-size: clamp(1.5rem, 2vw, 2rem);
+  font-weight: 500;
+  max-width: 12ch;
+}
+
+.jp-cta p {
+  margin: 0;
+  max-width: 36ch;
+  font-size: 0.9375rem;
+  line-height: 1.55;
+  opacity: 0.85;
+}
+
+.jp-cta--employer .jp-btn--white:hover {
+  background: var(--jp-gray-50);
+}
+
+@media (min-width: 640px) {
+  .jp-cta {
+    grid-template-columns: minmax(0, 1.1fr) minmax(140px, 0.9fr);
+    padding: 2.25rem 2rem 2.25rem 2.25rem;
+    min-height: 300px;
+  }
+
+  .jp-cta-art {
+    justify-content: flex-end;
+    align-self: end;
+    min-height: 0;
+    margin-right: -0.5rem;
+    margin-bottom: -0.5rem;
+  }
+
+  .jp-cta-art img {
+    max-width: min(100%, 260px);
+    max-height: 240px;
+  }
+
+  .jp-cta--candidate .jp-cta-art img {
+    max-height: 260px;
+  }
+}
+
+/* ── Footer ───────────────────────────────────────────────────────────────── */
+
+.jp-footer {
+  --jp-gray-900: #18191c;
+  --jp-white: #ffffff;
+  --jp-gray-400: #9199a3;
+  --jp-radius-md: 6px;
+  --jp-max: 1320px;
+  --jp-gutter: clamp(1rem, 4vw, 2rem);
+  width: 100%;
+  background: var(--jp-gray-900);
+  color: var(--jp-white);
+  padding-top: 4rem;
+}
+
+.jp-footer-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2.5rem;
+  padding-bottom: 3rem;
+}
+
+.jp-footer-brand .jp-logo {
+  margin-bottom: 0.25rem;
+}
+
+.jp-footer-brand p,
+.jp-footer-brand a {
+  color: var(--jp-gray-400);
+  font-size: 0.9375rem;
+  line-height: 1.6;
+}
+
+.jp-footer-contact {
+  display: grid;
+  gap: 0.75rem;
+  margin-top: 1.25rem;
+}
+
+.jp-footer-contact a,
+.jp-footer-contact span {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+
+.jp-footer-col h4 {
+  margin: 0 0 1rem;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.jp-footer-col a {
+  display: block;
+  margin-bottom: 0.75rem;
+  font-size: 0.875rem;
+  color: var(--jp-gray-400);
+}
+
+.jp-footer-col a:hover {
+  color: var(--jp-white);
+}
+
+.jp-footer-bottom {
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 1.25rem 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  font-size: 0.875rem;
+  color: var(--jp-gray-400);
+}
+
+.jp-footer-social {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.jp-footer-social a {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--jp-radius-md);
+  background: rgba(255, 255, 255, 0.06);
+  display: grid;
+  place-items: center;
+  color: var(--jp-gray-400);
+}
+
+.jp-footer-social a:hover {
+  background: var(--jp-primary);
+  color: var(--jp-white);
+}
+
+/* Auth pages wrapper (login, signup, onboarding) */
+.auth-login-root {
+  width: 100%;
+  max-width: 100%;
+  min-height: 100dvh;
+  height: 100dvh;
+  max-height: 100dvh;
+  overflow: hidden;
+  position: relative;
+  isolation: isolate;
+  background: #ffffff;
+}
+
+body:has(.auth-login-root:not([style*="display: none"], [style*="display: none"] *)) {
+  overflow: hidden;
+}
+
+.jp-auth {
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  height: 100dvh;
+  min-height: 100dvh;
+  max-height: 100dvh;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: minmax(0, 1fr);
+  overflow: hidden;
+  background: #ffffff;
+  box-sizing: border-box;
+}
+
+.auth-login-root > .jp-auth {
+  height: 100%;
+  min-height: 0;
+  max-height: 100%;
+}
+
+.jp-auth-brand-corner {
+  position: absolute;
+  top: 1.25rem;
+  left: var(--jp-gutter);
+  z-index: 20;
+}
+
+.jp-auth-brand-corner .jp-logo {
+  display: flex;
+}
+
+.jp-auth-panel {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+  padding: clamp(2.5rem, 6vh, 3.5rem) var(--jp-gutter) clamp(1.25rem, 3vh, 2rem);
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  min-height: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+}
+
+.jp-auth-panel-inner {
+  width: 100%;
+  max-width: min(100%, 480px);
+  min-width: 0;
+  margin-inline: auto;
+  margin-block: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  flex-shrink: 0;
+}
+
+.jp-auth-heading {
+  margin: 0.5rem 0 1.25rem;
+}
+
+.jp-auth-panel h1 {
+  margin: 0;
+  font-family: var(--font-playfair), Georgia, serif;
+  font-size: clamp(1.85rem, 3vw, 2.35rem);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  color: var(--jp-gray-900, #18191c);
+}
+
+.jp-auth-subtitle {
+  margin: 0.6rem 0 0;
+  font-size: 0.975rem;
+  line-height: 1.5;
+  color: var(--jp-gray-500);
+}
+
+.jp-auth-form {
+  display: block;
+  min-width: 0;
+  max-width: 100%;
+}
+
+.jp-auth-submit {
+  width: 100%;
+  height: 56px;
+  margin-top: 0.5rem;
+  font-size: 1.0625rem;
+}
+
+/* Auth form — taller fields, tighter outer spacing */
+.jp-auth .jp-field {
+  gap: 0.625rem;
+  margin-bottom: 1.25rem;
+}
+
+.jp-auth .jp-field label {
+  font-size: 0.9375rem;
+}
+
+.jp-auth .jp-field input:not(.jp-otp-digit),
+.jp-auth .jp-input-wrap input,
+.jp-auth .jp-field select {
+  height: 54px;
+  padding-inline: 1.125rem;
+  font-size: 1.0625rem;
+  border-radius: var(--jp-radius-lg);
+}
+
+.jp-auth .jp-input-wrap input {
+  padding-right: 2.85rem;
+}
+
+.jp-auth .jp-input-wrap .jp-input-icon {
+  left: 1.125rem;
+}
+
+.jp-auth .jp-field select {
+  padding-right: 2.5rem;
+}
+
+.jp-auth .jp-social-btn {
+  height: 50px;
+  font-size: 0.9375rem;
+  border-radius: var(--jp-radius-md);
+  width: 100%;
+}
+
+.jp-auth .jp-btn.jp-auth-submit {
+  border-radius: var(--jp-radius-lg);
+}
+
+.jp-auth .jp-auth-back {
+  margin-bottom: 1rem;
+}
+
+.jp-auth-legal {
+  margin: 1rem 0 0;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: var(--jp-gray-500);
+}
+
+.jp a.jp-link,
+.jp a.jp-link--strong {
+  color: var(--jp-primary);
+  font-weight: 500;
+}
+
+.jp a.jp-link--strong {
+  font-weight: 700;
+}
+
+.jp a.jp-link:hover,
+.jp a.jp-link--strong:hover {
+  color: var(--jp-primary-hover);
+}
+
+.jp-link--strong {
+  font-weight: 700;
+  color: var(--jp-primary);
+}
+
+.jp-link--strong:hover {
+  color: var(--jp-primary-hover);
+}
+
+.jp-field {
+  display: grid;
+  gap: 0.5rem;
+  margin-bottom: 1.125rem;
+}
+
+.jp-field label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--jp-gray-700);
+}
+
+.jp-field input:not(.jp-otp-digit) {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  height: 48px;
+  padding: 0 1rem;
+  border: 1px solid var(--jp-gray-200);
+  border-radius: var(--jp-radius-md);
+  font-size: 1rem;
+  outline: none;
+  background: #fff;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.jp-field input:not(.jp-otp-digit):focus {
+  border-color: var(--jp-primary);
+  box-shadow: 0 0 0 3px rgba(10, 101, 204, 0.12);
+}
+
+.jp-auth-aside {
+  display: none;
+  position: relative;
+  overflow: hidden;
+  min-height: 0;
+  height: 100%;
+}
+
+.jp-auth-back {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-size: 0.875rem;
+  color: var(--jp-gray-500);
+  margin: 0 0 1.25rem;
+  width: fit-content;
+  transition: color 0.15s ease;
+}
+
+.jp-auth-back:hover {
+  color: var(--jp-primary);
+}
+
+.jp-field-hint {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
+  margin: -0.25rem 0 1.25rem;
+  font-size: 0.875rem;
+}
+
+.jp-remember {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--jp-gray-600);
+  cursor: pointer;
+  user-select: none;
+}
+
+.jp-remember input {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--jp-primary);
+  cursor: pointer;
+}
+
+.jp a.jp-link {
+  color: var(--jp-primary);
+  font-weight: 500;
+}
+
+.jp a.jp-link:hover {
+  color: var(--jp-primary-hover);
+}
+
+.jp-input-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.jp-input-wrap .jp-input-icon {
+  position: absolute;
+  left: 1rem;
+  color: var(--jp-gray-400);
+  pointer-events: none;
+}
+
+.jp-input-wrap input {
+  width: 100%;
+  height: 48px;
+  padding: 0 2.75rem 0 1rem;
+  border: 1px solid var(--jp-gray-200);
+  border-radius: var(--jp-radius-md);
+  font-size: 1rem;
+  outline: none;
+  background: #fff;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.jp-input-wrap input:focus {
+  border-color: var(--jp-primary);
+  box-shadow: 0 0 0 3px rgba(10, 101, 204, 0.12);
+}
+
+.jp-input-eye {
+  position: absolute;
+  right: 0.75rem;
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border: 0;
+  background: transparent;
+  color: var(--jp-gray-400);
+  cursor: pointer;
+  border-radius: var(--jp-radius-sm);
+}
+
+.jp-input-eye:hover {
+  color: var(--jp-gray-700);
+}
+
+.jp-divider {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 1.5rem 0;
+  color: var(--jp-gray-400);
+  font-size: 0.8125rem;
+}
+
+.jp-divider::before,
+.jp-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--jp-gray-200);
+}
+
+.jp-social {
+  display: grid;
+  gap: 0.75rem;
+  width: 100%;
+}
+
+.jp-social-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  width: 100%;
+  height: 48px;
+  padding: 0 1.25rem;
+  border: 1px solid var(--jp-gray-200);
+  border-radius: var(--jp-radius-md);
+  background: var(--jp-white);
+  color: var(--jp-gray-700);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  line-height: 1;
+  text-decoration: none;
+  cursor: pointer;
+  box-sizing: border-box;
+  transition: background 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.jp-social-btn:hover:not(:disabled) {
+  background: var(--jp-gray-50);
+  border-color: var(--jp-gray-400);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.jp-social-btn:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.jp-social-btn svg,
+.jp-social-btn .jp-google-icon,
+.jp-social-btn .jp-linkedin-icon,
+.jp-social-btn .jp-social-icon {
+  width: 20px !important;
+  height: 20px !important;
+  min-width: 20px !important;
+  min-height: 20px !important;
+  max-width: 20px !important;
+  max-height: 20px !important;
+  flex-shrink: 0;
+  display: block;
+}
+
+.jp-social-btn span {
+  display: inline-block;
+  line-height: 1.2;
+}
+
+.jp-alert {
+  padding: 0.75rem 1rem;
+  border-radius: var(--jp-radius-md);
+  font-size: 0.875rem;
+  margin-bottom: 1.25rem;
+}
+
+.jp-alert.is-error {
+  background: #fceeee;
+  color: var(--jp-danger);
+}
+
+.jp-alert.is-success {
+  background: #ecfdf5;
+  color: #065f46;
+  border: 1px solid #a7f3d0;
+}
+
+.jp-field select {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  height: 48px;
+  padding: 0 2.25rem 0 1rem;
+  border: 1px solid var(--jp-gray-200);
+  border-radius: var(--jp-radius-md);
+  font-size: 1rem;
+  outline: none;
+  background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E") no-repeat right 0.75rem center;
+  appearance: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.jp-field select:focus {
+  border-color: var(--jp-primary);
+  box-shadow: 0 0 0 3px rgba(10, 101, 204, 0.12);
+}
+
+.jp-auth-aside-inner {
+  position: relative;
+  height: 100%;
+  min-height: 0;
+  max-height: 100%;
+  background: linear-gradient(155deg, #0a65cc 0%, #0b57b0 42%, #0a3d7a 100%);
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  padding: clamp(1.5rem, 4vh, 3rem) clamp(1.5rem, 3vw, 2.75rem);
+  color: #fff;
+  overflow: hidden;
+}
+
+.jp-auth-aside-inner.is-light {
+  background: #ffffff;
+  color: #18191c;
+  border-right: 1px solid #eef1f5;
+  border-left: 0;
+}
+
+.jp-auth-aside-content {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: min(100%, 560px);
+  min-width: 0;
+  min-height: 0;
+  max-height: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: center;
+  gap: clamp(1rem, 2.5vh, 2rem);
+}
+
+.jp-auth-aside-inner.is-light .jp-auth-aside-content {
+  height: 100%;
+  justify-content: space-between;
+}
+
+.jp-auth-aside-art {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: min(100%, 560px);
+  max-height: 100%;
+  object-fit: contain;
+  object-position: center;
+  margin: 0 auto;
+}
+
+.jp-auth-aside-inner.is-light .jp-auth-aside-art {
+  filter: none;
+}
+
+.jp-auth-aside-inner.is-light .jp-auth-proof-title {
+  color: #18191c;
+}
+
+.jp-auth-aside-inner.is-light .jp-auth-proof-title strong {
+  color: var(--jp-primary);
+}
+
+.jp-auth-aside-inner.is-light .jp-auth-stat-ico {
+  background: var(--jp-primary-soft);
+  color: var(--jp-primary);
+}
+
+.jp-auth-aside-inner.is-light .jp-auth-stat-item strong {
+  color: #18191c;
+}
+
+.jp-auth-aside-inner.is-light .jp-auth-stat-item span:last-child {
+  color: #6b7280;
+  opacity: 1;
+}
+
+.jp-auth-aside-inner.is-light .jp-auth-proof {
+  border-top: 1px solid #eef1f5;
+}
+
+.jp-auth-proof {
+  margin-top: 0;
+  padding-top: clamp(1rem, 2.5vh, 1.75rem);
+  border-top: 1px solid rgba(255, 255, 255, 0.18);
+  flex-shrink: 0;
+}
+
+.jp-auth-aside-inner.is-light .jp-auth-proof {
+  padding-top: clamp(1rem, 2.5vh, 1.75rem);
+}
+
+.jp-auth-proof-title {
+  margin: 0 0 clamp(1rem, 2vh, 1.5rem);
+  font-size: clamp(1.15rem, 1.8vw, 1.5rem);
+  font-weight: 500;
+  line-height: 1.35;
+  letter-spacing: -0.015em;
+  max-width: 32ch;
+}
+
+.jp-auth-proof-title strong {
+  font-weight: 700;
+}
+
+.jp-auth-stat {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(0.75rem, 2vw, 1.25rem);
+}
+
+.jp-auth-stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.55rem;
+  min-width: 0;
+}
+
+.jp-auth-stat-ico {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 0.65rem;
+  background: rgba(255, 255, 255, 0.14);
+  color: #fff;
+  flex-shrink: 0;
+}
+
+.jp-auth-stat-ico svg {
+  width: 1.375rem;
+  height: 1.375rem;
+}
+
+.jp-auth-stat-item strong {
+  display: block;
+  font-size: clamp(1.1rem, 1.8vw, 1.4rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  overflow-wrap: anywhere;
+}
+
+.jp-auth-stat-item span:last-child {
+  display: block;
+  font-size: clamp(0.8125rem, 1.2vw, 0.9375rem);
+  opacity: 0.8;
+  line-height: 1.3;
+}
+
+@keyframes jp-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ── Find Job search card ─────────────────────────────────────────────────── */
+
+.jp-find-search {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0.75rem;
+  background: var(--jp-white);
+  border: 1px solid var(--jp-gray-200);
+  border-radius: var(--jp-radius-lg);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.jp-find-search:focus-within {
+  border-color: var(--jp-primary, #0a65cc) !important;
+  box-shadow: 0 0 0 3px rgba(10, 101, 204, 0.14), 0 2px 8px rgba(10, 101, 204, 0.08) !important;
+}
+
+.jp-find-field {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex: 1;
+  min-height: 48px;
+  padding: 0 1rem;
+  border: 0 !important;
+  border-radius: var(--jp-radius-md);
+  background: transparent;
+}
+
+.jp-find-field:focus-within {
+  border: 0 !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+.jp-find-field input {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  outline: none !important;
+  box-shadow: none !important;
+  background: transparent;
+  font-size: 0.9375rem;
+  color: var(--jp-gray-900);
+}
+
+.jp-find-field input:focus,
+.jp-find-field input:focus-visible {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.jp-find-field input::placeholder {
+  color: var(--jp-gray-400);
+}
+
+.jp-find-locate {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border: 0;
+  background: transparent;
+  color: var(--jp-gray-400);
+  cursor: pointer;
+  border-radius: var(--jp-radius-sm);
+}
+
+.jp-find-locate:hover {
+  color: var(--jp-primary);
+}
+
+.jp-btn--filters {
+  background: var(--jp-gray-100);
+  color: var(--jp-gray-700);
+  font-weight: 500;
+}
+
+.jp-btn--filters:hover,
+.jp-btn--filters.is-active {
+  background: var(--jp-gray-200);
+}
+
+@media (min-width: 1024px) {
+  .jp-find-search {
+    flex-direction: row;
+    align-items: center;
+  }
+}
+
+/* ── Popular searches chips ───────────────────────────────────────────────── */
+
+.jp-popular {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 0.75rem;
+  margin: 1.25rem 0 2rem;
+  font-size: 0.875rem;
+  color: var(--jp-gray-500);
+}
+
+.jp-popular button {
+  border: 0;
+  background: none;
+  padding: 0.25rem 0.625rem;
+  border-radius: var(--jp-radius-sm);
+  color: var(--jp-gray-600);
+  font: inherit;
+  cursor: pointer;
+}
+
+.jp-popular button:hover {
+  color: var(--jp-primary);
+}
+
+.jp-popular button.is-active {
+  background: var(--jp-gray-900);
+  color: var(--jp-white);
+}
+
+/* ── Find Job filter drawer (Figma 08_Find Job_Filter) ────────────────────── */
+
+.jp-drawer {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  display: flex;
+}
+
+.jp-drawer-backdrop {
+  position: absolute;
+  inset: 0;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  background: rgba(24, 25, 28, 0.4);
+  cursor: pointer;
+  backdrop-filter: blur(2px);
+}
+
+.jp-drawer-panel {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  width: min(320px, 100vw);
+  height: 100%;
+  background: var(--jp-white);
+  box-shadow: 4px 0 40px rgba(15, 23, 42, 0.14);
+  animation: jp-drawer-in 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes jp-drawer-in {
+  from {
+    transform: translateX(-100%);
+    opacity: 0.85;
+  }
+
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.jp-drawer-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+  padding: 1.25rem 1.25rem 0.875rem;
+}
+
+.jp-drawer-head h2 {
+  margin: 0;
+  font-size: 1.125rem;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  color: var(--jp-gray-900);
+}
+
+.jp-drawer-close {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--jp-gray-100);
+  border-radius: 999px;
+  background: var(--jp-gray-50);
+  color: var(--jp-gray-500);
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+.jp-drawer-close:hover {
+  background: var(--jp-gray-100);
+  border-color: var(--jp-gray-200);
+  color: var(--jp-gray-900);
+}
+
+.jp-drawer-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 0 1.25rem 1.25rem;
+  scrollbar-width: thin;
+  scrollbar-color: var(--jp-gray-200) transparent;
+}
+
+.jp-drawer-active {
+  margin-bottom: 1.25rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid var(--jp-gray-100);
+}
+
+.jp-drawer-active>p {
+  margin: 0 0 0.625rem;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--jp-gray-500);
+}
+
+.jp-drawer-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.jp-drawer-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  max-width: 100%;
+  min-height: 30px;
+  padding: 0.25rem 0.25rem 0.25rem 0.625rem;
+  border-radius: 6px;
+  background: var(--jp-gray-50);
+  border: 1px solid var(--jp-gray-100);
+  color: var(--jp-gray-700);
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+.jp-drawer-chip-x {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  border: 0;
+  border-radius: 4px;
+  background: transparent;
+  color: var(--jp-gray-400);
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.jp-drawer-chip-x:hover {
+  background: var(--jp-gray-200);
+  color: var(--jp-gray-900);
+}
+
+.jp-drawer-section {
+  margin-bottom: 1.5rem;
+}
+
+.jp-drawer-section h3 {
+  margin: 0 0 0.75rem;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--jp-primary);
+}
+
+.jp-drawer-industry {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 2px;
+}
+
+.jp-drawer-industry button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  width: 100%;
+  text-align: left;
+  border: 0;
+  background: transparent;
+  padding: 0.5625rem 0.75rem;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  font-weight: 400;
+  color: var(--jp-gray-700);
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.jp-drawer-industry button svg {
+  flex-shrink: 0;
+  color: var(--jp-primary);
+}
+
+.jp-drawer-industry button:hover {
+  color: var(--jp-primary);
+  background: var(--jp-primary-soft);
+}
+
+.jp-drawer-industry button.is-active {
+  color: var(--jp-primary);
+  background: var(--jp-primary-soft);
+  font-weight: 500;
+}
+
+.jp-drawer-radios {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.jp-drawer-radios--salary {
+  margin-top: 0.75rem;
+}
+
+.jp-drawer-radio {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  font-size: 0.875rem;
+  color: var(--jp-gray-700);
+  cursor: pointer;
+}
+
+.jp-drawer-radio input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.jp-drawer-radio-mark {
+  width: 18px;
+  height: 18px;
+  border: 1.5px solid var(--jp-gray-200);
+  border-radius: 999px;
+  flex-shrink: 0;
+  position: relative;
+  background: var(--jp-white);
+  transition: border-color 0.15s ease;
+}
+
+.jp-drawer-radio input:checked+.jp-drawer-radio-mark {
+  border-color: var(--jp-primary);
+}
+
+.jp-drawer-radio input:checked+.jp-drawer-radio-mark::after {
+  content: '';
+  position: absolute;
+  inset: 3.5px;
+  border-radius: 999px;
+  background: var(--jp-primary);
+}
+
+.jp-drawer-check-mark {
+  width: 18px;
+  height: 18px;
+  border: 1.5px solid var(--jp-gray-200);
+  border-radius: 4px;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  background: var(--jp-white);
+  color: var(--jp-white);
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.jp-drawer-radio input:checked+.jp-drawer-check-mark {
+  background: var(--jp-primary);
+  border-color: var(--jp-primary);
+}
+
+/* Dual-range: visual thumbs centered on track; native inputs are invisible hit targets */
+.jp-drawer-range {
+  margin-top: 0.25rem;
+}
+
+.jp-drawer-range-rail {
+  position: relative;
+  height: 28px;
+  display: flex;
+  align-items: center;
+}
+
+.jp-drawer-range-track {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 6px;
+  margin-top: -3px;
+  border-radius: 999px;
+  background: var(--jp-gray-100);
+  pointer-events: none;
+}
+
+.jp-drawer-range-fill {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  border-radius: 999px;
+  background: var(--jp-primary);
+}
+
+.jp-drawer-range-thumb {
+  position: absolute;
+  top: 50%;
+  width: 18px;
+  height: 18px;
+  margin-left: -9px;
+  margin-top: -9px;
+  border-radius: 999px;
+  background: var(--jp-white);
+  border: 2px solid var(--jp-primary);
+  box-shadow: 0 1px 6px rgba(10, 101, 204, 0.28);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.jp-drawer-range-input {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 28px;
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  pointer-events: none;
+  -webkit-appearance: none;
+  appearance: none;
+  outline: none;
+}
+
+.jp-drawer-range-input::-webkit-slider-runnable-track {
+  height: 28px;
+  background: transparent;
+  border: none;
+}
+
+.jp-drawer-range-input::-moz-range-track {
+  height: 28px;
+  background: transparent;
+  border: none;
+}
+
+.jp-drawer-range-input::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  margin-top: 5px;
+  /* (28 - 18) / 2 */
+  border-radius: 999px;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+.jp-drawer-range-input::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 999px;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+.jp-drawer-range-labels {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--jp-gray-500);
+}
+
+.jp-drawer-foot {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.875rem 1.25rem 1.25rem;
+  border-top: 1px solid var(--jp-gray-100);
+  background: var(--jp-white);
+}
+
+.jp-drawer-apply {
+  height: 44px !important;
+  min-width: 118px;
+  padding: 0 1rem !important;
+  flex-shrink: 0;
+  white-space: nowrap;
+  font-size: 0.875rem !important;
+  border-radius: 6px;
+  box-shadow: 0 6px 16px rgba(10, 101, 204, 0.22);
+}
+
+@media (max-width: 340px) {
+  .jp-drawer-foot {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .jp-drawer-apply {
+    width: 100%;
+  }
+}
+
+.jp-find-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+@media (min-width: 640px) {
+  .jp-find-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .jp-find-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.jp-fcard {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  padding: 1.5rem;
+  background: var(--jp-white);
+  border: 1px solid var(--jp-gray-200);
+  border-radius: var(--jp-radius-lg);
+  transition: background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.jp-fcard:hover {
+  border-color: var(--jp-primary-soft-2);
+  box-shadow: var(--jp-shadow-hover);
+}
+
+/* Featured jobs — same jp-fcard shape; gold wash + sheen + top-right badge */
+.jp-fcard--featured,
+.jp-fcard--featured:hover {
+  background: linear-gradient(90deg, #fff6e6 0%, #ffffff 100%);
+  border-color: #ffe3c1;
+  box-shadow: var(--jp-shadow-hover);
+}
+
+.jp-fcard--featured>*:not(.jp-job-featured-sheen-wrap):not(.jp-job-featured-badge) {
+  position: relative;
+  z-index: 1;
+}
+
+.jp-job-featured-sheen-wrap {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.jp-job-featured-sheen {
+  position: absolute;
+  top: -40%;
+  left: -60%;
+  width: 45%;
+  height: 180%;
+  background: linear-gradient(90deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0.15) 35%,
+      rgba(255, 255, 255, 0.7) 50%,
+      rgba(255, 255, 255, 0.15) 65%,
+      transparent 100%);
+  transform: rotate(28deg);
+  animation: jp-featured-card-sheen 4.8s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes jp-featured-card-sheen {
+
+  0%,
+  42% {
+    transform: translate(-30%, -20%) rotate(28deg);
+  }
+
+  78% {
+    transform: translate(280%, 45%) rotate(28deg);
+  }
+
+  78.01%,
+  100% {
+    transform: translate(-30%, -20%) rotate(28deg);
+  }
+}
+
+.jp-job-featured-badge {
+  position: absolute;
+  top: 0.85rem;
+  right: 0.95rem;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+  pointer-events: none;
+  line-height: 0;
+}
+
+.jp-job-featured-badge img {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+  display: block;
+}
+
+.jp-fcard--featured h3 {
+  padding-right: 2.75rem;
+}
+
+.jp-fcard h3 {
+  margin: 0 0 0.375rem;
+  font-size: 1.125rem;
+  font-weight: 500;
+  color: var(--jp-gray-900);
+}
+
+.jp-fcard h3 a:hover {
+  color: var(--jp-primary);
+}
+
+.jp-fcard-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  color: var(--jp-gray-500);
+}
+
+/* ── Jobpilot AI Match Badge ────────────────────────────────────────────── */
+
+.jp-fcard-bottom {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.jp-fcard-bottom strong {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--jp-gray-900);
+}
+
+.jp-fcard-bottom span {
+  display: block;
+  font-size: 0.8125rem;
+  color: var(--jp-gray-500);
+}
+
+.jp-fcard-pin {
+  display: inline;
+  vertical-align: -1px;
+}
+
+/* ── Govt job card — jp-fcard with org logo, Bengali meta and a detail CTA ── */
+
+.jp-fcard.jp-govt-card {
+  gap: 0.875rem;
+  padding: 1.25rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.jp-govt-card-head {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.875rem;
+}
+
+.jp-govt-card-logo,
+.jp-card-logo {
+  width: 46px;
+  height: 46px;
+  min-width: 46px;
+  padding: 3px;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  border: 1px solid var(--jp-gray-200);
+  border-radius: 10px;
+  background: var(--jp-white);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+
+.jp-govt-card-logo img,
+.jp-card-logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.jp-govt-card-logo-fallback,
+.jp-card-logo-fallback {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+  border-radius: 7px;
+  background: var(--jp-primary-soft);
+  color: var(--jp-primary);
+}
+
+.jp-govt-card-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.jp-fcard .jp-govt-card-title {
+  margin: 0 0 0.25rem;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--jp-gray-900);
+}
+
+.jp-fcard .jp-govt-card-title a,
+.jp-fcard .jp-govt-card-title a:hover {
+  color: inherit;
+  text-decoration: none;
+}
+
+.jp-govt-card-title-en {
+  margin-left: 6px;
+  font-size: 0.85rem;
+  font-weight: 400;
+  color: var(--jp-gray-500);
+}
+
+.jp-govt-card-org {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.8125rem;
+  line-height: 1.3;
+  color: var(--jp-gray-600);
+}
+
+.jp-govt-card-org-name {
+  max-width: 220px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-weight: 500;
+  color: #1f2937;
+}
+
+.jp-govt-card-sep,
+.jp-govt-card-icon {
+  color: var(--jp-gray-400);
+}
+
+.jp-govt-card-location {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  color: var(--jp-gray-500);
+}
+
+.jp-govt-card .jp-fcard-meta {
+  gap: 0.4rem;
+}
+
+.jp-badge.jp-govt-card-badge {
+  padding: 0.2rem 0.55rem;
+  gap: 4px;
+}
+
+.jp-badge.jp-govt-card-badge--vacancy,
+.jp-badge.jp-govt-card-badge--views {
+  background: var(--jp-gray-100);
+}
+
+.jp-badge.jp-govt-card-badge--vacancy {
+  color: var(--jp-gray-700);
+}
+
+.jp-badge.jp-govt-card-badge--views {
+  color: var(--jp-gray-600);
+}
+
+.jp-govt-card-dates {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+  color: var(--jp-gray-500);
+}
+
+.jp-govt-card-dates .jp-govt-card-sep {
+  color: var(--jp-gray-300);
+}
+
+.jp-govt-card-date {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.jp-govt-card-foot {
+  margin-top: auto;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--jp-gray-100);
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.75rem;
+}
+
+.jp-btn.jp-govt-card-cta {
+  height: auto;
+  padding: 0.45rem 0.9rem;
+  gap: 4px;
+  font-size: 0.75rem;
+}
+
+/* ── Jobs page — search results bar, status cards, pagination ─────────────── */
+
+.jp-section.jp-jobs-section {
+  padding-top: 2rem;
+}
+
+.jp-popular.jp-jobs-popular {
+  margin: 0;
+}
+
+.jp-jobs-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+  padding: 0.25rem 0;
+}
+
+.jp-jobs-total {
+  font-size: 0.875rem;
+  color: var(--jp-gray-600);
+}
+
+.jp-jobs-chips {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.jp-btn.jp-jobs-reset {
+  height: 30px;
+  padding: 0 0.625rem;
+  gap: 4px;
+  font-size: 0.75rem;
+}
+
+.jp-filter-card.jp-jobs-status {
+  padding: 3rem 1.5rem;
+  text-align: center;
+}
+
+.jp-jobs-status>p {
+  margin: 0 0 1rem;
+  color: var(--jp-gray-600);
+}
+
+.jp-jobs-status>p:last-child {
+  margin-bottom: 0;
+}
+
+.jp-jobs-pagination {
+  margin-top: 2rem;
+}
+
+/* ── Jobs filter drawer — header actions, org search, remote toggle ───────── */
+
+.jp-drawer-head-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.jp-drawer-reset {
+  padding: 0.25rem 0.5rem;
+  border: 0;
+  background: none;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--jp-primary);
+  cursor: pointer;
+}
+
+.jp-drawer-section-title {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+}
+
+.jp-drawer-search {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+  padding: 0.45rem 0.75rem;
+  border: 1px solid var(--jp-gray-200);
+  border-radius: var(--jp-radius-md);
+  background: var(--jp-white);
+}
+
+.jp-drawer-search input {
+  width: 100%;
+  border: 0;
+  outline: none;
+  background: transparent;
+  font-size: 0.8125rem;
+}
+
+.jp-drawer-search button {
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+
+.jp-drawer-industry--orgs,
+.jp-drawer-industry--categories {
+  overflow-y: auto;
+}
+
+.jp-drawer-industry--orgs {
+  max-height: 200px;
+}
+
+.jp-drawer-industry--categories {
+  max-height: 220px;
+}
+
+.jp-drawer-org-name {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.jp-drawer-org-count {
+  flex-shrink: 0;
+  font-size: 0.75rem;
+  color: var(--jp-gray-400);
+}
+
+.jp-drawer-industry button.is-active .jp-drawer-org-count {
+  color: var(--jp-primary);
+}
+
+.jp-drawer-range-input--min {
+  z-index: 3;
+}
+
+.jp-drawer-range-input--max {
+  z-index: 4;
+}
+
+.jp-drawer-range-input--min.is-front {
+  z-index: 5;
+}
+
+.jp-drawer-radio.jp-drawer-remote {
+  justify-content: space-between;
+  width: 100%;
+  padding: 0.5rem 0;
+}
+
+.jp-drawer-remote-label {
+  font-weight: 600;
+  color: var(--jp-gray-800);
+}
+
+.jp-drawer-radio.jp-drawer-remote input {
+  position: static;
+  width: 18px;
+  height: 18px;
+  opacity: 1;
+  pointer-events: auto;
+  accent-color: var(--jp-primary);
+  cursor: pointer;
+}
+
+.jp-drawer-apply--full {
+  width: 100%;
+}
+
+/* ── Pagination ───────────────────────────────────────────────────────────── */
+
+.jp-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 2.5rem;
+}
+
+.jp-page-btn {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--jp-gray-500);
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.jp-page-btn:hover:not(:disabled):not(.is-active) {
+  background: var(--jp-gray-100);
+}
+
+.jp-page-btn.is-active {
+  background: var(--jp-primary);
+  color: var(--jp-white);
+}
+
+.jp-page-btn.is-arrow {
+  background: var(--jp-primary-soft);
+  color: var(--jp-primary);
+}
+
+.jp-page-btn:disabled {
+  opacity: 0.35;
+  cursor: default;
+  background: transparent;
+}
+
+/* ── Segmented toggle (pricing audience) ──────────────────────────────────── */
+
+.jp-seg {
+  display: inline-flex;
+  padding: 4px;
+  gap: 4px;
+  background: var(--jp-gray-100);
+  border-radius: var(--jp-radius-md);
+}
+
+.jp-seg button {
+  border: 0;
+  background: transparent;
+  padding: 0.625rem 1.5rem;
+  border-radius: var(--jp-radius-sm);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--jp-gray-600);
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.jp-seg button.is-active {
+  background: var(--jp-white);
+  color: var(--jp-primary);
+  box-shadow: var(--jp-shadow-card);
+}
+
+/* ── Pricing cards ────────────────────────────────────────────────────────── */
+
+.jp-price-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  align-items: stretch;
+}
+
+@media (min-width: 768px) {
+  .jp-price-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.jp-price-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  padding: 2rem 1.5rem;
+  background: var(--jp-white);
+  border: 1px solid var(--jp-gray-200);
+  border-radius: var(--jp-radius-lg);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.jp-price-card:hover {
+  border-color: var(--jp-primary-200, #99c2ff);
+  box-shadow: var(--jp-shadow-hover);
+}
+
+.jp-price-card.is-popular {
+  border-color: var(--jp-primary);
+  box-shadow: var(--jp-shadow-hover);
+}
+
+.jp-price-flag {
+  position: absolute;
+  top: -13px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 0.25rem 0.875rem;
+  border-radius: 999px;
+  background: var(--jp-primary);
+  color: var(--jp-white);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.jp-price-card h3 {
+  margin: 0;
+  font-size: 1.125rem;
+  font-weight: 500;
+  color: var(--jp-gray-900);
+}
+
+.jp-price-card .jp-price-tagline {
+  margin: 0.25rem 0 0;
+  font-size: 0.875rem;
+  color: var(--jp-gray-500);
+}
+
+.jp-price-amount {
+  display: flex;
+  align-items: baseline;
+  gap: 0.375rem;
+}
+
+.jp-price-amount strong {
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--jp-primary);
+}
+
+.jp-price-amount span {
+  font-size: 0.875rem;
+  color: var(--jp-gray-500);
+}
+
+.jp-price-perks {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  flex: 1;
+}
+
+.jp-price-perks li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.625rem;
+  font-size: 0.9375rem;
+  color: var(--jp-gray-600);
+  line-height: 1.5;
+}
+
+.jp-price-perks svg {
+  flex-shrink: 0;
+  margin-top: 3px;
+  color: var(--jp-primary);
+}
+
+/* ── FAQ accordion ────────────────────────────────────────────────────────── */
+
+.jp-faq {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.jp-faq details {
+  border: 1px solid var(--jp-gray-200);
+  border-radius: var(--jp-radius-lg);
+  background: var(--jp-white);
+  overflow: hidden;
+}
+
+.jp-faq details[open] {
+  border-color: var(--jp-primary);
+}
+
+.jp-faq summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.125rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--jp-gray-900);
+  cursor: pointer;
+  list-style: none;
+}
+
+.jp-faq summary::-webkit-details-marker {
+  display: none;
+}
+
+.jp-faq summary::after {
+  content: '+';
+  flex-shrink: 0;
+  font-size: 1.375rem;
+  font-weight: 400;
+  color: var(--jp-gray-400);
+  line-height: 1;
+  transition: transform 0.15s ease;
+}
+
+.jp-faq details[open] summary::after {
+  content: '−';
+  color: var(--jp-primary);
+}
+
+.jp-faq .jp-faq-body {
+  padding: 0 1.5rem 1.25rem;
+  font-size: 0.9375rem;
+  color: var(--jp-gray-600);
+  line-height: 1.7;
+}
+
+/* ── Support contact layout ───────────────────────────────────────────────── */
+
+.jp-contact-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+@media (min-width: 1024px) {
+  .jp-contact-grid {
+    grid-template-columns: 360px minmax(0, 1fr);
+    align-items: start;
+  }
+}
+
+.jp-contact-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1.25rem 1.5rem;
+  background: var(--jp-white);
+  border: 1px solid var(--jp-gray-200);
+  border-radius: var(--jp-radius-lg);
+}
+
+.jp-contact-card .jp-contact-icon {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--jp-radius-md);
+  background: var(--jp-primary-soft);
+  color: var(--jp-primary);
+}
+
+.jp-contact-card h3 {
+  margin: 0 0 0.25rem;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--jp-gray-900);
+}
+
+.jp-contact-card p,
+.jp-contact-card a {
+  margin: 0;
+  font-size: 0.875rem;
+  color: var(--jp-gray-500);
+  line-height: 1.5;
+}
+
+.jp-contact-card a:hover {
+  color: var(--jp-primary);
+}
+
+.jp-form-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0 1rem;
+}
+
+@media (min-width: 640px) {
+  .jp-form-row {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.jp-textarea {
+  width: 100%;
+  min-height: 140px;
+  padding: 0.875rem 1rem;
+  border: 1px solid var(--jp-gray-200);
+  border-radius: var(--jp-radius-md);
+  font-size: 0.9375rem;
+  font-family: inherit;
+  color: var(--jp-gray-900);
+  resize: vertical;
+  outline: none;
+}
+
+.jp-textarea:focus {
+  border-color: var(--jp-primary);
+  box-shadow: 0 0 0 3px rgba(10, 101, 204, 0.12);
+}
+
+/* ── Legal pages (Terms / Privacy) ─────────────────────────────────────────── */
+
+.jp-legal {
+  padding-top: clamp(2rem, 4vw, 3rem);
+  padding-bottom: clamp(3rem, 6vw, 4.5rem);
+}
+
+.jp-legal-inner {
+  width: 100%;
+  max-width: 860px;
+}
+
+.jp-legal-eyebrow {
+  margin: 0 0 10px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--jp-primary);
+}
+
+.jp-legal-title {
+  margin: 0;
+  font-size: clamp(1.75rem, 3vw, 2.25rem);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  color: var(--jp-gray-900);
+}
+
+.jp-legal-lead {
+  margin: 20px 0 0;
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--jp-gray-700);
+}
+
+.jp-legal-toc {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 10px;
+  margin: 28px 0 8px;
+  padding: 16px 18px;
+  border: 1px solid var(--jp-gray-200);
+  border-radius: var(--jp-radius-lg);
+  background: var(--jp-gray-50);
+}
+
+.jp-legal-toc a {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--jp-gray-200);
+  background: var(--jp-white);
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--jp-gray-700);
+  transition: border-color 0.15s ease, color 0.15s ease, background 0.15s ease;
+}
+
+.jp-legal-toc a:hover {
+  border-color: var(--jp-primary-soft-2);
+  color: var(--jp-primary);
+  background: var(--jp-primary-soft);
+}
+
+.jp-legal-body {
+  margin-top: 28px;
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--jp-gray-700);
+}
+
+.jp-legal-body h2 {
+  margin: 36px 0 12px;
+  font-size: 1.35rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--jp-gray-900);
+  scroll-margin-top: 96px;
+}
+
+.jp-legal-body h3 {
+  margin: 22px 0 8px;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--jp-gray-900);
+}
+
+.jp-legal-body p {
+  margin: 0 0 14px;
+}
+
+.jp-legal-body ul {
+  margin: 0 0 16px;
+  padding-left: 1.2em;
+}
+
+.jp-legal-body li {
+  margin-bottom: 8px;
+}
+
+.jp-legal-body a {
+  color: var(--jp-primary);
+  font-weight: 600;
+}
+
+.jp-legal-body a:hover {
+  color: var(--jp-primary-hover);
+  text-decoration: underline;
+}
+
+.jp-legal-note {
+  margin-top: 28px !important;
+  padding: 14px 16px;
+  border-radius: var(--jp-radius-lg);
+  background: var(--jp-primary-soft);
+  border: 1px solid var(--jp-primary-soft-2);
+  font-size: 13px;
+  color: var(--jp-gray-700);
+}
+
+.jp-legal-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 1px solid var(--jp-gray-200);
+}
+
+.jp-filter-card {
+  background: var(--jp-white);
+  border: 1px solid var(--jp-gray-200);
+  border-radius: var(--jp-radius-lg);
+  padding: 1.25rem;
+}
+
+.jp-filter-card h3 {
+  margin: 0 0 1rem;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+/* ── Responsive ───────────────────────────────────────────────────────────── */
+
+@media (min-width: 640px) {
+
+  
+  .jp-vacancy-board {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .jp-cat-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .jp-company-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 768px) {
+  .jp-stats {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .jp-how-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .jp-cta-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .jp-footer-grid {
+    grid-template-columns: 1.4fr repeat(2, 1fr);
+  }
+
+  .jp-auth {
+    grid-template-columns: minmax(0, 0.88fr) minmax(0, 1.12fr);
+    grid-template-rows: minmax(0, 1fr);
+  }
+
+  .jp-auth-aside {
+    display: block;
+    min-height: 0;
+    min-width: 0;
+    max-width: 100%;
+    overflow: hidden;
+  }
+
+  .jp-auth--light .jp-auth-panel {
+    background: var(--jp-gray-50);
+    border-left: 1px solid var(--jp-gray-200);
+  }
+
+  .jp-auth-panel {
+    align-items: center;
+    padding-block: clamp(1.25rem, 3vh, 2rem);
+    padding-inline: clamp(1.25rem, 2.5vw, 2rem);
+  }
+
+  .jp-auth-panel-inner {
+    width: min(100%, 500px);
+    max-width: 100%;
+  }
+
+  .jp-auth .jp-field input:not(.jp-otp-digit),
+  .jp-auth .jp-input-wrap input,
+  .jp-auth .jp-field select {
+    height: 56px;
+    min-height: 56px;
+  }
+
+  .jp-auth .jp-auth-submit,
+  .jp-auth .jp-social-btn {
+    height: 50px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .jp-nav-links {
+    display: flex;
+  }
+
+  .jp-nav-toggle {
+    display: none;
+  }
+
+  .jp-vacancy-board {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.1rem;
+  }
+
+  .jp-how-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1.5rem;
+  }
+
+  .jp-cat-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .jp-company-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .jp-footer-grid {
+    grid-template-columns: 1.6fr repeat(4, 1fr);
+  }
+}
+
+@media (max-width: 1023px) {
+  .jp-btn--nav-signin,
+  .jp-btn--nav-signup {
+    display: none !important;
+  }
+}
+
+@media (max-width: 767px) {
+
+  .jp-nav-inner {
+    height: 64px;
+  }
+
+  .jp-btn--nav-signin,
+  .jp-btn--nav-signup {
+    display: none !important;
+  }
+}
+
+/* ── Job detail (Figma single job) ────────────────────────────────────────── */
+
+.jp-company-logo.jp-company-mark--image {
+  color: transparent;
+}
+
+/* ── Candidate dashboard (exact Jobpilot HTML port) ───────────────────────── */
+
+.cdash {
+  --cdash-brand: #0a65cc;
+  --cdash-ink: #18191c;
+  min-height: 100dvh;
+  background: #ffffff;
+  color: var(--cdash-ink);
+  font-family: var(--font-sans), Inter, ui-sans-serif, system-ui, sans-serif;
+}
+
+.cdash .no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.cdash .no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.cdash-header {
+  border-bottom: 1px solid #f3f4f6;
+  background: #fff;
+}
+
+.cdash-mainnav-inner {
+  max-width: none;
+  margin: 0;
+  padding-inline: 1.75rem 2.5rem;
+  width: 100%;
+}
+
+.cdash-bell-wrap {
+  position: relative;
+  display: inline-flex;
+}
+
+.cdash-bell {
+  position: relative;
+  display: inline-flex;
+  padding: 0.25rem;
+  color: #6b7280;
+  text-decoration: none;
+  background: transparent;
+  border: 0;
+  font: inherit;
+  cursor: pointer;
+}
+
+.cdash-bell:hover,
+.cdash-bell.is-active {
+  color: var(--cdash-brand);
+}
+
+.cdash-mainnav-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-block: 0.4rem;
+  gap: 1rem;
+}
+
+.cdash-mainnav-left {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  min-width: 0;
+  flex: 1;
+}
+
+.cdash-logo {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  color: var(--cdash-ink);
+  flex-shrink: 0;
+  line-height: 0;
+}
+
+.cdash-logo .jp-logo-img {
+  height: 4rem;
+  max-width: 17rem;
+}
+
+.cdash-mainnav-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-shrink: 0;
+}
+
+.cdash-body {
+  display: flex;
+  min-height: calc(100vh - 113px);
+  width: 100%;
+}
+
+.cdash-sidebar {
+  width: 16rem;
+  flex-shrink: 0;
+  border-right: 1px solid #f3f4f6;
+  display: flex;
+  flex-direction: column;
+  padding: 2rem 1.25rem 1.5rem 1.75rem;
+  background: #fff;
+}
+
+.cdash-sidebar-head {
+  padding: 0 0.5rem 0 0;
+  margin-bottom: 0.75rem;
+}
+
+.cdash-sidebar-head span {
+  font-size: 10px;
+  font-weight: 600;
+  color: #9ca3af;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.cdash-sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.cdash-side-item {
+  display: flex;
+  align-items: center;
+  padding: 0.65rem 0.75rem 0.65rem 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #4b5563;
+  text-decoration: none;
+  border-left: 3px solid transparent;
+  border-radius: 0 6px 6px 0;
+  transition: background 0.15s, color 0.15s;
+}
+
+.cdash-side-item:hover {
+  background: #f8f9fa;
+  color: var(--cdash-brand);
+}
+
+.cdash-side-item.is-active {
+  background: #f1f7ff;
+  border-left-color: var(--cdash-brand);
+  color: var(--cdash-brand);
+}
+
+.cdash-side-ico {
+  width: 1.25rem;
+  height: 1.25rem;
+  margin-right: 0.75rem;
+  flex-shrink: 0;
+}
+
+.cdash-side-label {
+  flex: 1;
+}
+
+.cdash-side-badge {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 2px 6px;
+  border-radius: 999px;
+  background: rgba(10, 101, 204, 0.1);
+  color: var(--cdash-brand);
+}
+
+.cdash-side-item.is-active .cdash-side-badge {
+  background: rgba(10, 101, 204, 0.16);
+}
+
+.seeker-sidebar .cdash-side-item {
+  min-height: 42px;
+  gap: 0.75rem;
+  white-space: nowrap;
+}
+
+.seeker-sidebar .cdash-side-ico {
+  margin-right: 0;
+}
+
+.seeker-sidebar .cdash-side-label {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.seeker-sidebar .cdash-side-badge {
+  flex-shrink: 0;
+  margin-left: auto;
+}
+
+.seeker-mobile-menu,
+.recruiter-mobile-menu,
+.seeker-sidebar-mobile-head,
+.recruiter-sidebar-mobile-head,
+.seeker-drawer-backdrop,
+.recruiter-drawer-backdrop {
+  display: none;
+}
+
+.cdash-sidebar-foot {
+  padding: 0;
+  margin-top: auto;
+}
+
+.cdash-main {
+  flex: 1;
+  min-width: 0;
+  background: #ffffff;
+  padding: 2rem 2.5rem;
+  overflow-y: auto;
+}
+
+/* Next.js keeps visited routes mounted but hidden (inline display: none), so route-marker
+   :has() selectors must skip hidden subtrees or their styles leak onto the next page. */
+.cdash-main:has(.messenger-page:not([style*="display: none"], [style*="display: none"] *)) {
+  padding: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+/* ── Saved Candidates (Jobpilot) ──────────────────────────────── */
+
+.cdash-ico-lg {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+@media (max-width: 768px) {
+  .cdash-body {
+    flex-direction: column;
+  }
+
+  .cdash-sidebar {
+    width: 100%;
+    border-right: 0;
+    border-bottom: 1px solid #f3f4f6;
+    padding-top: 1rem;
+    position: static;
+    top: auto;
+    max-height: none;
+    overflow-y: visible;
+  }
+
+  .cdash-sidebar-nav {
+    flex-direction: row;
+    overflow-x: auto;
+    gap: 0;
+  }
+
+  .cdash-side-item {
+    white-space: nowrap;
+    border-left: 0;
+    border-bottom: 3px solid transparent;
+  }
+
+  .cdash-side-item.is-active {
+    border-bottom-color: var(--cdash-brand);
+  }
+
+  .cdash-sidebar-foot {
+    display: none;
+  }
+
+  .cdash-main {
+    padding: 1.25rem 1rem 5.5rem;
+  }
+
+  .cdash--app>.jp-footer {
+    padding-bottom: calc(1.25rem + 4.5rem + env(safe-area-inset-bottom, 0px));
+  }
+}
+
+@media (max-width: 1024px) {
+  body.seeker-drawer-lock,
+  body.recruiter-drawer-lock {
+    overflow: hidden;
+  }
+
+  .seeker-shell .cdash-mainnav-inner,
+  .recruiter-shell .cdash-mainnav-inner {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    min-height: 64px;
+    padding: 0.35rem 0.75rem;
+    gap: 0.5rem;
+    flex-wrap: nowrap !important;
+  }
+
+  .seeker-shell .cdash-mainnav-left,
+  .recruiter-shell .cdash-mainnav-left {
+    display: flex !important;
+    align-items: center !important;
+    min-width: 0;
+    flex-shrink: 0;
+  }
+
+  .seeker-shell .cdash-mainnav-right,
+  .recruiter-shell .cdash-mainnav-right {
+    display: flex !important;
+    align-items: center !important;
+    gap: 0.5rem !important;
+    min-width: 0;
+    flex-shrink: 0;
+    flex-wrap: nowrap !important;
+  }
+
+  .seeker-shell .cdash-logo .jp-logo-img,
+  .recruiter-shell .cdash-logo .jp-logo-img {
+    width: auto;
+    height: 44px !important;
+    max-width: 132px !important;
+  }
+
+  .seeker-shell .cdash-logo .jp-logo-beta,
+  .recruiter-shell .cdash-logo .jp-logo-beta {
+    height: 22px !important;
+    padding-inline: 0.55rem !important;
+    font-size: 0.625rem !important;
+  }
+
+  .seeker-shell .cdash-bell-wrap,
+  .recruiter-shell .cdash-bell-wrap {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex-shrink: 0 !important;
+  }
+
+  .seeker-shell .cdash-bell,
+  .recruiter-shell .cdash-bell {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 40px !important;
+    height: 40px !important;
+    flex: 0 0 40px !important;
+    padding: 0 !important;
+    border: 1px solid #e4e5e8 !important;
+    border-radius: 10px !important;
+    background: #fff !important;
+    color: #474c54 !important;
+    cursor: pointer !important;
+    transition: all 0.15s ease !important;
+  }
+
+  .seeker-shell .cdash-bell:hover,
+  .seeker-shell .cdash-bell.is-active,
+  .recruiter-shell .cdash-bell:hover,
+  .recruiter-shell .cdash-bell.is-active {
+    border-color: #b8d3f0 !important;
+    background: #e7f0fa !important;
+    color: var(--cdash-brand) !important;
+  }
+
+  .seeker-shell .cdash-mainnav-right > div:has(button[aria-label="User menu"]),
+  .seeker-shell .cdash-mainnav-right .relative,
+  .recruiter-shell .cdash-mainnav-right > div:has(button[aria-label="User menu"]),
+  .recruiter-shell .cdash-mainnav-right .relative {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex-shrink: 0 !important;
+  }
+
+  .seeker-mobile-menu,
+  .recruiter-mobile-menu {
+    display: inline-flex !important;
+    width: 40px !important;
+    height: 40px !important;
+    flex: 0 0 40px !important;
+    align-items: center !important;
+    justify-content: center !important;
+    border: 1px solid #e4e5e8 !important;
+    border-radius: 10px !important;
+    background: #fff !important;
+    color: #474c54 !important;
+    cursor: pointer !important;
+    transition: all 0.15s ease !important;
+  }
+
+  .seeker-mobile-menu[aria-expanded='true'],
+  .seeker-mobile-menu:hover,
+  .recruiter-mobile-menu[aria-expanded='true'],
+  .recruiter-mobile-menu:hover {
+    border-color: #b8d3f0 !important;
+    background: #e7f0fa !important;
+    color: var(--cdash-brand) !important;
+  }
+
+  .cdash--app .seeker-sidebar,
+  .cdash--app .recruiter-sidebar {
+    position: fixed;
+    inset: 0 0 0 auto;
+    z-index: 1001;
+    display: flex !important;
+    width: min(86vw, 21rem);
+    height: 100vh;
+    height: 100dvh;
+    max-height: none;
+    padding: 0 0 max(0.75rem, env(safe-area-inset-bottom, 0px));
+    border: 0;
+    border-left: 1px solid #e4e5e8;
+    background: #fff;
+    overflow-x: hidden;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    transform: translateX(100%);
+    visibility: hidden;
+    pointer-events: none;
+    transition: transform 220ms cubic-bezier(0.16, 1, 0.3, 1), visibility 220ms;
+    box-shadow: -18px 0 48px rgba(15, 23, 42, 0.14);
+  }
+
+  .cdash--app .seeker-sidebar.is-open,
+  .cdash--app .recruiter-sidebar.is-open {
+    transform: translateX(0);
+    visibility: visible;
+    pointer-events: auto;
+  }
+
+  .seeker-sidebar-mobile-head,
+  .recruiter-sidebar-mobile-head {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    min-height: 68px;
+    padding: max(0.75rem, env(safe-area-inset-top, 0px)) 1rem 0.75rem 1.25rem;
+    border-bottom: 1px solid #e4e5e8;
+    background: rgba(255, 255, 255, 0.96);
+    backdrop-filter: blur(16px);
+  }
+
+  .seeker-sidebar-mobile-head > div,
+  .recruiter-sidebar-mobile-head > div {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    gap: 0.15rem;
+  }
+
+  .seeker-sidebar-mobile-head strong,
+  .recruiter-sidebar-mobile-head strong,
+  .seeker-sidebar-mobile-head span,
+  .recruiter-sidebar-mobile-head span {
+    display: block;
+  }
+
+  .seeker-sidebar-mobile-head strong,
+  .recruiter-sidebar-mobile-head strong {
+    color: #18191c;
+    font-size: 0.9375rem;
+  }
+
+  .seeker-sidebar-mobile-head span,
+  .recruiter-sidebar-mobile-head span {
+    color: #767f8c;
+    font-size: 0.75rem;
+  }
+
+  .seeker-sidebar-mobile-head button,
+  .recruiter-sidebar-mobile-head button {
+    display: inline-flex;
+    width: 40px;
+    height: 40px;
+    flex: 0 0 40px;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #e4e5e8;
+    border-radius: 10px;
+    background: #fff;
+    color: #474c54;
+    cursor: pointer;
+  }
+
+  .seeker-sidebar > .cdash-sidebar-head,
+  .recruiter-sidebar > .cdash-sidebar-head {
+    margin: 1rem 0 0.6rem;
+    padding: 0 1.25rem;
+  }
+
+  .seeker-sidebar .cdash-sidebar-nav,
+  .recruiter-sidebar .cdash-sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+    width: 100%;
+    padding-inline: 1rem;
+    overflow: visible;
+  }
+
+  .seeker-sidebar .cdash-side-item,
+  .recruiter-sidebar .cdash-side-item {
+    width: 100%;
+    min-height: 44px;
+    padding: 0.65rem 0.75rem;
+    border-bottom: 0;
+    border-left: 3px solid transparent;
+    border-radius: 0 8px 8px 0;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    transition: background 0.15s ease, color 0.15s ease;
+  }
+
+  .seeker-sidebar .cdash-side-item.is-active,
+  .recruiter-sidebar .cdash-side-item.is-active {
+    border-bottom-color: transparent;
+    border-left-color: var(--cdash-brand);
+  }
+
+  .seeker-sidebar .cdash-sidebar-foot,
+  .recruiter-sidebar .cdash-sidebar-foot {
+    display: block;
+    width: 100%;
+    margin-top: auto;
+    padding: 0.75rem 1rem max(0.75rem, env(safe-area-inset-bottom, 0px));
+  }
+
+  .seeker-drawer-backdrop,
+  .recruiter-drawer-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: block;
+    border: 0;
+    background: rgba(15, 23, 42, 0.46);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 220ms ease, visibility 220ms;
+    backdrop-filter: blur(2px);
+  }
+
+  .seeker-drawer-backdrop.is-open,
+  .recruiter-drawer-backdrop.is-open {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+
+  .cdash--app .cdash-main {
+    width: 100%;
+    min-width: 0;
+    padding: clamp(0.875rem, 4vw, 1.25rem);
+    overflow-x: hidden;
+  }
+
+  .cdash--app .cdash-main > * {
+    max-width: 100%;
+  }
+
+  .cdash--app .cdash-main:has(.messenger-page:not([style*="display: none"], [style*="display: none"] *)) {
+    padding: 0;
+    overflow: hidden;
+  }
+}
+
+@media (max-width: 420px) {
+  .seeker-shell .cdash-mainnav-inner,
+  .recruiter-shell .cdash-mainnav-inner {
+    padding-inline: 0.55rem;
+    gap: 0.35rem;
+  }
+
+  .seeker-shell .cdash-logo .jp-logo-img,
+  .recruiter-shell .cdash-logo .jp-logo-img {
+    height: 38px !important;
+    max-width: 112px !important;
+  }
+
+  .seeker-shell .cdash-logo .jp-logo-beta,
+  .recruiter-shell .cdash-logo .jp-logo-beta {
+    display: none !important;
+  }
+
+  .seeker-shell .cdash-mainnav-right,
+  .recruiter-shell .cdash-mainnav-right {
+    gap: 0.35rem !important;
+  }
+
+  .seeker-shell .cdash-bell,
+  .recruiter-shell .cdash-bell,
+  .seeker-mobile-menu,
+  .recruiter-mobile-menu {
+    width: 36px !important;
+    height: 36px !important;
+    flex: 0 0 36px !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cdash--app .seeker-sidebar,
+  .cdash--app .recruiter-sidebar,
+  .seeker-drawer-backdrop,
+  .recruiter-drawer-backdrop {
+    transition: none;
+  }
+}
+
+/* ── Settings page (Jobpilot "Personal" tab port) ─────────────────────────── */
+
+.cdash--app {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+}
+
+.cdash--app .cdash-header {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  flex-shrink: 0;
+}
+
+.cdash--app .cdash-body {
+  flex: 1 0 auto;
+  min-height: 0;
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  padding-inline: 0;
+}
+
+@media (min-width: 769px) {
+  .cdash--app {
+    height: 100vh;
+    height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  .cdash--app .cdash-header {
+    flex-shrink: 0;
+  }
+
+  .cdash--app .cdash-body {
+    flex: 1 1 auto;
+    min-height: 0;
+    display: flex;
+    overflow: hidden;
+    height: 100%;
+    align-items: flex-start;
+  }
+
+  .cdash--app .cdash-sidebar {
+    position: relative;
+    top: 0;
+    align-self: stretch;
+    height: 100%;
+    max-height: 100%;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    flex-shrink: 0;
+    z-index: 20;
+  }
+
+  .cdash--app .cdash-main {
+    flex: 1 1 auto;
+    min-height: 0;
+    min-width: 0;
+    padding: 2rem 2.5rem;
+    overflow-y: auto;
+    height: 100%;
+  }
+
+  .cdash--app .cdash-main:has(.messenger-page:not([style*="display: none"], [style*="display: none"] *)) {
+    padding: 0;
+    overflow: hidden;
+  }
+}
+
+.cdash--app>.jp-footer,
+.cdash>.jp-footer {
+  flex-shrink: 0;
+  margin-top: auto;
+  width: 100%;
+}
+
+.cdash--app>.jp-footer .jp-container,
+.cdash>.jp-footer .jp-container {
+  max-width: none;
+  margin: 0;
+  padding-inline: 1.75rem 2.5rem;
+  width: 100%;
+}
+
+.cdash--app .cdash-mainnav-inner {
+  padding-block: 0.3rem;
+}
+
+.cdash--app .cdash-mainnav .jp-btn {
+  height: 2.25rem;
+  padding: 0 1rem;
+  font-size: 0.875rem;
+}
+
+.cdash--app .cdash-main:has(.messenger-page:not([style*="display: none"], [style*="display: none"] *)) {
+  padding: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  max-height: none;
+  height: 100%;
+}
+
+.cdash--app > .jp-footer {
+  display: none;
+}
+
+.cdash:has(.cco-setup--done:not([style*="display: none"], [style*="display: none"] *)) .cdash-sidebar {
+  display: none;
+}
+
+.cdash:has(.cco-setup--done:not([style*="display: none"], [style*="display: none"] *)) .cdash-main {
+  padding-top: 1.5rem;
+}

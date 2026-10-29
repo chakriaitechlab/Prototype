@@ -1,0 +1,309 @@
+/* ── Recruiter company profile (/dashboard/recruiter/company-profile) ────── */
+
+.cset-hidden-input {
+  display: none;
+}
+
+.cco-settings .cset-section {
+  margin-bottom: 2.5rem;
+}
+
+.cco-settings .cset-save-row {
+  margin-top: 1.5rem;
+}
+
+.cset-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.cco-settings .cset-input:disabled {
+  background-color: #fff;
+  color: var(--cdash-ink);
+}
+
+.cset-bio {
+  margin-top: 1.5rem;
+}
+
+.cset-bio-box {
+  overflow: hidden;
+  border: 1px solid #e5e7eb;
+  border-radius: 4px;
+  background: #fff;
+}
+
+.cset-textarea {
+  display: block;
+  width: 100%;
+  min-height: 180px;
+  padding: 1rem;
+  border: 0;
+  outline: none;
+  resize: vertical;
+  font-family: inherit;
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: var(--cdash-ink);
+}
+
+.cset-textarea::placeholder {
+  color: #9ca3af;
+}
+
+.cset-founding-top,
+.cset-founding-mid {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.cset-founding-top {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.cset-founding-mid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-top: 1.5rem;
+}
+
+.cset-bio-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.5rem 0.75rem;
+  border-top: 1px solid #f3f4f6;
+  background: #fafafa;
+}
+
+.cset-bio-tool {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  border: 0;
+  border-radius: 4px;
+  background: none;
+  color: #6b7280;
+  font-size: 0.8125rem;
+  cursor: pointer;
+}
+
+.cset-bio-tool:hover {
+  background: #f3f4f6;
+  color: var(--cdash-ink);
+}
+
+.cset-bio-tool.is-bold {
+  font-weight: 700;
+}
+
+.cset-bio-tool.is-italic {
+  font-style: italic;
+}
+
+.cset-bio-tool.is-underline {
+  text-decoration: underline;
+}
+
+.cset-bio-tool.is-strike {
+  text-decoration: line-through;
+}
+
+.cset-bio-tool svg {
+  width: 1rem;
+  height: 1rem;
+}
+
+.cset-phone {
+  display: grid;
+  grid-template-columns: 120px minmax(0, 1fr);
+  border: 1px solid #e5e7eb;
+  border-radius: 4px;
+  overflow: hidden;
+  background: #fff;
+}
+
+.cset-phone:focus-within {
+  border-color: var(--cdash-brand);
+  box-shadow: 0 0 0 1px var(--cdash-brand);
+}
+
+.cset-phone-code {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0 0.75rem;
+  border-right: 1px solid #e5e7eb;
+  font-size: 0.875rem;
+  color: var(--cdash-ink);
+  background: #fafafa;
+}
+
+.cset-phone-code svg {
+  width: 0.875rem;
+  height: 0.875rem;
+  color: #9ca3af;
+}
+
+.cset-phone-input {
+  height: 3rem;
+  padding: 0 0.875rem;
+  border: 0;
+  background: transparent;
+  font-size: 0.875rem;
+  color: var(--cdash-ink);
+  outline: none;
+}
+
+.cset-phone-input::placeholder {
+  color: #9ca3af;
+}
+
+.cset-input.cco-address {
+  height: auto;
+  min-height: 4.5rem;
+  padding-block: 0.75rem;
+  resize: vertical;
+  line-height: 1.45;
+}
+
+.cco-drop-preview {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: inherit;
+  background: #111827;
+  object-fit: cover;
+  pointer-events: none;
+}
+
+.cco-map-shell {
+  min-width: 0;
+}
+
+.cco-map {
+  z-index: 0;
+  width: 100%;
+  height: 260px;
+  overflow: hidden;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  background: #eef2f6;
+}
+
+.cco-map-hint {
+  margin: 0.45rem 0 0;
+  font-size: 0.75rem;
+  color: #9ca3af;
+}
+
+.cco-map-pin {
+  border: 0;
+  background: none;
+}
+
+.cco-map-pin-mark {
+  display: block;
+  width: 22px;
+  height: 22px;
+  margin: 0 auto;
+  border-radius: 50% 50% 50% 0;
+  background: var(--cdash-brand);
+  box-shadow: 0 2px 8px rgba(10, 101, 204, 0.35);
+  transform: rotate(-45deg);
+}
+
+.cco-map-pin-mark::after {
+  content: '';
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: #fff;
+}
+
+.cco-done {
+  max-width: 560px;
+  margin: 3.5rem auto 0;
+  text-align: center;
+}
+
+.cco-done-mark {
+  width: 88px;
+  height: 88px;
+  margin: 0 auto 1.35rem;
+}
+
+.cco-done-mark svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.cco-done h1 {
+  margin: 0 0 0.9rem;
+  font-size: 1.7rem;
+  font-weight: 600;
+  line-height: 1.35;
+  color: var(--cdash-ink);
+}
+
+.cco-done p {
+  max-width: 34rem;
+  margin: 0 auto 1.75rem;
+  font-size: 0.9375rem;
+  line-height: 1.65;
+  color: #6b7280;
+}
+
+.cco-done-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+.cco-done-actions .cset-btn-secondary {
+  background: #e7f0fa;
+  color: var(--cdash-brand);
+  text-decoration: none;
+}
+
+.cco-done-actions .cset-btn-secondary:hover {
+  background: #d7e6f6;
+}
+
+.cco-done-actions .cset-btn-primary {
+  color: #fff;
+  text-decoration: none;
+}
+
+.cco-done-actions .cset-btn-primary:hover {
+  background: #084f9e;
+  color: #fff;
+}
+
+@media (max-width: 980px) {
+  .cset-founding-top {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .cset-phone {
+    grid-template-columns: 110px minmax(0, 1fr);
+  }
+
+  .cset-founding-mid {
+    grid-template-columns: 1fr;
+  }
+}
