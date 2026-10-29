@@ -180,18 +180,10 @@ flowchart LR
 
 ### Prerequisites
 - **Node.js**: `v24.x` or higher
-- **PostgreSQL**: `v15+` (Local or cloud-hosted)
-- **Redis**: `v7+` (Local or cloud-hosted)
-- **Ollama**: Local instance running on port 11434 (Optional for local LLM inference)
-
-> **Quick Docker Tip:** Run PostgreSQL and Redis in seconds:
-> ```bash
-> # Start PostgreSQL
-> docker run --name chakri-postgres -e POSTGRES_PASSWORD=postgres -e POSTGRES_DB=chakri_ai -p 5432:5432 -d postgres:16-alpine
->
-> # Start Redis
-> docker run --name chakri-redis -p 6379:6379 -d redis:7-alpine
-> ```
+- **PostgreSQL**: `v15+` (Local or cloud-hosted, e.g., Neon, Supabase, Aiven)
+- **Redis**: `v7+` (Local or cloud-hosted, e.g., Upstash, Redis Cloud)
+- **Google Gemini API Key**: For AI Voice Interview (`@google/genai`)
+- **Ollama**: (Optional for local LLM inference)
 
 ---
 
@@ -256,11 +248,16 @@ npm run dev
 
 - **Event:** AI Builder Cup 2026 (Hack2Skill)
 - **Stage:** Prototype Evaluation
-- **Team:** Chakri AI Tech Lab
+- **Team Name:** **ChakriAI**
+- **Tagline:** *Building an agentic AI recruitment and pre-screening platform that eliminates hiring noise.*
+- **Team Members:**
+  - 👑 **Amit Chandra Roy** (Team Leader) — [amitcroy.ai@gmail.com](mailto:amitcroy.ai@gmail.com)
+  - 💻 **Arafat Rahman** (Team Member) — [arafatsohan2003@gmail.com](mailto:arafatsohan2003@gmail.com)
 - **Repository:** [https://github.com/chakriaitechlab/Prototype](https://github.com/chakriaitechlab/Prototype)
 
 ---
 
 <p align="center">
-  <b>Built with ❤️ by Chakri AI Tech Lab for the AI Builder Cup 2026</b>
+  <b>Built with ❤️ by Team ChakriAI for the AI Builder Cup 2026</b>
 </p>
+
